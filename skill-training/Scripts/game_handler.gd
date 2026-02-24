@@ -1,11 +1,19 @@
-extends Node2D
+extends Node
 
 
+var songs = {
+	
+	#game_handler = "res://Scenes/game_handler.tscn" <- replace with actual song scene or something
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	pass # Replace with function body.
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	pass
+
+func loadSong() -> void:
 	pass

@@ -1,8 +1,5 @@
-extends Node2D
+extends Control
 
-var notes = {}
-const NoteReference = preload("res://Scenes/Note.tscn")
-@export var song = Resource
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -11,10 +8,12 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
-	
 	pass
 
-func create_new_note():
-	notes[notes.size()+1] = NoteReference.instantiate()
-	add_child(notes[notes.size()])
+
+
+
+func _on_play_pressed() -> void:
+	
+	
+	pass # Replace with function body.

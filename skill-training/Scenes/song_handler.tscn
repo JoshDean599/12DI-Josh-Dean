@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://ceil287chekyo"]
-
-[ext_resource type="Script" uid="uid://wjwy05k3bhxe" path="res://Scripts/note_handler.gd" id="1_56hqi"]
-
-[node name="SongHandler" type="Node2D" unique_id=881803302]
-script = ExtResource("1_56hqi")
