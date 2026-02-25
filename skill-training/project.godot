@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Skill Training"
-run/main_scene="uid://cp6uoo6wo6vvn"
+run/main_scene="uid://cg4moi5ex47wi"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

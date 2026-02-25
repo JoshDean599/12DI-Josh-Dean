@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://7axantjldmm6"]
+
+[ext_resource type="Script" uid="uid://c1vb0asobl43c" path="res://editor.gd" id="1_eyy8u"]
+
+[node name="editor" type="Node2D" unique_id=440024044]
+script = ExtResource("1_eyy8u")
+
+[node name="LineEdit" type="LineEdit" parent="." unique_id=620771054]
+offset_right = 68.5
+offset_bottom = 31.0
+placeholder_text = "Enter"

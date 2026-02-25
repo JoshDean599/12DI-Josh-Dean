@@ -1,11 +1,14 @@
 [gd_scene format=3 uid="uid://cg4moi5ex47wi"]
 
 [ext_resource type="Script" uid="uid://b5eckrwi740i5" path="res://Scripts/game_handler.gd" id="1_jqstq"]
+[ext_resource type="PackedScene" uid="uid://7axantjldmm6" path="res://Scenes/editor.tscn" id="2_fdak8"]
 
 [node name="GameHandler" type="Node" unique_id=1049967890]
 script = ExtResource("1_jqstq")
 
 [node name="2D-Scene" type="Node2D" parent="." unique_id=1492424446]
+
+[node name="editor" parent="2D-Scene" unique_id=440024044 instance=ExtResource("2_fdak8")]
 
 [node name="GUI" type="Control" parent="." unique_id=1076558354]
 layout_mode = 3
