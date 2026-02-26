@@ -6,6 +6,24 @@
 script = ExtResource("1_eyy8u")
 
 [node name="LineEdit" type="LineEdit" parent="." unique_id=620771054]
-offset_right = 68.5
-offset_bottom = 31.0
-placeholder_text = "Enter"
+offset_left = 205.0
+offset_top = 68.0
+offset_right = 595.0
+offset_bottom = 99.0
+placeholder_text = "FilePath"
+
+[node name="LineEdit2" type="LineEdit" parent="." unique_id=377273443]
+offset_left = 205.0
+offset_top = 117.0
+offset_right = 592.0
+offset_bottom = 148.0
+placeholder_text = "text"
+
+[node name="Button" type="Button" parent="." unique_id=94169700]
+offset_left = 206.0
+offset_top = 155.0
+offset_right = 250.0
+offset_bottom = 186.0
+text = "Save"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
