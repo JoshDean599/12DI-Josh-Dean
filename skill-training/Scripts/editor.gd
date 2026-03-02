@@ -1,12 +1,11 @@
 extends Node2D
 
-const BASE_PATH = "res://Songs/"
+const BASE_PATH = "res://SongMaps/"
+var Note = preload("res://Scenes/editor_note.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -27,5 +26,17 @@ func saveMap(path: String, data: Dictionary) -> void:
 		print("Failed to create new file or write to current")
 
 
-func _on_button_pressed() -> void:
-	saveMap(BASE_PATH + $LineEdit.text + ".json", {"Data": $LineEdit2.text})
+func _on_save_button_pressed() -> void:
+	var saveData = {}
+	for i in $Notes.get_children():
+		saveData[i.name] = {}
+		saveData[i.name].time = i.timeValue.value
+
+	
+	
+	saveMap(BASE_PATH + $UI/SavePath.text + ".json", saveData)
+
+func _on_create_new_note_button_pressed() -> void:
+	var newNote = Note.instantiate()
+	$Notes.add_child(newNote)
+	pass # Replace with function body.

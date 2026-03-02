@@ -1,29 +1,37 @@
 [gd_scene format=3 uid="uid://7axantjldmm6"]
 
-[ext_resource type="Script" uid="uid://c1vb0asobl43c" path="res://editor.gd" id="1_eyy8u"]
+[ext_resource type="Script" uid="uid://c1vb0asobl43c" path="res://Scripts/editor.gd" id="1_eyy8u"]
 
-[node name="editor" type="Node2D" unique_id=440024044]
+[node name="Editor" type="Node2D" unique_id=440024044]
 script = ExtResource("1_eyy8u")
 
-[node name="LineEdit" type="LineEdit" parent="." unique_id=620771054]
-offset_left = 205.0
-offset_top = 68.0
-offset_right = 595.0
-offset_bottom = 99.0
+[node name="UI" type="VBoxContainer" parent="." unique_id=920917640]
+custom_minimum_size = Vector2(30.865, 0)
+offset_left = 729.0
+offset_top = 8.0
+offset_right = 1148.0
+offset_bottom = 109.0
+
+[node name="SavePath" type="LineEdit" parent="UI" unique_id=620771054]
+layout_mode = 2
 placeholder_text = "FilePath"
 
-[node name="LineEdit2" type="LineEdit" parent="." unique_id=377273443]
-offset_left = 205.0
-offset_top = 117.0
-offset_right = 592.0
-offset_bottom = 148.0
+[node name="LineEdit2" type="LineEdit" parent="UI" unique_id=377273443]
+layout_mode = 2
 placeholder_text = "text"
 
-[node name="Button" type="Button" parent="." unique_id=94169700]
-offset_left = 206.0
-offset_top = 155.0
-offset_right = 250.0
-offset_bottom = 186.0
+[node name="HBoxContainer" type="HBoxContainer" parent="UI" unique_id=2109169086]
+layout_mode = 2
+
+[node name="SaveButton" type="Button" parent="UI/HBoxContainer" unique_id=94169700]
+layout_mode = 2
 text = "Save"
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="CreateNewNoteButton" type="Button" parent="UI/HBoxContainer" unique_id=1151807478]
+layout_mode = 2
+text = "New Note"
+
+[node name="Notes" type="Node2D" parent="." unique_id=1832250669]
+
+[connection signal="pressed" from="UI/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/CreateNewNoteButton" to="." method="_on_create_new_note_button_pressed"]

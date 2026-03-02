@@ -2,21 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b5eckrwi740i5" path="res://Scripts/game_handler.gd" id="1_jqstq"]
 [ext_resource type="PackedScene" uid="uid://7axantjldmm6" path="res://Scenes/editor.tscn" id="2_fdak8"]
-[ext_resource type="PackedScene" uid="uid://m5ajtk6i2tl6" path="res://Scenes/editor_note.tscn" id="3_nwul3"]
 
 [node name="GameHandler" type="Node" unique_id=1049967890]
 script = ExtResource("1_jqstq")
 
-[node name="2D-Scene" type="Node2D" parent="." unique_id=1492424446]
-
-[node name="editor" parent="2D-Scene" unique_id=440024044 instance=ExtResource("2_fdak8")]
-
-[node name="Editor Note" parent="2D-Scene/editor" unique_id=62636966 instance=ExtResource("3_nwul3")]
-
-[node name="Editor Note2" parent="2D-Scene/editor" unique_id=466372651 instance=ExtResource("3_nwul3")]
-
-[node name="GUI" type="Control" parent="." unique_id=1076558354]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="editor" parent="." unique_id=440024044 instance=ExtResource("2_fdak8")]
