@@ -6,7 +6,6 @@
 [node name="Editor Note" type="Sprite2D" unique_id=62636966]
 texture = ExtResource("1_h1cdb")
 script = ExtResource("2_0qtjb")
-doubleClickThreshold = null
 
 [node name="ClickDetector" type="Button" parent="." unique_id=326805962]
 modulate = Color(1, 1, 1, 0)
@@ -55,5 +54,4 @@ size_flags_vertical = 3
 [connection signal="button_down" from="ClickDetector" to="." method="_on_click_detector_button_down"]
 [connection signal="button_up" from="ClickDetector" to="." method="_on_click_detector_button_up"]
 [connection signal="pressed" from="ClickDetector" to="." method="_on_click_detector_pressed"]
-[connection signal="changed" from="Menu/MarginContainer/VBoxContainer/HBoxContainer/SpinBox" to="." method="_on_spin_box_changed"]
 [connection signal="value_changed" from="Menu/MarginContainer/VBoxContainer/HBoxContainer/SpinBox" to="." method="_on_spin_box_value_changed"]

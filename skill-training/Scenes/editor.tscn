@@ -31,7 +31,12 @@ text = "Save"
 layout_mode = 2
 text = "New Note"
 
+[node name="LoadButton" type="Button" parent="UI/HBoxContainer" unique_id=664345167]
+layout_mode = 2
+text = "Load"
+
 [node name="Notes" type="Node2D" parent="." unique_id=1832250669]
 
 [connection signal="pressed" from="UI/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="UI/HBoxContainer/CreateNewNoteButton" to="." method="_on_create_new_note_button_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
