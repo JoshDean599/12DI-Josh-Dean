@@ -2,15 +2,6 @@ extends Node2D
 
 const BASE_PATH = "res://SongMaps/"
 var Note = preload("res://Scenes/editor_note.tscn")
-var noteAmmount = 0
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func saveMap(path: String, data: Dictionary) -> void:
 	if FileAccess.file_exists(path):
@@ -30,23 +21,24 @@ func _on_save_button_pressed() -> void:
 	var saveData = {}
 	for i in $Notes.get_children():
 		saveData[i.name] = {}
-		saveData[i.name].time = i.timeValue
+		saveData[i.name].time = i.SPINBOX.value
+		saveData[i.name].position = i.position
 	
 	saveMap(BASE_PATH + $UI/SavePath.text + ".json", saveData)
 
 func _on_create_new_note_button_pressed() -> void:
 	var newNote = Note.instantiate()
 	$Notes.add_child(newNote)
-	newNote.name = str(noteAmmount)
-	noteAmmount += 1
+	newNote.name = str($Notes.get_children().size())
 
 func _on_load_button_pressed() -> void:
 	var savePath = BASE_PATH + $UI/SavePath.text + ".json"
 	if savePath:
 		var saveString = FileAccess.get_file_as_string(savePath)
 		var saveAsDict = JSON.parse_string(saveString)
-		print(saveAsDict)
-		
-		
-	
-	pass # Replace with function body.
+		for i in saveAsDict:
+			if $Notes.get_child(int(i)):
+				$Notes.get_child(int(i)).SPINBOX.value = saveAsDict[i].time
+
+func _on_close_editor_pressed() -> void:
+	visible = false
