@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://he067x325g78" path="res://Scripts/menu.gd" id="1_1rerr"]
 
-[node name="Menu" type="Control" unique_id=1219777302]
+[node name="MainMenu" type="Control" unique_id=1219777302]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,8 +13,12 @@ script = ExtResource("1_1rerr")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1043499776]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 201.0
+offset_bottom = 646.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2078176155]
 layout_mode = 2
@@ -23,4 +27,9 @@ layout_mode = 2
 layout_mode = 2
 text = "Play"
 
+[node name="Editor" type="Button" parent="MarginContainer/VBoxContainer" unique_id=820839161]
+layout_mode = 2
+text = "Editor"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Editor" to="." method="_on_editor_pressed"]

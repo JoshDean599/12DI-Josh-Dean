@@ -41,4 +41,4 @@ func _on_load_button_pressed() -> void:
 				$Notes.get_child(int(i)).SPINBOX.value = saveAsDict[i].time
 
 func _on_close_editor_pressed() -> void:
-	visible = false
+	get_parent().change_scene(name, "MainMenu")
