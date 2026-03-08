@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://v3df751own03" path="res://icon.svg" id="1_h1cdb"]
 [ext_resource type="Script" uid="uid://c0fgvlslcwa66" path="res://Scripts/editor_note.gd" id="2_0qtjb"]
 
-[node name="Editor Note" type="Sprite2D" unique_id=62636966]
+[node name="EditorNote" type="Sprite2D" unique_id=62636966]
 texture = ExtResource("1_h1cdb")
 script = ExtResource("2_0qtjb")
 

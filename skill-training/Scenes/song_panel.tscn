@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://b4ttubg26prku"]
+
+[ext_resource type="Script" uid="uid://cflrx1tgfs2w2" path="res://Scripts/song_panel.gd" id="1_5tean"]
+
+[node name="SongPanel" type="PanelContainer" unique_id=662597771]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -877.0
+offset_bottom = -588.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_5tean")
+
+[node name="Button" type="Button" parent="." unique_id=2018329943]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Button" unique_id=1545333814]
+layout_mode = 0
+offset_right = 275.0
+offset_bottom = 60.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Button/MarginContainer" unique_id=969756114]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Button/MarginContainer/HBoxContainer" unique_id=1440341379]
+layout_mode = 2
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

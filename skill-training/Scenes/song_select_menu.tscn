@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bfnkexa0yhlph"]
+
+[ext_resource type="Script" uid="uid://bxsbetp4it0tr" path="res://Scripts/song_select_menu.gd" id="1_gnggo"]
+
+[node name="SongSelectMenu" type="Control" unique_id=767008811]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_gnggo")
+
+[node name="Songs" type="VBoxContainer" parent="." unique_id=361973367]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 37.0
+offset_right = 561.0
+offset_bottom = 355.0
+
+[node name="BackButton" type="Button" parent="." unique_id=355383449]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Back"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
