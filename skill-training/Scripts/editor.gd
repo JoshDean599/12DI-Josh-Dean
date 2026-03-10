@@ -3,6 +3,11 @@ extends Node2D
 const BASE_PATH = "res://SongMaps/"
 var Note = preload("res://Scenes/editor_note.tscn")
 
+func _on_create_new_note_button_pressed() -> void:
+	var newNote = Note.instantiate()
+	$Notes.add_child(newNote)
+	newNote.name = str($Notes.get_children().size())
+
 func saveMap(path: String, data: Dictionary) -> void:
 	if FileAccess.file_exists(path):
 		print("File Exists")
@@ -26,19 +31,16 @@ func _on_save_button_pressed() -> void:
 	
 	saveMap(BASE_PATH + $UI/SavePath.text + ".json", saveData)
 
-func _on_create_new_note_button_pressed() -> void:
-	var newNote = Note.instantiate()
-	$Notes.add_child(newNote)
-	newNote.name = str($Notes.get_children().size())
-
 func _on_load_button_pressed() -> void:
 	var savePath = BASE_PATH + $UI/SavePath.text + ".json"
 	if savePath:
 		var saveString = FileAccess.get_file_as_string(savePath)
 		var saveAsDict = JSON.parse_string(saveString)
 		for i in saveAsDict:
-			if $Notes.get_child(int(i)):
-				$Notes.get_child(int(i)).SPINBOX.value = saveAsDict[i].time
+			if int(i) <= $Notes.get_children().size():
+				print($Notes.get_children()[str(int(i)-1)])
+			else:
+				print("Not enough notes: ", int(i))
 
 func _on_close_editor_pressed() -> void:
 	get_parent().change_scene(name, "MainMenu")

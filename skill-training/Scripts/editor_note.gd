@@ -1,6 +1,6 @@
 extends Sprite2D
 
-const GRID_SIZE: Vector2 = Vector2(64, 64)
+const GRID_SIZE: Vector2 = Vector2(100, 100)
 var dragging = false
 var draggedOffset = Vector2.ZERO #Offset
 
@@ -35,7 +35,6 @@ func _process(delta: float) -> void:
 				name = "PlaceHolderName"
 				upperNote.name = newName
 				name = upperNote.name
-		
 	if openMenu:
 		openMenu = false
 		menu.visible = !menu.visible

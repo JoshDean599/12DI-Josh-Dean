@@ -12,20 +12,19 @@ func _on_visibility_changed() -> void:
 			dir.list_dir_begin()
 			var fileName = dir.get_next()
 			while fileName != "":
-				if dir.current_is_dir():
-					print("foundDirectery")
-				else:
-					print("FoundFile")
-					var stopLoop
-					for i in fileName:
-						if i = ".":
-							
-					var withoutJson = ""
-					if $Songs.get_node("" + fileName):
+				if not dir.current_is_dir():
+					var newFileName = fileName.replace(".json", "")
+					var skip = false
+					for i in $Songs.get_children():
+						if i.name == newFileName:
+							fileName = dir.get_next()
+							skip = true
+							break
+					if skip:
 						continue
 					var newSongPanel = songPanel.instantiate()
 					$Songs.add_child(newSongPanel)
-					newSongPanel.set_new_name(fileName)
+					newSongPanel.set_new_name(newFileName)
 					newSongPanel.set_song("res://SongMaps/" + fileName)
 				fileName = dir.get_next()
 		else:
