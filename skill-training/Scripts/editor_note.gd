@@ -6,15 +6,12 @@ var draggedOffset = Vector2.ZERO #Offset
 
 const doubleClickThreshold = 0.2
 var lastClickTime = 0.0
-var openMenu = false
 @onready var clickTimer = $ClickDetector/Timer
-@onready var menu = $Menu
-@onready var SPINBOX = $Menu/MarginContainer/VBoxContainer/HBoxContainer/SpinBox
 
-func _ready() -> void:
-	menu.visible = false
+var noteType: int = 1
+var noteTypes = 1
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if dragging:
 		if Input.is_action_pressed("spaceBarPressed"):
 			position = (get_global_mouse_position() - draggedOffset).snapped(GRID_SIZE)
@@ -35,9 +32,6 @@ func _process(delta: float) -> void:
 				name = "PlaceHolderName"
 				upperNote.name = newName
 				name = upperNote.name
-	if openMenu:
-		openMenu = false
-		menu.visible = !menu.visible
 
 func _on_click_detector_button_down() -> void:
 	dragging = true
@@ -46,10 +40,15 @@ func _on_click_detector_button_down() -> void:
 	var currentTime = Time.get_ticks_msec() / 1000.0
 	if currentTime - lastClickTime <= doubleClickThreshold:
 		clickTimer.stop()
-		openMenu = true
+		changeNoteType()
 	else:
 		clickTimer.start(doubleClickThreshold)
 	lastClickTime = currentTime
 
 func _on_click_detector_button_up() -> void:
 	dragging = false
+
+func changeNoteType() -> void:
+	noteType += 1
+	if noteType > noteTypes:
+		noteType = 1

@@ -13,7 +13,10 @@ func _on_visibility_changed() -> void:
 			var fileName = dir.get_next()
 			while fileName != "":
 				if not dir.current_is_dir():
-					var newFileName = fileName.replace(".json", "")
+					var newFileName = ""
+					for i in fileName.length() - 5:
+						newFileName += fileName[i]
+					
 					var skip = false
 					for i in $Songs.get_children():
 						if i.name == newFileName:
@@ -22,6 +25,7 @@ func _on_visibility_changed() -> void:
 							break
 					if skip:
 						continue
+					
 					var newSongPanel = songPanel.instantiate()
 					$Songs.add_child(newSongPanel)
 					newSongPanel.set_new_name(newFileName)
