@@ -1,6 +1,6 @@
 extends Node2D
 
-const BASE_PATH = "res://SongMaps/"
+@onready var basePath = get_parent().BASEPATH
 var Note = preload("res://Scenes/editor_note.tscn")
 
 func _on_create_new_note_button_pressed() -> void:
@@ -11,7 +11,7 @@ func createNewNote() -> void:
 	$Notes.add_child(newNote)
 	newNote.name = str($Notes.get_children().size())
 
-func saveMap(path: String, data: Dictionary) -> void:
+func save_map(path: String, data: Dictionary) -> void:
 	if FileAccess.file_exists(path):
 		print("File Exists")
 	else:
@@ -34,10 +34,10 @@ func _on_save_button_pressed() -> void:
 				y = i.position.y
 			}
 		}
-	saveMap(BASE_PATH + $UI/SavePath.text + ".json", saveData)
+	save_map(basePath + $UI/SavePath.text + ".json", saveData)
 
 func _on_load_button_pressed() -> void:
-	var savePath = BASE_PATH + $UI/SavePath.text + ".json"
+	var savePath = basePath + $UI/SavePath.text + ".json"
 	if savePath:
 		var saveString = FileAccess.get_file_as_string(savePath)
 		var saveAsDict = JSON.parse_string(saveString)

@@ -1,5 +1,8 @@
 extends Node
 
+@export var BASEPATH = "res://SongMaps/"
+var song = ""
+
 func change_scene(sceneName: String, newSceneName: String):
 	if get_node(sceneName):
 		get_node(sceneName).visible = false

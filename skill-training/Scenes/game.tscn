@@ -1,3 +1,10 @@
 [gd_scene format=3 uid="uid://c7lj3xd48m0x2"]
 
+[ext_resource type="Script" uid="uid://b4u8v647h0m1f" path="res://Scripts/game.gd" id="1_ebmjs"]
+
 [node name="Game" type="Node2D" unique_id=1344898711]
+script = ExtResource("1_ebmjs")
+
+[node name="Notes" type="Node2D" parent="." unique_id=1802157394]
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

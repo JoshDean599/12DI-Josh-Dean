@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b236vb0qpidge"]
+
+[ext_resource type="Script" uid="uid://crliawtefl3ws" path="res://Scripts/game_note.gd" id="1_bl6ds"]
+[ext_resource type="Texture2D" uid="uid://v3df751own03" path="res://icon.svg" id="1_cwr0y"]
+
+[node name="GameNote" type="Sprite2D" unique_id=627592771]
+texture = ExtResource("1_cwr0y")
+script = ExtResource("1_bl6ds")

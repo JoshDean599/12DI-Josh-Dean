@@ -40,7 +40,7 @@ func _on_click_detector_button_down() -> void:
 	var currentTime = Time.get_ticks_msec() / 1000.0
 	if currentTime - lastClickTime <= doubleClickThreshold:
 		clickTimer.stop()
-		changeNoteType()
+		change_note_type()
 	else:
 		clickTimer.start(doubleClickThreshold)
 	lastClickTime = currentTime
@@ -48,7 +48,7 @@ func _on_click_detector_button_down() -> void:
 func _on_click_detector_button_up() -> void:
 	dragging = false
 
-func changeNoteType() -> void:
+func change_note_type() -> void:
 	noteType += 1
 	if noteType > noteTypes:
 		noteType = 1
