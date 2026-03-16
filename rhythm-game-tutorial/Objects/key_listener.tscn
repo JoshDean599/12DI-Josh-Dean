@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b08wnthqfj1g"]
+
+[ext_resource type="Texture2D" uid="uid://cxb8gbs7uf7b0" path="res://icon.svg" id="1_cnhan"]
+[ext_resource type="Script" uid="uid://bxgdw5wrb7088" path="res://Objects/key_listener.gd" id="2_p2j78"]
+
+[node name="KeyListener" type="Sprite2D" unique_id=413410722]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_cnhan")
+script = ExtResource("2_p2j78")
+
+[node name="RandomSpawnTimer" type="Timer" parent="." unique_id=2124204797]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="RandomSpawnTimer" to="." method="_on_random_spawn_timer_timeout"]

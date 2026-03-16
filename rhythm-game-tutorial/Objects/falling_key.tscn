@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cynbgycbyfk2s"]
+
+[ext_resource type="Texture2D" uid="uid://cxb8gbs7uf7b0" path="res://icon.svg" id="1_yyu5u"]
+[ext_resource type="Script" uid="uid://7dwdd66ijsut" path="res://Objects/falling_key.gd" id="2_5ycef"]
+
+[node name="FallingKey" type="Sprite2D" unique_id=2109382868]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_yyu5u")
+script = ExtResource("2_5ycef")
+
+[node name="Timer" type="Timer" parent="." unique_id=1562539922]
+wait_time = 5.0
+one_shot = true
+autostart = true
