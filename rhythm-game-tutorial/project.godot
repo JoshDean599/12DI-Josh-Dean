@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="RhythmGameTutorial"
+run/main_scene="uid://b3m2gij83kw3h"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Signals="*uid://5gs1cjid216k"
 
 [input]
 

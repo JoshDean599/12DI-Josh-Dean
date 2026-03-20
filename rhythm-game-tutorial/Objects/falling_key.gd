@@ -1,10 +1,10 @@
 extends Sprite2D
 
 @export var fallingSpeed: float = 3.5
-var initYPosition: float = -360
+var initYPosition: float = -360.0
 
-var passedPosition: float = 250
-var freeQueuePosition: float = 400
+var passedPosition: float = 314.0
+var freeQueuePosition: float = 400.0
 
 var hasPassed: bool = false
 
@@ -15,10 +15,7 @@ func _init() -> void:
 func _process(delta: float) -> void:
 	global_position += Vector2(0, fallingSpeed)
 	
-	# Get the time to a "perfect" hit
-	if global_position.y > passedPosition and not $Timer.is_stopped():
-		print($Timer.wait_time - $Timer.time_left)
-		$Timer.stop()
+	if global_position.y > passedPosition and not hasPassed:
 		hasPassed = true
 	
 	if global_position.y > freeQueuePosition:
