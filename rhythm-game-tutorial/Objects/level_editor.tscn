@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://2s1k8vvsbhc6"]
+
+[ext_resource type="Script" uid="uid://cdjgmut8crrhj" path="res://Objects/level_editor.gd" id="1_4nhs5"]
+[ext_resource type="AudioStream" uid="uid://bonux4gn5kv4b" path="res://Music/NEFFEX - Hate It or Love It [Copyright Free] No.82.wav" id="2_n8074"]
+
+[node name="LevelEditor" type="Node2D" unique_id=231317157]
+script = ExtResource("1_4nhs5")
+
+[node name="MusicPlayer" type="AudioStreamPlayer2D" parent="." unique_id=711700834]
+stream = ExtResource("2_n8074")

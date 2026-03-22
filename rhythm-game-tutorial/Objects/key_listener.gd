@@ -18,8 +18,22 @@ var scores = {
 	},
 }
 
+func _ready() -> void:
+	Signals.CreateFallingKey.connect(create_falling_key)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed(keyName):
+		var arrayNum = 0
+		if keyName == "button_F":
+			arrayNum = 1
+		elif keyName == "button_J":
+			arrayNum = 2
+		elif keyName == "button_K":
+			arrayNum = 3
+		Signals.KeyListenerPress.emit(keyName, arrayNum)
+	
+	
 	# Make sure there's a falling key to check for this given key
 	if fallingKeyQueue.size() > 0:
 		# If that falling key has passed, remove it from the queue
@@ -45,15 +59,16 @@ func _process(delta: float) -> void:
 		visible = true
 	
 
-func create_falling_key():
-	var fkInstance = fallingKey.instantiate()
-	get_tree().get_root().call_deferred("add_child", fkInstance)
-	fkInstance.setup(position.x)
-	
-	fallingKeyQueue.push_back(fkInstance)
+func create_falling_key(buttonName: String):
+	if buttonName == keyName:
+		var fkInstance = fallingKey.instantiate()
+		get_tree().get_root().call_deferred("add_child", fkInstance)
+		fkInstance.setup(position.x)
+		
+		fallingKeyQueue.push_back(fkInstance)
 
 
 func _on_random_spawn_timer_timeout() -> void:
-	create_falling_key()
+	#create_falling_key()
 	$RandomSpawnTimer.wait_time = randf_range(0.4, 3)
 	$RandomSpawnTimer.start()

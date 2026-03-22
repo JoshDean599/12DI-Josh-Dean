@@ -2,3 +2,7 @@ extends Node2D
 
 @warning_ignore("unused_signal")
 signal IncrimentScore(incr: int)
+
+@warning_ignore("unused_signal")
+signal CreateFallingKey(buttonName: String)
+signal KeyListenerPress(buttonName: String, arrayNum: int)

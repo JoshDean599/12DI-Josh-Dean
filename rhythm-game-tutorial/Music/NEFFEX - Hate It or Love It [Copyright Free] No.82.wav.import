@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bonux4gn5kv4b"
+path="res://.godot/imported/NEFFEX - Hate It or Love It [Copyright Free] No.82.wav-7f7ef6f06eb08b86d38defc3d5937ee6.sample"
+
+[deps]
+
+source_file="res://Music/NEFFEX - Hate It or Love It [Copyright Free] No.82.wav"
+dest_files=["res://.godot/imported/NEFFEX - Hate It or Love It [Copyright Free] No.82.wav-7f7ef6f06eb08b86d38defc3d5937ee6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

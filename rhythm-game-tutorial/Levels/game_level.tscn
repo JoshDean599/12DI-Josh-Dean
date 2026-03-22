@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b08wnthqfj1g" path="res://Objects/key_listener.tscn" id="1_up8ek"]
 [ext_resource type="PackedScene" uid="uid://m66fur8hkuvj" path="res://Levels/game_ui.tscn" id="2_wlvk4"]
+[ext_resource type="PackedScene" uid="uid://2s1k8vvsbhc6" path="res://Objects/level_editor.tscn" id="3_wmi5p"]
 
 [node name="GameLevel" type="Node2D" unique_id=1760567202]
 
@@ -28,3 +29,5 @@ offset_left = 45.0
 offset_top = 43.0
 offset_right = 45.0
 offset_bottom = 43.0
+
+[node name="LevelEditor" parent="." unique_id=231317157 instance=ExtResource("3_wmi5p")]
