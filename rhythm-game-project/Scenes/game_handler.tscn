@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://daqiwigqbm0ps"]
+
+[ext_resource type="PackedScene" uid="uid://2iriodn8taii" path="res://Scenes/Objects/note_handler.tscn" id="1_jqstq"]
+[ext_resource type="PackedScene" uid="uid://be8wqiglekldc" path="res://Scenes/Objects/note.tscn" id="2_fdak8"]
+
+[node name="GameHandler" type="Node" unique_id=1339652398]
+
+[node name="NoteHandler" parent="." unique_id=1107544390 instance=ExtResource("1_jqstq")]
+position = Vector2(-513, 0)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=90201655]
+
+[node name="Note" parent="." unique_id=1181639909 instance=ExtResource("2_fdak8")]

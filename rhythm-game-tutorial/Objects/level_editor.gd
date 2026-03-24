@@ -1,10 +1,14 @@
 extends Node2D
 
 # Set constant before game start
-const IN_EDIT_MODE: bool = false
+const IN_EDIT_MODE: bool = true
 var currentLevelName: String = "1"
 
-var levelInfo = {
+# Time it takes for a note to get to the critical spot
+var fkFallTime: float = 2.2
+var fkOutputArray: Array = [[],[],[],[]]
+
+var levelInfo: Dictionary = {
 	"1" = {
 		fkTimes = [
 			[1],
@@ -47,8 +51,12 @@ func _ready() -> void:
 			counter += 1
 
 func KeyListenerPress(buttonName: String, arrayNum: int):
-	pass
+#	print(str(arrayNum) + " " + str($MusicPlayer.get_playback_position()))
+	fkOutputArray[arrayNum].append($MusicPlayer.get_playback_position() - fkFallTime)
 
 func SpawnFallingKey(buttonName: String, delay: float):
 	await get_tree().create_timer(delay).timeout
-	Signals.CreateFallingKey.emit(buttonName	)
+	Signals.CreateFallingKey.emit(buttonName)
+
+func _on_music_player_finished() -> void:
+	print(fkOutputArray)

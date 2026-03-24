@@ -25,12 +25,15 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed(keyName):
 		var arrayNum = 0
-		if keyName == "button_F":
-			arrayNum = 1
-		elif keyName == "button_J":
-			arrayNum = 2
-		elif keyName == "button_K":
-			arrayNum = 3
+		match keyName:
+			"button_D":
+				arrayNum = 0
+			"button_F":
+				arrayNum = 1
+			"button_J":
+				arrayNum = 2
+			"button_K":
+				arrayNum = 3
 		Signals.KeyListenerPress.emit(keyName, arrayNum)
 	
 	
