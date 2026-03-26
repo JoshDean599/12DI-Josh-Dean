@@ -1,14 +1,26 @@
 extends Sprite2D
 
-var timeAlive: float = 2
+var movingSpeed: float = 250.0
+var initXPosition: float = 660.0
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+var passedPosition: float = -515.0
+var freeQueuePosition: float = -660.0
+
+var hasPassed: bool = false
+
+func _init() -> void:
+	set_process(false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	timeAlive -= delta
-	if timeAlive <= 0.0:
-		queue_free() # Remove Note from play
+	global_position -= Vector2(movingSpeed * delta, 0)
 	
+	if global_position.x < passedPosition and not hasPassed:
+		hasPassed = true
+	
+	if global_position.x < freeQueuePosition:
+		queue_free()
+
+func setup(targetY: float):
+	global_position = Vector2(initXPosition, targetY)
+	set_process(true)
