@@ -1,13 +1,15 @@
 [gd_scene format=3 uid="uid://daqiwigqbm0ps"]
 
-[ext_resource type="PackedScene" uid="uid://2iriodn8taii" path="res://Scenes/Objects/note_handler.tscn" id="1_jqstq"]
-[ext_resource type="PackedScene" uid="uid://ix7elmc0cgg6" path="res://Scenes/game_ui.tscn" id="2_fdak8"]
+[ext_resource type="Script" uid="uid://c1bf7f00to41u" path="res://Scenes/game_handler.gd" id="1_aqcph"]
+[ext_resource type="PackedScene" uid="uid://bvi2mijwg73cn" path="res://Scenes/Menus/main_menu.tscn" id="2_plgud"]
+[ext_resource type="PackedScene" uid="uid://bvoo50mlc8oxu" path="res://Scenes/Menus/song_select_menu.tscn" id="4_2w0cg"]
 
 [node name="GameHandler" type="Node" unique_id=1339652398]
+script = ExtResource("1_aqcph")
 
-[node name="NoteHandler" parent="." unique_id=1107544390 instance=ExtResource("1_jqstq")]
-position = Vector2(-513, 0)
+[node name="MainMenu" parent="." unique_id=251260716 instance=ExtResource("2_plgud")]
+
+[node name="SongSelectMenu" parent="." unique_id=1394022850 instance=ExtResource("4_2w0cg")]
+visible = false
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=90201655]
-
-[node name="GameUI" parent="." unique_id=1691723260 instance=ExtResource("2_fdak8")]

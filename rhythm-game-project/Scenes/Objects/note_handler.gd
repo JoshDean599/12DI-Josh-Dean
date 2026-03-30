@@ -56,7 +56,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func create_falling_key():
 	var noteInstance = note.instantiate()
-	get_tree().get_root().call_deferred("add_child", noteInstance)
+	get_parent().get_child(0).call_deferred("add_child", noteInstance) # Change index from self!!
 	noteInstance.setup(position.y)
 	
 	keyQueue.push_back(noteInstance)
