@@ -1,15 +1,35 @@
 [gd_scene format=3 uid="uid://daqiwigqbm0ps"]
 
 [ext_resource type="Script" uid="uid://c1bf7f00to41u" path="res://Scenes/game_handler.gd" id="1_aqcph"]
+[ext_resource type="PackedScene" uid="uid://0rkxo4hj2qvo" path="res://Scenes/Objects/menu.tscn" id="2_aqcph"]
 [ext_resource type="PackedScene" uid="uid://bvi2mijwg73cn" path="res://Scenes/Menus/main_menu.tscn" id="2_plgud"]
 [ext_resource type="PackedScene" uid="uid://bvoo50mlc8oxu" path="res://Scenes/Menus/song_select_menu.tscn" id="4_2w0cg"]
 
-[node name="GameHandler" type="Node" unique_id=1339652398]
+[node name="GameHandler" type="Node2D" unique_id=148766306]
 script = ExtResource("1_aqcph")
 
 [node name="MainMenu" parent="." unique_id=251260716 instance=ExtResource("2_plgud")]
 
-[node name="SongSelectMenu" parent="." unique_id=1394022850 instance=ExtResource("4_2w0cg")]
+[node name="Menu" parent="." unique_id=399588915 instance=ExtResource("2_aqcph")]
+
+[node name="SomethingPress" type="Button" parent="Menu" unique_id=245360705]
+layout_mode = 0
+offset_left = 7.0
+offset_top = -100.0
+offset_right = 52.0
+offset_bottom = -69.0
+text = "Back"
+
+[node name="Override" type="Label" parent="Menu/SomethingPress" unique_id=1362818436]
 visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Camera2D/SongSelectMenu"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=90201655]
+
+[node name="SongSelectMenu" parent="Camera2D" unique_id=1394022850 instance=ExtResource("4_2w0cg")]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0

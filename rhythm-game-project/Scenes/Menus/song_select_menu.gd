@@ -1,5 +1,6 @@
 extends Control
 
+@onready var GameHandler = get_tree().get_root().get_node("GameHandler")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -10,6 +11,5 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
 func _on_back_button_pressed() -> void:
-	get_parent().change_scene(self.name, "MainMenu")
+	GameHandler.change_scene("MainMenu")
