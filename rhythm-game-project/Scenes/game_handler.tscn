@@ -1,35 +1,63 @@
 [gd_scene format=3 uid="uid://daqiwigqbm0ps"]
 
 [ext_resource type="Script" uid="uid://c1bf7f00to41u" path="res://Scenes/game_handler.gd" id="1_aqcph"]
-[ext_resource type="PackedScene" uid="uid://0rkxo4hj2qvo" path="res://Scenes/Objects/menu.tscn" id="2_aqcph"]
-[ext_resource type="PackedScene" uid="uid://bvi2mijwg73cn" path="res://Scenes/Menus/main_menu.tscn" id="2_plgud"]
-[ext_resource type="PackedScene" uid="uid://bvoo50mlc8oxu" path="res://Scenes/Menus/song_select_menu.tscn" id="4_2w0cg"]
+[ext_resource type="PackedScene" uid="uid://yly3t63ywdvf" path="res://Scenes/Objects/menu_button.tscn" id="4_plgud"]
 
 [node name="GameHandler" type="Node2D" unique_id=148766306]
 script = ExtResource("1_aqcph")
 
-[node name="MainMenu" parent="." unique_id=251260716 instance=ExtResource("2_plgud")]
-
-[node name="Menu" parent="." unique_id=399588915 instance=ExtResource("2_aqcph")]
-
-[node name="SomethingPress" type="Button" parent="Menu" unique_id=245360705]
-layout_mode = 0
-offset_left = 7.0
-offset_top = -100.0
-offset_right = 52.0
-offset_bottom = -69.0
-text = "Back"
-
-[node name="Override" type="Label" parent="Menu/SomethingPress" unique_id=1362818436]
-visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Camera2D/SongSelectMenu"
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=90201655]
 
-[node name="SongSelectMenu" parent="Camera2D" unique_id=1394022850 instance=ExtResource("4_2w0cg")]
+[node name="UI" type="CanvasLayer" parent="." unique_id=225502723]
+
+[node name="MainMenu" type="Control" parent="UI" unique_id=1476049812]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenu" unique_id=1313774683]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Play" parent="UI/MainMenu/VBoxContainer" unique_id=1233891421 instance=ExtResource("4_plgud")]
+layout_mode = 2
+text = "Play"
+scene = "UI/SongSelectMenu"
+
+[node name="Editor" parent="UI/MainMenu/VBoxContainer" unique_id=915282483 instance=ExtResource("4_plgud")]
+layout_mode = 2
+text = "Editor"
+scene = "Editor"
+
+[node name="SongSelectMenu" type="Control" parent="UI" unique_id=1526889062]
 visible = false
-offset_right = 1152.0
-offset_bottom = 648.0
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Back" parent="UI/SongSelectMenu" unique_id=568643555 instance=ExtResource("4_plgud")]
+layout_mode = 0
+offset_right = 117.0
+offset_bottom = 31.0
+text = "Back To Menu"
+scene = "UI/MainMenu"
+
+[node name="EditorUI" type="Control" parent="UI" unique_id=740661]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Back" parent="UI/EditorUI" unique_id=1789114603 instance=ExtResource("4_plgud")]
+layout_mode = 0
+text = "Back"
+scene = "UI/MainMenu"
+
+[node name="Editor" type="Node2D" parent="." unique_id=1970925052]
+visible = false
+
+[connection signal="visibility_changed" from="Editor" to="." method="_on_editor_visibility_changed"]

@@ -2,6 +2,9 @@ extends Control
 
 @onready var GameHandler = get_tree().get_root().get_node("GameHandler")
 
+@export var scene = ""
+@export var song = ""
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -11,5 +14,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func _on_button_pressed() -> void:
-	GameHandler.change_scene("Camera2D/SongSelectMenu")
+
+func _on_pressed() -> void:
+	if song != "":
+		pass
+	if scene != "":
+		GameHandler.change_scene(scene)
