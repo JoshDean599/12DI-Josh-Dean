@@ -26,7 +26,6 @@ func hit_key(inputEvent):
 	if inputEvent.is_echo() or keyQueue.size() <= 0:
 		return
 	if inputEvent.pressed:
-		visible = false
 		var keyToPop = keyQueue.pop_front()
 		var distanceFromPass = abs(keyToPop.passedPosition - keyToPop.global_position.x)
 		# Get score type
@@ -39,8 +38,6 @@ func hit_key(inputEvent):
 			Signals.IncrimentScore.emit(scores[scoreType].score)
 		
 		keyToPop.queue_free()
-	else:
-		visible = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -62,6 +59,8 @@ func create_falling_key():
 	keyQueue.push_back(noteInstance)
 
 func _on_random_timer_timeout() -> void:
+	if not get_parent().Active:
+		return
 	create_falling_key()
 	$RandomSpawnTimer.wait_time = randf_range(0.4, 3)
 	$RandomSpawnTimer.start()

@@ -1,63 +1,24 @@
 [gd_scene format=3 uid="uid://daqiwigqbm0ps"]
 
-[ext_resource type="Script" uid="uid://c1bf7f00to41u" path="res://Scenes/game_handler.gd" id="1_aqcph"]
-[ext_resource type="PackedScene" uid="uid://yly3t63ywdvf" path="res://Scenes/Objects/menu_button.tscn" id="4_plgud"]
+[ext_resource type="Script" uid="uid://c1bf7f00to41u" path="res://Scenes/game_handler.gd" id="1_67dt7"]
+[ext_resource type="PackedScene" uid="uid://cn5ke53ctln4g" path="res://Scenes/UI/main_menu.tscn" id="2_6p44q"]
+[ext_resource type="PackedScene" uid="uid://bg175aob5y2tp" path="res://Scenes/UI/song_select_menu.tscn" id="3_s2oaq"]
+[ext_resource type="PackedScene" uid="uid://brfyccsgwq6rl" path="res://Scenes/UI/editor.tscn" id="4_g4kyx"]
+[ext_resource type="PackedScene" uid="uid://cj67nllhspea5" path="res://Scenes/game.tscn" id="5_plgud"]
 
 [node name="GameHandler" type="Node2D" unique_id=148766306]
-script = ExtResource("1_aqcph")
+script = ExtResource("1_67dt7")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=90201655]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=857838341]
+position = Vector2(576, 324)
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=225502723]
+[node name="MainMenu" parent="." unique_id=997948256 instance=ExtResource("2_6p44q")]
 
-[node name="MainMenu" type="Control" parent="UI" unique_id=1476049812]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenu" unique_id=1313774683]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Play" parent="UI/MainMenu/VBoxContainer" unique_id=1233891421 instance=ExtResource("4_plgud")]
-layout_mode = 2
-text = "Play"
-scene = "UI/SongSelectMenu"
-
-[node name="Editor" parent="UI/MainMenu/VBoxContainer" unique_id=915282483 instance=ExtResource("4_plgud")]
-layout_mode = 2
-text = "Editor"
-scene = "Editor"
-
-[node name="SongSelectMenu" type="Control" parent="UI" unique_id=1526889062]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Back" parent="UI/SongSelectMenu" unique_id=568643555 instance=ExtResource("4_plgud")]
-layout_mode = 0
-offset_right = 117.0
-offset_bottom = 31.0
-text = "Back To Menu"
-scene = "UI/MainMenu"
-
-[node name="EditorUI" type="Control" parent="UI" unique_id=740661]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Back" parent="UI/EditorUI" unique_id=1789114603 instance=ExtResource("4_plgud")]
-layout_mode = 0
-text = "Back"
-scene = "UI/MainMenu"
-
-[node name="Editor" type="Node2D" parent="." unique_id=1970925052]
+[node name="SongSelectMenu" parent="." unique_id=1066264214 instance=ExtResource("3_s2oaq")]
 visible = false
 
-[connection signal="visibility_changed" from="Editor" to="." method="_on_editor_visibility_changed"]
+[node name="Editor" parent="." unique_id=219707909 instance=ExtResource("4_g4kyx")]
+visible = false
+
+[node name="Game" parent="." unique_id=1834466343 instance=ExtResource("5_plgud")]
+visible = false

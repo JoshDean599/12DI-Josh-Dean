@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b1yqo56kgieyn"]
+
+[ext_resource type="Texture2D" uid="uid://43s0ilqd1cce" path="res://icon.svg" id="1_2tup1"]
+[ext_resource type="Script" uid="uid://bm038u73d51nl" path="res://Scenes/Objects/editor_note.gd" id="2_mygmu"]
+
+[node name="EditorNote" type="Sprite2D" unique_id=1017318853]
+texture = ExtResource("1_2tup1")
+script = ExtResource("2_mygmu")
+
+[node name="ClickDetector" type="Button" parent="." unique_id=1928441587]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="Timer" type="Timer" parent="ClickDetector" unique_id=900252859]
+
+[connection signal="button_down" from="ClickDetector" to="." method="_on_click_detector_button_down"]
+[connection signal="button_up" from="ClickDetector" to="." method="_on_click_detector_button_up"]
