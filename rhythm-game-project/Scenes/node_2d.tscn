@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://gy6gwilvasw7"]
+
+[ext_resource type="Texture2D" uid="uid://43s0ilqd1cce" path="res://icon.svg" id="1_j2wod"]
+[ext_resource type="Script" uid="uid://1oeyihg6c4vg" path="res://Scenes/node_2d.gd" id="1_v1qfn"]
+
+[node name="Node2D" type="Node2D" unique_id=1728108407]
+script = ExtResource("1_v1qfn")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=170228121]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2056721854]
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=1523832213]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=571173017]
+texture = ExtResource("1_j2wod")
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

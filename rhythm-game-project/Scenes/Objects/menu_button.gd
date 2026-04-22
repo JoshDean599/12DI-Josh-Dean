@@ -9,4 +9,4 @@ func _on_pressed() -> void:
 	if song != "":
 		pass
 	if scene != "":
-		GameHandler.change_scene(scene)
+		Main.change_scene(Main.Menus)

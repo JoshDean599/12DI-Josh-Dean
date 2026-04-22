@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="RhythmGameProject"
-run/main_scene="uid://daqiwigqbm0ps"
+run/main_scene="uid://b5ll0ls3ghafl"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Signals="*uid://d10ru1xhjeewd"
+Main="*uid://cmisvipy6ok5s"
 
 [input]
 
