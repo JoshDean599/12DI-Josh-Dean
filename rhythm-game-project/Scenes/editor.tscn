@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://brfyccsgwq6rl"]
 
-[ext_resource type="Script" uid="uid://i5pwojav548r" path="res://Scenes/UI/editor.gd" id="1_wqabg"]
+[ext_resource type="Script" uid="uid://i5pwojav548r" path="res://Scenes/editor.gd" id="1_wqabg"]
 
 [node name="Editor" type="Node2D" unique_id=219707909]
 script = ExtResource("1_wqabg")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1210029244]
 
 [node name="Notes" type="Node2D" parent="." unique_id=443945100]

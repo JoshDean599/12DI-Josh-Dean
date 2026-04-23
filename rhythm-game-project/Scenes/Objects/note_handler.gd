@@ -1,8 +1,6 @@
 extends Sprite2D
 
-@onready var note = preload("res://Scenes/Objects/note.tscn")
-
-var keyQueue = []
+var noteQueue = []
 
 var scores = {
 	ok = {
@@ -17,17 +15,16 @@ var scores = {
 	},
 }
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		hit_key(event)
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-func hit_key(inputEvent):
-	if inputEvent.is_echo() or keyQueue.size() <= 0:
+func hit_key(inputEvent) -> void:
+	if inputEvent.is_echo() or noteQueue.size() <= 0:
 		return
 	if inputEvent.pressed:
-		var keyToPop = keyQueue.pop_front()
-		var distanceFromPass = abs(keyToPop.passedPosition - keyToPop.global_position.x)
+		var noteToPop = noteQueue.pop_front()
+		var distanceFromPass = abs(noteToPop.passedPosition - noteToPop.global_position.x)
 		# Get score type
 		var scoreType = "miss"
 		for i in scores:
@@ -35,32 +32,27 @@ func hit_key(inputEvent):
 				scoreType = i
 		
 		if scoreType != "miss":
-			Signals.IncrimentScore.emit(scores[scoreType].score)
+			#Signals.IncrimentScore.emit(scores[scoreType].score)
+			pass
 		
-		keyToPop.queue_free()
+		noteToPop.queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if keyQueue.size() > 0:
-		# If that falling key has passed, remove it from the queue
-		if keyQueue.front().hasPassed:
-			keyQueue.pop_front()
+func _process(_delta: float) -> void:
+	if noteQueue.size() > 0:
+		# If that note has passed, remove it from the queue
+		if noteQueue.front().hasPassed:
+			noteQueue.pop_front()
 	
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		hit_key(event)
-
-func create_falling_key():
-	var noteInstance = note.instantiate()
-	get_parent().get_child(0).call_deferred("add_child", noteInstance) # Change index from self!!
-	noteInstance.setup(position.y)
+func create_note(length: float) -> void:
+	var noteInstance = Globals.GameNote.instantiate()
+	get_parent().get_node("Notes").call_deferred("add_child", noteInstance) # Change index from self!!
+	noteInstance.setup(position.y, length)
 	
-	keyQueue.push_back(noteInstance)
+	noteQueue.push_back(noteInstance)
 
 func _on_random_timer_timeout() -> void:
-	if not get_parent().Active:
-		return
-	create_falling_key()
+	create_note(50)
 	$RandomSpawnTimer.wait_time = randf_range(0.4, 3)
 	$RandomSpawnTimer.start()

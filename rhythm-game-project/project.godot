@@ -17,8 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Signals="*uid://d10ru1xhjeewd"
-Main="*uid://cmisvipy6ok5s"
+Globals="*uid://cmisvipy6ok5s"
 
 [input]
 
