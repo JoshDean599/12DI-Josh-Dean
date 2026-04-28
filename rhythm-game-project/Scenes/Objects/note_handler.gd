@@ -32,8 +32,7 @@ func hit_key(inputEvent) -> void:
 				scoreType = i
 		
 		if scoreType != "miss":
-			#Signals.IncrimentScore.emit(scores[scoreType].score)
-			pass
+			get_parent().incriment_score(scores[scoreType].score)
 		
 		noteToPop.queue_free()
 
@@ -45,14 +44,14 @@ func _process(_delta: float) -> void:
 			noteQueue.pop_front()
 	
 
-func create_note(length: float) -> void:
+func create_note(noteType, length: float) -> void:
 	var noteInstance = Globals.GameNote.instantiate()
 	get_parent().get_node("Notes").call_deferred("add_child", noteInstance) # Change index from self!!
-	noteInstance.setup(position.y, length)
+	noteInstance.setup(position.y, noteType, length)
 	
 	noteQueue.push_back(noteInstance)
 
 func _on_random_timer_timeout() -> void:
-	create_note(50)
+	create_note("BaseNote", 50)
 	$RandomSpawnTimer.wait_time = randf_range(0.4, 3)
 	$RandomSpawnTimer.start()
