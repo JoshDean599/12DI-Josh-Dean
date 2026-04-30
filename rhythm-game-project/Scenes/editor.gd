@@ -1,17 +1,22 @@
 extends Node2D
 
-var Note = preload("res://Scenes/Objects/editor_note.tscn")
-
 
 func _on_add_note_pressed() -> void:
-	createNewNote()
+	createNewNote("", Vector2())
 
 
-func createNewNote() -> void:
-	var newNote = Note.instantiate()
+func createNewNote(Name: String, Position: Vector2) -> void:
+	var newNote = Globals.EditorNote.instantiate()
 	$Notes.add_child(newNote)
-	newNote.name = str($Notes.get_children().size())
-	newNote.position = Vector2(500, 250)
+	if Name == "":
+		newNote.name = str($Notes.get_children().size())
+	else:
+		newNote.name = Name
+	
+	if Position == Vector2():
+		newNote.position = Vector2(500, 250)
+	else:
+		newNote.position = Position
 
 
 func _on_button_pressed() -> void:
@@ -19,7 +24,8 @@ func _on_button_pressed() -> void:
 
 
 func _on_save_pressed() -> void:
-	if $UI/Control/VBoxContainer/FilePath.text.length() <= 0:
+	if $UI/Control/MarginContainer/VBoxContainer/FilePath.text.length() <= 0:
+		print("Unable to save map: undefind file path.")
 		return
 	var saveData = {}
 	for i in $Notes.get_children():
@@ -29,7 +35,7 @@ func _on_save_pressed() -> void:
 				y = i.position.y
 			}
 		}
-	save_map(Globals.basePath + $UI/Control/VBoxContainer/FilePath.text + ".json", saveData)
+	save_map(Globals.basePath + $UI/Control/MarginContainer/VBoxContainer/FilePath.text + ".json", saveData)
 
 
 func save_map(path: String, data: Dictionary) -> void:
@@ -48,22 +54,20 @@ func save_map(path: String, data: Dictionary) -> void:
 
 
 func _on_load_pressed() -> void:
-	var savePath = Globals.basePath + $UI/Control/VBoxContainer/FilePath.text + ".json"
-	if savePath:
-		var saveString = FileAccess.get_file_as_string(savePath)
-		var saveAsDict = JSON.parse_string(saveString)
-		
-		var currentNote = null
-		for i in saveAsDict:
-			if int(i) > $Notes.get_children().size():
-				createNewNote()
-			var changingNote = $Notes.get_node(i)
-			changingNote.position = Vector2(saveAsDict[i].position.x, saveAsDict[i].position.y)
-			currentNote = int(i)
-		
-		if currentNote != null and $Notes.get_children().size() - currentNote > 0:
-			for i in $Notes.get_children().size() - currentNote:
-				print($Notes.get_child(currentNote))
-				$Notes.get_child(currentNote - 1).queue_free()
-				pass
-			pass
+	var savePath = Globals.basePath + $UI/Control/MarginContainer/VBoxContainer/FilePath.text + ".json"
+	# Only continue if the savePath is found and is valid
+	if $UI/Control/MarginContainer/VBoxContainer/FilePath.text.length() <= 0 or not savePath:
+		return
+	
+	var saveString = FileAccess.get_file_as_string(savePath)
+	var saveAsDict = JSON.parse_string(saveString)
+	
+	for i in $Notes.get_children(): # Remove all Editor Notes
+		i.free() # Remove the note during the frame, unlike queue_free() which removes after the frame
+	
+	for i in saveAsDict: # Load the notes from the savePath
+		createNewNote(i, Vector2(saveAsDict[i].position.x, saveAsDict[i].position.y))
+
+
+func show_note_options() -> void:
+	pass

@@ -8,8 +8,7 @@ const doubleClickThreshold = 0.2
 var lastClickTime = 0.0
 @onready var clickTimer = $ClickDetector/Timer
 
-var noteType: int = 1
-var noteTypes = 1
+var noteType: String = "BaseNote"
 
 var GridLockKeyPress = false
 func _unhandled_input(event: InputEvent) -> void:
@@ -45,16 +44,10 @@ func _on_click_detector_button_down() -> void:
 	var currentTime = Time.get_ticks_msec() / 1000.0
 	if currentTime - lastClickTime <= doubleClickThreshold:
 		clickTimer.stop()
-		change_note_type()
+		get_parent().get_parent().show_note_options()
 	else:
 		clickTimer.start(doubleClickThreshold)
 	lastClickTime = currentTime
 
 func _on_click_detector_button_up() -> void:
 	dragging = false
-
-func change_note_type() -> void:
-	noteType += 1
-	if noteType > noteTypes:
-		noteType = 1
-		
