@@ -9,7 +9,9 @@ script = ExtResource("1_wqabg")
 
 [node name="Control" type="Control" parent="UI" unique_id=523003306]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -44,30 +46,15 @@ text = "Save Map"
 layout_mode = 2
 text = "Load Map"
 
-[node name="FilePath" type="TextEdit" parent="UI/Control/MarginContainer/VBoxContainer" unique_id=1860289911]
+[node name="PanelContainer" type="PanelContainer" parent="UI/Control/MarginContainer/VBoxContainer" unique_id=2084397225]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FilePath" type="TextEdit" parent="UI/Control/MarginContainer/VBoxContainer/PanelContainer" unique_id=1860289911]
 layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "FilePath"
-
-[node name="FoldableContainer" type="FoldableContainer" parent="UI/Control/MarginContainer/VBoxContainer" unique_id=2085485522]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/MarginContainer/VBoxContainer/FoldableContainer" unique_id=1868929742]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/MarginContainer/VBoxContainer/FoldableContainer/VBoxContainer" unique_id=1913302187]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/Control/MarginContainer/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=1838236141]
-layout_mode = 2
-text = "NoteType"
-
-[node name="OptionButton" type="OptionButton" parent="UI/Control/MarginContainer/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=2079036023]
-layout_mode = 2
-selected = 0
-item_count = 1
-popup/item_0/text = "BaseNote"
-popup/item_0/id = 0
 
 [node name="Notes" type="Node2D" parent="." unique_id=443945100]
 

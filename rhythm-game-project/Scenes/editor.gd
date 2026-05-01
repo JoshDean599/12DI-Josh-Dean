@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var filePath = $UI/Control/MarginContainer/VBoxContainer/PanelContainer/FilePath
 
 func _on_add_note_pressed() -> void:
 	createNewNote("", Vector2())
@@ -24,7 +25,7 @@ func _on_button_pressed() -> void:
 
 
 func _on_save_pressed() -> void:
-	if $UI/Control/MarginContainer/VBoxContainer/FilePath.text.length() <= 0:
+	if filePath.text.length() <= 0:
 		print("Unable to save map: undefind file path.")
 		return
 	var saveData = {}
@@ -35,7 +36,7 @@ func _on_save_pressed() -> void:
 				y = i.position.y
 			}
 		}
-	save_map(Globals.basePath + $UI/Control/MarginContainer/VBoxContainer/FilePath.text + ".json", saveData)
+	save_map(Globals.basePath + filePath.text + ".json", saveData)
 
 
 func save_map(path: String, data: Dictionary) -> void:
@@ -54,9 +55,9 @@ func save_map(path: String, data: Dictionary) -> void:
 
 
 func _on_load_pressed() -> void:
-	var savePath = Globals.basePath + $UI/Control/MarginContainer/VBoxContainer/FilePath.text + ".json"
+	var savePath = Globals.basePath + filePath.text + ".json"
 	# Only continue if the savePath is found and is valid
-	if $UI/Control/MarginContainer/VBoxContainer/FilePath.text.length() <= 0 or not savePath:
+	if filePath.text.length() <= 0 or not savePath:
 		return
 	
 	var saveString = FileAccess.get_file_as_string(savePath)
@@ -67,7 +68,3 @@ func _on_load_pressed() -> void:
 	
 	for i in saveAsDict: # Load the notes from the savePath
 		createNewNote(i, Vector2(saveAsDict[i].position.x, saveAsDict[i].position.y))
-
-
-func show_note_options() -> void:
-	pass
