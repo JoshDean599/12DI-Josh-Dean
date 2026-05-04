@@ -1,8 +1,5 @@
 extends Node2D
 
-var trailLength: float = 0.0
-var lengthMultiplier: float = 2.0
-
 var movingSpeed: float = 250.0
 var initXPosition: float = 660.0
 
@@ -24,13 +21,10 @@ func _process(delta: float) -> void:
 	if global_position.x < freeQueuePosition:
 		queue_free()
 
-func setup(targetY: float, type: String, length: float):
+func setup(targetY: float, tailPosition: Vector2):
 	#Set the initial notes position
 	global_position = Vector2(initXPosition, targetY)
-	match type:
-		"HoldNote":
-			# Setup the note tail
-			trailLength = length
-			$Tail.position =  Vector2(length * lengthMultiplier, targetY)
+	# Setup the note tail
+	$Tail.position =  tailPosition
 	# Start the processing for the note
 	set_process(true)

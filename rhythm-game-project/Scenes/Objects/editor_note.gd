@@ -6,6 +6,8 @@ var draggedOffset = Vector2.ZERO
 var resizing = false
 var resizingOffset = Vector2.ZERO
 @export var snappingKey = KEY_SPACE
+@export var baseTailSize: float = 0.8
+@export var onHoverTailSize: float = 1.1
 
 const doubleClickThreshold = 0.2
 var lastClickTime = 0.0
@@ -39,7 +41,8 @@ func _process(_delta: float) -> void:
 				name = upperNote.name
 	
 	if resizing:
-		$Tail.position = get_global_mouse_position()
+		$Tail.position = get_global_mouse_position() - resizingOffset
+		$Line2D.set_point_position(1, $Tail.position)
 
 func _on_click_detector_button_down() -> void:
 	dragging = true
@@ -60,10 +63,7 @@ func _on_click_detector_button_up() -> void:
 
 func _on_drag_detector_button_down() -> void:
 	resizing = true
-	resizingOffset = get_global_mouse_position() - global_position
-	print(get_global_mouse_position())
-	print($Tail.global_position)
-	print(global_position)
+	resizingOffset = get_global_mouse_position() - $Tail.position
 
 
 func _on_drag_detector_button_up() -> void:
@@ -71,8 +71,8 @@ func _on_drag_detector_button_up() -> void:
 
 
 func _on_drag_detector_mouse_entered() -> void:
-	$Tail.scale = Vector2(1.1, 1.1)
+	$Tail.scale = Vector2(onHoverTailSize, onHoverTailSize)
 
 
 func _on_drag_detector_mouse_exited() -> void:
-	$Tail.scale = Vector2(1, 1)
+	$Tail.scale = Vector2(baseTailSize, baseTailSize)

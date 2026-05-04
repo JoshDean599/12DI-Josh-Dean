@@ -18,3 +18,7 @@ func change_scene(node):
 	tree.root.remove_child(currentScene) # Remove the old scene
 	tree.root.add_child(node) # Add the new scene
 	tree.current_scene = node # Set the new scene to the current
+
+func load_song(path) -> Dictionary:
+	var saveString = FileAccess.get_file_as_string(path)
+	return JSON.parse_string(saveString)

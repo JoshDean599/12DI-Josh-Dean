@@ -3,19 +3,28 @@
 [ext_resource type="Texture2D" uid="uid://43s0ilqd1cce" path="res://icon.svg" id="1_2tup1"]
 [ext_resource type="Script" uid="uid://bm038u73d51nl" path="res://Scenes/Objects/editor_note.gd" id="2_mygmu"]
 
+[sub_resource type="Gradient" id="Gradient_mygmu"]
+offsets = PackedFloat32Array(0.21604939, 0.8148148)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
 [node name="EditorNote" type="Node2D" unique_id=386026372]
 script = ExtResource("2_mygmu")
 snappingKey = 37
 
+[node name="Line2D" type="Line2D" parent="." unique_id=853734785]
+points = PackedVector2Array(0, 0, 0, 0)
+gradient = SubResource("Gradient_mygmu")
+
 [node name="Tail" type="Sprite2D" parent="." unique_id=1608919916]
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("1_2tup1")
 
 [node name="DragDetector" type="Button" parent="Tail" unique_id=2101793492]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = -79.0
-offset_top = -79.0
-offset_right = 79.0
-offset_bottom = 79.0
+offset_left = -99.999985
+offset_top = -99.999985
+offset_right = 99.999985
+offset_bottom = 99.999985
 
 [node name="Head" type="Sprite2D" parent="." unique_id=1358409400]
 texture = ExtResource("1_2tup1")
