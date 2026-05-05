@@ -44,14 +44,14 @@ func _process(_delta: float) -> void:
 			noteQueue.pop_front()
 	
 
-func create_note(height, tailPosition: Vector2) -> void:
+func create_note(notePosition: Vector2, tailPosition: Vector2) -> void:
 	var noteInstance = Globals.GameNote.instantiate()
 	get_parent().get_node("Notes").call_deferred("add_child", noteInstance) # Change index from self!!
-	noteInstance.setup(height, tailPosition)
+	noteInstance.setup(notePosition, tailPosition)
 	
 	noteQueue.push_back(noteInstance)
 
 func _on_random_timer_timeout() -> void:
-	create_note(position.y, Vector2.ZERO)
+	create_note(Vector2(576.0, 324.0), Vector2.ZERO)
 	$RandomSpawnTimer.wait_time = randf_range(0.4, 3)
 	$RandomSpawnTimer.start()

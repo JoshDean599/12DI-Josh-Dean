@@ -15,7 +15,7 @@ func createNewNote(Name: String, Position: Vector2, TailPosition: Vector2) -> vo
 		newNote.name = Name
 	
 	if Position == Vector2():
-		newNote.position = Vector2(500, 250)
+		newNote.position = $Camera2D.position
 	else:
 		newNote.position = Position
 	
@@ -62,14 +62,7 @@ func save_map(path: String, data: Dictionary) -> void:
 
 
 func _on_load_pressed() -> void:
-	#var savePath = Globals.basePath + filePath.text + ".json"
-	## Only continue if the savePath is found and is valid
-	#if filePath.text.length() <= 0 or not savePath:
-	#	return
-	#
-	#var saveString = FileAccess.get_file_as_string(savePath)
-	#var saveAsDict = JSON.parse_string(saveString)
-	
+	# Check if the filePath is valid
 	if filePath.text.length() <= 0:
 		return
 	 

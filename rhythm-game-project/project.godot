@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="RhythmGameProject"
-run/main_scene="uid://b5ll0ls3ghafl"
+run/main_scene="uid://cn5ke53ctln4g"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

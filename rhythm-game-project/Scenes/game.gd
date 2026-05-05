@@ -18,3 +18,8 @@ func _on_button_pressed() -> void:
 func incriment_score(value) -> void:
 	currentScore += value
 	$UI/Control/HBoxContainer/MarginContainer/Label.text = "Score: " + str(currentScore)
+
+
+func _process(delta: float) -> void:
+	#$Camera2D.position.x -= delta * 10 # - Move camera for some reason
+	pass

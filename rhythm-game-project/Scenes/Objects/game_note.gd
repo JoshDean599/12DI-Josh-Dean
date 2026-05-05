@@ -1,7 +1,6 @@
 extends Node2D
 
 var movingSpeed: float = 250.0
-var initXPosition: float = 660.0
 
 var passedPosition: float = -515.0
 var freeQueuePosition: float = -660.0
@@ -21,9 +20,9 @@ func _process(delta: float) -> void:
 	if global_position.x < freeQueuePosition:
 		queue_free()
 
-func setup(targetY: float, tailPosition: Vector2):
+func setup(notePosition: Vector2, tailPosition: Vector2):
 	#Set the initial notes position
-	global_position = Vector2(initXPosition, targetY)
+	global_position = notePosition
 	# Setup the note tail
 	$Tail.position =  tailPosition
 	# Start the processing for the note
