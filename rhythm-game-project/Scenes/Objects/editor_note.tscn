@@ -9,7 +9,6 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [node name="EditorNote" type="Node2D" unique_id=386026372]
 script = ExtResource("2_mygmu")
-snappingKey = 37
 
 [node name="Line2D" type="Line2D" parent="." unique_id=853734785]
 points = PackedVector2Array(0, 0, 0, 0)

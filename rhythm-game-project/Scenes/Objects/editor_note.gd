@@ -1,22 +1,30 @@
 extends Node2D
 
+# Editor note movement variables
 const GRID_SIZE: Vector2 = Vector2(100, 100)
 var dragging = false
 var draggedOffset = Vector2.ZERO
 var resizing = false
 var resizingOffset = Vector2.ZERO
+var GridLockKeyPress = false
 @export var snappingKey = KEY_SPACE
 @export var baseTailSize: float = 0.8
 @export var onHoverTailSize: float = 1.1
 
+# Double click variables
 const doubleClickThreshold = 0.2
 var lastClickTime = 0.0
 @onready var clickTimer = $Timer
 
-var GridLockKeyPress = false
+# Note Variables
+var duration: float = 0
+var noteType: int = 0
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		GridLockKeyPress = event.keycode == snappingKey
+		if event.keycode == snappingKey:
+			GridLockKeyPress = event.pressed
+			pass
 
 func _process(_delta: float) -> void:
 	if dragging:
@@ -24,24 +32,27 @@ func _process(_delta: float) -> void:
 			position = (get_global_mouse_position() - draggedOffset).snapped(GRID_SIZE)
 		else:
 			position = get_global_mouse_position() - draggedOffset
-		var intName = int(name)
-		if intName > 1:
-			var lowerNote = get_parent().get_node(str(intName - 1))
-			if lowerNote && position.x < lowerNote.position.x:
-				var newName = lowerNote.name
-				lowerNote.name = "PlaceHolderName"
-				name = newName
-				lowerNote.name = name
-		if intName < get_parent().get_children().size():
-			var upperNote = get_parent().get_node(str(intName + 1))
-			if upperNote && position.x > upperNote.position.x:
-				var newName = name
-				name = "PlaceHolderName"
-				upperNote.name = newName
-				name = upperNote.name
+		#var intName = int(name)
+		#if intName > 0:
+		#	var lowerNote = get_parent().get_node(str(intName - 1))
+		#	if lowerNote && position.x < lowerNote.position.x:
+		#		var newName = lowerNote.name
+		#		lowerNote.name = "PlaceHolderName"
+		#		name = newName
+		#		lowerNote.name = name
+		#if intName < get_parent().get_children().size() - 1:
+		#	var upperNote = get_parent().get_node(str(intName + 1))
+		#	if upperNote && position.x > upperNote.position.x:
+		#		var newName = name
+		#		name = "PlaceHolderName"
+		#		upperNote.name = newName
+		#		name = upperNote.name
 	
 	if resizing:
-		$Tail.position = get_global_mouse_position() - resizingOffset
+		if GridLockKeyPress:
+			$Tail.position = (get_global_mouse_position() - resizingOffset).snapped(GRID_SIZE)
+		else:
+			$Tail.position = get_global_mouse_position() - resizingOffset
 		$Line2D.set_point_position(1, $Tail.position)
 
 func _on_click_detector_button_down() -> void:
@@ -68,6 +79,7 @@ func _on_drag_detector_button_down() -> void:
 
 func _on_drag_detector_button_up() -> void:
 	resizing = false
+	duration = abs($Head.position.x - $Tail.position.x)
 
 
 func _on_drag_detector_mouse_entered() -> void:

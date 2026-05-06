@@ -15,7 +15,7 @@ func createNewNote(Name: String, Position: Vector2, TailPosition: Vector2) -> vo
 		newNote.name = Name
 	
 	if Position == Vector2():
-		newNote.position = $Camera2D.position
+		newNote.position = Vector2(500, 500)
 	else:
 		newNote.position = Position
 	
@@ -33,7 +33,7 @@ func _on_save_pressed() -> void:
 		return
 	var saveData = {}
 	for i in $Notes.get_children():
-		saveData[i.name] = {
+		saveData[saveData.size()] = {
 			position = {
 				x = i.position.x,
 				y = i.position.y
