@@ -11,9 +11,3 @@ texture = ExtResource("1_yjfqu")
 
 [node name="Head" type="Sprite2D" parent="." unique_id=1646859482]
 texture = ExtResource("1_yjfqu")
-
-[node name="Timer" type="Timer" parent="." unique_id=574372331]
-one_shot = true
-autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

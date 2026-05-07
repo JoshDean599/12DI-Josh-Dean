@@ -3,16 +3,13 @@ extends Sprite2D
 var noteQueue = []
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		hit_key(event)
-
-func hit_key(inputEvent) -> void:
-	if inputEvent.is_echo() or noteQueue.size() <= 0:
-		return
-	if inputEvent.pressed:
-		var noteToPop = noteQueue.pop_front()
-		noteToPop.hit()
-		noteToPop.queue_free()
+	if event is InputEventKey and not event.is_echo() and noteQueue.size() > 0:
+		if event.pressed:
+			var noteToPop = noteQueue.pop_front()
+			get_parent().incriment_score(noteToPop.on_hit())
+			
+			if noteToPop.duration == 0.0: # If the note is not a hold note
+				noteToPop.queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -25,7 +22,7 @@ func _process(_delta: float) -> void:
 func create_note(notePosition: Vector2, tailPosition: Vector2) -> void:
 	var noteInstance = Globals.GameNote.instantiate()
 	get_parent().get_node("Notes").call_deferred("add_child", noteInstance) # Change index from self!!
-	noteInstance.setup(notePosition, tailPosition)
+	noteInstance.setup(get_parent().currentTime + 2.0, notePosition, tailPosition)
 	
 	noteQueue.push_back(noteInstance)
 
