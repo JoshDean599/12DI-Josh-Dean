@@ -1,15 +1,21 @@
 extends Sprite2D
 
-var noteQueue = []
+var noteQueue = [] #  Keeps track of what notes to process first
+var heldKeys = [] # Keeps track of the held keys
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and not event.is_echo() and noteQueue.size() > 0:
 		if event.pressed:
+			heldKeys.push_back(event.keycode)
 			var noteToPop = noteQueue.pop_front()
-			get_parent().incriment_score(noteToPop.on_hit())
-			
-			if noteToPop.duration == 0.0: # If the note is not a hold note
-				noteToPop.queue_free()
+			noteToPop.activate()
+		else:
+			for i in heldKeys:
+				if heldKeys == event.keycode: # FIX HELDKEY GETTING CODE
+					heldKeys.pop_at(i)
+		print(heldKeys)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -19,14 +25,16 @@ func _process(_delta: float) -> void:
 			noteQueue.pop_front()
 	
 
+
 func create_note(notePosition: Vector2, tailPosition: Vector2) -> void:
 	var noteInstance = Globals.GameNote.instantiate()
 	get_parent().get_node("Notes").call_deferred("add_child", noteInstance) # Change index from self!!
-	noteInstance.setup(get_parent().currentTime + 2.0, notePosition, tailPosition)
-	
+	noteInstance.setup(notePosition, tailPosition)
+	# Adds the note to the end of the note queue
 	noteQueue.push_back(noteInstance)
 
+
 func _on_random_timer_timeout() -> void:
-	create_note(Vector2(576.0, 324.0), Vector2.ZERO)
+	create_note(Vector2(1200.0, randi_range(100, 500)), Vector2(randi_range(0, 5) * 100, 0))
 	$RandomSpawnTimer.wait_time = randf_range(0.4, 3)
 	$RandomSpawnTimer.start()

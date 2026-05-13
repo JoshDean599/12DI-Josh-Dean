@@ -1,20 +1,51 @@
 extends Node2D
 
 @onready var game = get_parent().get_parent()
+@onready var audio = game.get_node("SongHandler").Audio
 
+# The speed the note moves
 var movingSpeed: float = 250.0
+# The duration the note needs to be held for to successfully count. If 0 then regular note.
+var holdDuration: float = 0.0
+var holdStartTime: float = 0.0
+var holdEndTime: float = 0.0 # Change on creation
+var isHolding: bool = false
 
-var duration: float = 0.0 # How long it needs to be held down for
 
 #var passedPosition: float = -515.0
 var freeQueuePosition: float = -660.0
-var noteTime: float = 0.0 # Gets updated when created
 var hasPassed: bool = false
 
+
+func _ready() -> void:
+	var timeToNoteHandler = holdDuration + abs(position.x - game.get_node("NoteHandler").position.x) / movingSpeed
+	if audio:
+		holdEndTime = audio.get_playback_position() + timeToNoteHandler
+	else:
+		holdEndTime = timeToNoteHandler
 
 func _process(delta: float) -> void:
 	# Move the note
 	global_position -= Vector2(movingSpeed * delta, 0)
+	
+	# Check held Note:
+	if audio.get_playback_position() - holdEndTime >= 0 and not hasPassed:
+		if isHolding:
+			# Note Successfully held
+			print("CompletedNote")
+			get_parent().get_parent().incriment_score(10) # Properly calculate score
+			hasPassed = true
+			queue_free()
+		else:
+			# Missed Note
+			print("MissedNote")
+			hasPassed = true
+			pass
+		
+	else:
+		if isHolding:
+			# Do something to update the visual of the note
+			pass
 	
 	
 	# Check if the note no longer counts for hits
@@ -24,27 +55,20 @@ func _process(delta: float) -> void:
 	if global_position.x < freeQueuePosition:
 		hasPassed = true
 		queue_free()
+	
+	
 
-func setup(NoteTime: float, notePosition: Vector2, tailPosition: Vector2):
+func setup(notePosition: Vector2, tailPosition: Vector2):
 	#Set the initial notes position
 	global_position = notePosition
 	# Setup the note tail
 	$Tail.position =  tailPosition
-	# Set the time of the note:
-	noteTime = NoteTime
-	# Start the processing for the note
-	set_process(true)
+	# Setup the duration
+	holdDuration = abs(tailPosition.x / movingSpeed)
+	
 	
 
-
-func on_hit() -> int:
-	var time = game.currentTime
-	var score = 0
+func activate() -> void:
+	holdStartTime = audio.get_playback_position()
+	isHolding = true
 	
-	print(game.scores)
-	for i in game.scores:
-		print(i)
-		if time > i.lower and time < i.upper:
-			score = i.score
-	
-	return score

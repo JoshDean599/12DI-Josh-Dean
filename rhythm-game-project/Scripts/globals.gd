@@ -22,3 +22,17 @@ func change_scene(node):
 func load_song(path) -> Dictionary:
 	var saveString = FileAccess.get_file_as_string(path)
 	return JSON.parse_string(saveString)
+
+# Score definitions. CHANGE TO SOMEWHERE BETTER THAN HERE
+var scores = {
+	ok = {
+		lower = -.5,
+		upper = .5,
+		score = 50
+	},
+	perfect = {
+		lower = -.1,
+		upper = .1,
+		score = 200
+	}
+}

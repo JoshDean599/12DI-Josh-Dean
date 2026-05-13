@@ -3,19 +3,6 @@ extends Node2D
 var currentScore: int = 0
 var currentTime: float = 0.0
 
-var scores = { # Maybe change the position of this to Globals
-	ok = { #-- WHY IS THIS A STRING????
-		lower = -.5,
-		upper = .5,
-		score = 50
-	},
-	perfect = {
-		lower = -.1,
-		upper = .1,
-		score = 200
-	}
-}
-
 func _on_tree_entered() -> void:
 	# Reset the game on re-load
 	# Reset the score:
