@@ -13,7 +13,7 @@ var isHolding: bool = false
 
 
 #var passedPosition: float = -515.0
-var freeQueuePosition: float = -660.0
+var freeQueuePosition: float = 0.0
 var hasPassed: bool = false
 
 
@@ -32,13 +32,12 @@ func _process(delta: float) -> void:
 	if audio.get_playback_position() - holdEndTime >= 0 and not hasPassed:
 		if isHolding:
 			# Note Successfully held
-			print("CompletedNote")
+			#print("CompletedNote")
 			get_parent().get_parent().incriment_score(10) # Properly calculate score
 			hasPassed = true
-			queue_free()
 		else:
 			# Missed Note
-			print("MissedNote")
+			#print("MissedNote")
 			hasPassed = true
 			pass
 		
@@ -54,7 +53,6 @@ func _process(delta: float) -> void:
 	# Clear the note once it's no longer in use
 	if global_position.x < freeQueuePosition:
 		hasPassed = true
-		queue_free()
 	
 	
 
@@ -71,4 +69,3 @@ func setup(notePosition: Vector2, tailPosition: Vector2):
 func activate() -> void:
 	holdStartTime = audio.get_playback_position()
 	isHolding = true
-	
