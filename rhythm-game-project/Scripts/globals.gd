@@ -2,15 +2,16 @@ extends Node
 
 # Scenes
 var MainMenu  = preload("res://Scenes/main_menu.tscn").instantiate()
-var Game   = preload("res://Scenes/game.tscn").instantiate()
-var Editor = preload("res://Scenes/editor.tscn").instantiate()
+var Game      = preload("res://Scenes/game.tscn").instantiate()
+var Editor    = preload("res://Scenes/editor.tscn").instantiate()
 
 # Notes
-var GameNote = preload("res://Scenes/Objects/game_note.tscn")
+var GameNote   = preload("res://Scenes/Objects/game_note.tscn")
 var EditorNote = preload("res://Scenes/Objects/editor_note.tscn")
 
 # The Song Map File Location
 var basePath = "res://Songs/"
+
 
 func change_scene(node):
 	var tree = get_tree()

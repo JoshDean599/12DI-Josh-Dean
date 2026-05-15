@@ -12,8 +12,8 @@ func _on_tree_entered() -> void:
 	
 	$UI/Control/HBoxContainer/MarginContainer/Label.text = "Score: 0"
 	# Remove all loaded notes from the scene and queue:
-	for i in $Notes.get_children().size():
-		$Notes.get_child(i).queue_free()
+	for i in $NoteHandler.get_node("Notes").get_children().size():
+		$NoteHandler.get_node("Notes").get_child(i).queue_free()
 	$NoteHandler.noteQueue = []
 
 func _on_button_pressed() -> void:

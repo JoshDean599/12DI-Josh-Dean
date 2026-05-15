@@ -1,6 +1,7 @@
 extends Node2D
 
-@onready var game = get_parent().get_parent()
+@onready var noteHandler = get_parent().get_parent()
+@onready var game = noteHandler.get_parent()
 @onready var audio = game.get_node("SongHandler").Audio
 
 # The speed the note moves
@@ -13,12 +14,14 @@ var isHolding: bool = false
 
 
 #var passedPosition: float = -515.0
-var freeQueuePosition: float = 0.0
+var freeQueuePosition: float = 100.0
 var hasPassed: bool = false
 
 
 func _ready() -> void:
-	var timeToNoteHandler = holdDuration + abs(position.x - game.get_node("NoteHandler").position.x) / movingSpeed
+	freeQueuePosition = noteHandler.position.x
+	
+	var timeToNoteHandler = holdDuration + abs(position.x - noteHandler.position.x) / movingSpeed
 	if audio:
 		holdEndTime = audio.get_playback_position() + timeToNoteHandler
 	else:
@@ -28,12 +31,12 @@ func _process(delta: float) -> void:
 	# Move the note
 	global_position -= Vector2(movingSpeed * delta, 0)
 	
-	# Check held Note:
+	# Check if the note is held:
 	if audio.get_playback_position() - holdEndTime >= 0 and not hasPassed:
-		if isHolding:
+		if noteHandler.holding:
 			# Note Successfully held
 			#print("CompletedNote")
-			get_parent().get_parent().incriment_score(10) # Properly calculate score
+			game.incriment_score(10) # Properly calculate score
 			hasPassed = true
 		else:
 			# Missed Note
@@ -42,7 +45,7 @@ func _process(delta: float) -> void:
 			pass
 		
 	else:
-		if isHolding:
+		if noteHandler.holding:
 			# Do something to update the visual of the note
 			pass
 	
@@ -54,6 +57,10 @@ func _process(delta: float) -> void:
 	if global_position.x < freeQueuePosition:
 		hasPassed = true
 	
+	if hasPassed:
+		if noteHandler.noteQueue.find(self) >= 0:
+			noteHandler.noteQueue.pop_at(noteHandler.noteQueue.find(self))
+			queue_free()
 	
 
 func setup(notePosition: Vector2, tailPosition: Vector2):
@@ -68,4 +75,3 @@ func setup(notePosition: Vector2, tailPosition: Vector2):
 
 func activate() -> void:
 	holdStartTime = audio.get_playback_position()
-	isHolding = true

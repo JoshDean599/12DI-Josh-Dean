@@ -4,12 +4,13 @@
 [ext_resource type="Script" uid="uid://pkyy3p5v70cx" path="res://Scenes/Objects/note_handler.gd" id="2_f8bsx"]
 
 [node name="NoteHandler" type="Sprite2D" unique_id=1143384118]
-scale = Vector2(0.15625, 4.484375)
 texture = ExtResource("1_xy2le")
 script = ExtResource("2_f8bsx")
 
 [node name="RandomSpawnTimer" type="Timer" parent="." unique_id=1737574455]
 one_shot = true
 autostart = true
+
+[node name="Notes" type="Node2D" parent="." unique_id=1589741201]
 
 [connection signal="timeout" from="RandomSpawnTimer" to="." method="_on_random_timer_timeout"]
