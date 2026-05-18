@@ -1,8 +1,7 @@
 extends Node2D
 
-@onready var noteHandler = get_parent().get_parent()
 @onready var game = noteHandler.get_parent()
-@onready var audio = game.get_node("SongHandler").Audio
+var noteHandler = null
 
 # The speed the note moves
 var movingSpeed: float = 250.0
@@ -14,25 +13,16 @@ var isHolding: bool = false
 
 
 #var passedPosition: float = -515.0
-var freeQueuePosition: float = 100.0
+var freeQueuePosition: float = 0.0
 var hasPassed: bool = false
 
-
-func _ready() -> void:
-	freeQueuePosition = noteHandler.position.x
-	
-	var timeToNoteHandler = holdDuration + abs(position.x - noteHandler.position.x) / movingSpeed
-	if audio:
-		holdEndTime = audio.get_playback_position() + timeToNoteHandler
-	else:
-		holdEndTime = timeToNoteHandler
 
 func _process(delta: float) -> void:
 	# Move the note
 	global_position -= Vector2(movingSpeed * delta, 0)
 	
 	# Check if the note is held:
-	if audio.get_playback_position() - holdEndTime >= 0 and not hasPassed:
+	if game.currentTime - holdEndTime >= 0 and not hasPassed:
 		if noteHandler.holding:
 			# Note Successfully held
 			#print("CompletedNote")
@@ -55,23 +45,25 @@ func _process(delta: float) -> void:
 	#	hasPassed = true
 	# Clear the note once it's no longer in use
 	if global_position.x < freeQueuePosition:
+		#print("HasPassed")
 		hasPassed = true
 	
 	if hasPassed:
 		if noteHandler.noteQueue.find(self) >= 0:
+			#print("Removing Note")
 			noteHandler.noteQueue.pop_at(noteHandler.noteQueue.find(self))
 			queue_free()
 	
 
-func setup(notePosition: Vector2, tailPosition: Vector2):
-	#Set the initial notes position
-	global_position = notePosition
-	# Setup the note tail
-	$Tail.position =  tailPosition
-	# Setup the duration
-	holdDuration = abs(tailPosition.x / movingSpeed)
+func setup(noteHAndler, noteSettings: Dictionary, currentTime):
+	noteHandler = noteHAndler # Define the note handler
 	
+	holdDuration = abs(noteSettings.tailPosition.x / movingSpeed)
 	
-
-func activate() -> void:
-	holdStartTime = audio.get_playback_position()
+	holdEndTime = (noteSettings.position.x - noteHAndler.position.x + 64) / movingSpeed + currentTime
+	
+	# Set the notes initial position
+	global_position = Vector2(noteSettings.position.x, noteSettings.position.y)
+	# Setup the notes tail position
+	$Tail.position =  Vector2(noteSettings.tailPosition.x, noteSettings.tailPosition.y)
+	
