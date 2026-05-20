@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://blddwce4egim7"]
 
 [ext_resource type="Script" uid="uid://7e0l1ysmjagv" path="res://Scenes/Objects/song_handler.gd" id="1_qsvg7"]
-[ext_resource type="AudioStream" uid="uid://6xu6xec7nvj6" path="res://NEFFEX - Hate It or Love It [Copyright Free] No.82.wav" id="2_54eop"]
+[ext_resource type="AudioStream" uid="uid://6xu6xec7nvj6" path="res://Songs/Music/NEFFEX - Hate It or Love It.wav" id="2_54eop"]
 
 [node name="SongHandler" type="Node" unique_id=1731543359]
 script = ExtResource("1_qsvg7")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1921127021]
+[node name="Audio" type="AudioStreamPlayer2D" parent="." unique_id=1921127021]
 stream = ExtResource("2_54eop")

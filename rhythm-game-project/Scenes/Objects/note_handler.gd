@@ -43,26 +43,34 @@ func create_note(noteSettings: Dictionary) -> void:
 	# Add the note to the end of the note queue
 	noteQueue.push_back(noteInstance)
 
-func remove_note(index):
-	if noteQueue.get(index):
-		var noteToPop = noteQueue.get(index)
+func remove_note(id):
+	if noteQueue.get(id):
+		var noteToPop = noteQueue.get(id)
 		noteToPop.queue_free()
 		pass
 	pass
 
 
-func _on_random_timer_timeout() -> void:
-	create_note(
-		{
-			position = {
-				x = 1200.0,
-				y = randi_range(-100, 100)
-			},
-			tailPosition = {
-				x = randi_range(0, 3) * 100,
-				y = 0
-			}
-		}
-	)
-	$RandomSpawnTimer.wait_time = randf_range(1, 3)
-	$RandomSpawnTimer.start()
+func load_song(song):
+	var loadedSong = Globals.load_song(Globals.basePath + "Maps/" + song + ".json")
+	for i in loadedSong:
+		if i != "Song":
+			create_note({position = i.position, tailPosition = i.tailPosiiton}) # >:l
+	pass
+
+
+#func _on_random_timer_timeout() -> void:
+#	create_note(
+#		{
+#			position = {
+#				x = 1200.0,
+#				y = randi_range(-100, 100)
+#			},
+#			tailPosition = {
+#				x = randi_range(0, 3) * 100,
+#				y = 0
+#			}
+#		}
+#	)
+#	$RandomSpawnTimer.wait_time = randf_range(1, 3)
+#	$RandomSpawnTimer.start()

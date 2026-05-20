@@ -1,9 +1,10 @@
 extends Node2D
 
-@onready var filePath = $UI/Control/MarginContainer/VBoxContainer/PanelContainer/FilePath
+@onready var filePath = $UI/Control/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/FilePath
+@onready var songName = $UI/Control/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/SongName
 
 func _on_add_note_pressed() -> void:
-	createNewNote("", Vector2(), Vector2())
+	createNewNote("", Vector2(500, 500), Vector2())
 
 
 func createNewNote(Name: String, Position: Vector2, TailPosition: Vector2) -> void:
@@ -14,26 +15,20 @@ func createNewNote(Name: String, Position: Vector2, TailPosition: Vector2) -> vo
 	else:
 		newNote.name = Name
 	
-	if Position == Vector2():
-		newNote.position = Vector2(500, 500)
-	else:
-		newNote.position = Position
+	newNote.position = Position
 	
 	newNote.get_node("Tail").position = TailPosition
 	newNote.get_node("Line2D").set_point_position(1, TailPosition)
-
-
-func _on_button_pressed() -> void:
-	Globals.change_scene(Globals.MainMenu)
 
 
 func _on_save_pressed() -> void:
 	if filePath.text.length() <= 0:
 		print("Unable to save map: undefind file path.")
 		return
-	var saveData = {}
+	
+	var saveData = {Song = songName.text}
 	for i in $Notes.get_children():
-		saveData[saveData.size()] = {
+		saveData[saveData.size() - 1] = {
 			position = {
 				x = i.position.x,
 				y = i.position.y
@@ -43,7 +38,7 @@ func _on_save_pressed() -> void:
 				y = i.get_node("Tail").position.y
 			}
 		}
-	save_map(Globals.basePath + filePath.text + ".json", saveData)
+	save_map(Globals.basePath + "/Maps" + filePath.text + ".json", saveData)
 
 
 func save_map(path: String, data: Dictionary) -> void:
@@ -77,3 +72,7 @@ func _on_load_pressed() -> void:
 			Vector2(saveAsDict[i].position.x, saveAsDict[i].position.y), 		# Note Position
 			Vector2(saveAsDict[i].tailPosition.x, saveAsDict[i].tailPosition.y) # Note Tail Position
 		)
+
+
+func _on_return_button_pressed() -> void:
+	Globals.change_scene(Globals.MainMenu)

@@ -9,7 +9,7 @@ var Editor    = preload("res://Scenes/editor.tscn").instantiate()
 var GameNote   = preload("res://Scenes/Objects/game_note.tscn")
 var EditorNote = preload("res://Scenes/Objects/editor_note.tscn")
 
-# The Song Map File Location
+# The Song File base location
 var basePath = "res://Songs/"
 
 

@@ -1,14 +1,9 @@
 extends Node
 
-@onready var Audio = $AudioStreamPlayer2D
+var Audio = null
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	Audio.play()
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	#print(Audio.get_playback_position())
-	pass
+func load_song(song):
+	if not Audio:
+		Audio = $Audio
+	$Audio.stream = load(Globals.basePath + "Music/" + Globals.load_song(Globals.basePath + "Maps/" + song + ".json").Song + ".wav")
+	

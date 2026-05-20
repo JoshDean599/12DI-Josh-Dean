@@ -4,27 +4,28 @@ extends Node2D
 const GRID_SIZE: Vector2 = Vector2(100, 100)
 var dragging = false
 var draggedOffset = Vector2.ZERO
-var resizing = false
-var resizingOffset = Vector2.ZERO
+var tailDragging = false
+var tailDraggingOffset = Vector2.ZERO
 var GridLockKeyPress = false
 @export var snappingKey = KEY_SPACE
 @export var baseTailSize: float = 0.8
 @export var onHoverTailSize: float = 1.1
 
 # Double click variables
-const doubleClickThreshold = 0.2
-var lastClickTime = 0.0
-@onready var clickTimer = $Timer
+#const doubleClickThreshold = 0.2
+#var lastClickTime = 0.0
+#@onready var clickTimer = $Timer
 
 # Note Variables
 var duration: float = 0
 var noteType: int = 0
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.keycode == snappingKey:
 			GridLockKeyPress = event.pressed
-			pass
+
 
 func _process(_delta: float) -> void:
 	if dragging:
@@ -48,11 +49,11 @@ func _process(_delta: float) -> void:
 		#		upperNote.name = newName
 		#		name = upperNote.name
 	
-	if resizing:
+	if tailDragging:
 		if GridLockKeyPress:
-			$Tail.position = (get_global_mouse_position() - resizingOffset).snapped(GRID_SIZE)
+			$Tail.position = (get_global_mouse_position() - tailDraggingOffset).snapped(GRID_SIZE)
 		else:
-			$Tail.position = get_global_mouse_position() - resizingOffset
+			$Tail.position = get_global_mouse_position() - tailDraggingOffset
 		$Line2D.set_point_position(1, $Tail.position)
 
 func _on_click_detector_button_down() -> void:
@@ -73,12 +74,12 @@ func _on_click_detector_button_up() -> void:
 
 
 func _on_drag_detector_button_down() -> void:
-	resizing = true
-	resizingOffset = get_global_mouse_position() - $Tail.position
+	tailDragging = true
+	tailDraggingOffset = get_global_mouse_position() - $Tail.position
 
 
 func _on_drag_detector_button_up() -> void:
-	resizing = false
+	tailDragging = false
 	duration = abs($Head.position.x - $Tail.position.x)
 
 

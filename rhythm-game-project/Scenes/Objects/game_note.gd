@@ -5,7 +5,7 @@ var noteHandler = null # Gets set on setup before @onready
 
 # The speed the note moves
 var movingSpeed: float = 250.0
-var holdEndTime: float = 0.0 # Changed on creation
+var holdEndTime: float = 0.0
 
 var freeQueuePosition: float = -500.0
 var active = false
