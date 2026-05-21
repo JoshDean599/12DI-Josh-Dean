@@ -10,7 +10,8 @@ var GameNote   = preload("res://Scenes/Objects/game_note.tscn")
 var EditorNote = preload("res://Scenes/Objects/editor_note.tscn")
 
 # The Song File base location
-var basePath = "res://Songs/"
+var mapPath = "res://Songs/Maps/"
+var musicPath = "res://Songs/Music/"
 
 
 func change_scene(node):
@@ -21,6 +22,9 @@ func change_scene(node):
 	tree.current_scene = node # Set the new scene to the current
 
 func load_song(path) -> Dictionary:
+	if not FileAccess.open(path, FileAccess.READ):
+		return {}
+	
 	var saveString = FileAccess.get_file_as_string(path)
 	return JSON.parse_string(saveString)
 

@@ -3,17 +3,15 @@ extends Node2D
 @onready var filePath = $UI/Control/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/FilePath
 @onready var songName = $UI/Control/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/SongName
 
+@export var noteSpeed = 250
+
 func _on_add_note_pressed() -> void:
-	createNewNote("", Vector2(500, 500), Vector2())
+	createNewNote(Vector2(500, 500), Vector2())
 
 
-func createNewNote(Name: String, Position: Vector2, TailPosition: Vector2) -> void:
+func createNewNote(Position: Vector2, TailPosition: Vector2) -> void:
 	var newNote = Globals.EditorNote.instantiate()
 	$Notes.add_child(newNote)
-	if Name == "":
-		newNote.name = str($Notes.get_children().size())
-	else:
-		newNote.name = Name
 	
 	newNote.position = Position
 	
@@ -26,19 +24,25 @@ func _on_save_pressed() -> void:
 		print("Unable to save map: undefind file path.")
 		return
 	
-	var saveData = {Song = songName.text}
-	for i in $Notes.get_children():
-		saveData[saveData.size() - 1] = {
-			position = {
-				x = i.position.x,
-				y = i.position.y
-			},
-			tailPosition = {
-				x = i.get_node("Tail").position.x,
-				y = i.get_node("Tail").position.y
-			}
+	var saveData = {
+		Notes = [],
+		Song = songName.text
 		}
-	save_map(Globals.basePath + "/Maps" + filePath.text + ".json", saveData)
+	for i in $Notes.get_children(): # Insert each notes into the table
+		saveData.Notes.push_back(
+			{
+				time = i.position.x / noteSpeed,
+				position = {
+					x = i.position.x,
+					y = i.position.y
+				},
+				tailPosition = {
+					x = i.get_node("Tail").position.x,
+					y = i.get_node("Tail").position.y
+				}
+			}
+		)
+	save_map(Globals.mapPath + filePath.text + ".json", saveData)
 
 
 func save_map(path: String, data: Dictionary) -> void:
@@ -57,20 +61,15 @@ func save_map(path: String, data: Dictionary) -> void:
 
 
 func _on_load_pressed() -> void:
-	# Check if the filePath is valid
-	if filePath.text.length() <= 0:
-		return
-	 
-	var saveAsDict = Globals.load_song(Globals.basePath + filePath.text + ".json")
+	var saveAsDict = Globals.load_song(Globals.mapPath + filePath.text + ".json")
 	
 	for i in $Notes.get_children(): # Remove all Editor Notes
 		i.free() # Remove the note during the frame, unlike queue_free() which removes after the frame
 	
-	for i in saveAsDict: # Load the notes from the savePath
+	for i in saveAsDict.Notes: # Load the notes from the savePath
 		createNewNote(
-			i,																	# Note Name
-			Vector2(saveAsDict[i].position.x, saveAsDict[i].position.y), 		# Note Position
-			Vector2(saveAsDict[i].tailPosition.x, saveAsDict[i].tailPosition.y) # Note Tail Position
+			Vector2(i.position.x, i.position.y), 		# Note Position
+			Vector2(i.tailPosition.x, i.tailPosition.y) # Note Tail Position
 		)
 
 

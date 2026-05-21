@@ -1,9 +1,12 @@
 extends Sprite2D
 
+@onready var game = get_parent()
+
 var noteQueue = [] #  Keeps track of what notes to process first
 var heldKeys = [] # Keeps track of the held keys
 var holding = false
 
+var loadedSong = null
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_echo() and event is InputEventKey:
@@ -32,6 +35,9 @@ func _process(_delta: float) -> void:
 	if noteQueue.size() > 0 and noteQueue.front().position.x < 0.0: # Change to proper range
 		noteQueue.pop_front()
 	
+	if loadedSong != null:
+		check_note()
+	
 	pass
 	
 
@@ -52,11 +58,29 @@ func remove_note(id):
 
 
 func load_song(song):
-	var loadedSong = Globals.load_song(Globals.basePath + "Maps/" + song + ".json")
-	for i in loadedSong:
-		if i != "Song":
-			create_note({position = i.position, tailPosition = i.tailPosiiton}) # >:l
-	pass
+	loadedSong = Globals.load_song(Globals.mapPath + song + ".json")
+	print("loadedSong?")
+
+func check_note():
+	print("checkingNotes")
+	var popLocations = []
+	for i in loadedSong.Notes:
+		if i.position.x / i.time >= game.currentTime:
+			create_note({
+				position = {
+					x = i.position.x,
+					y = i.position.y - position.y
+					},
+				tailPosition = {
+					x = i.tailPosition.x,
+					y = i.tailPosition.y
+					}
+				})
+			popLocations.push_back(i)
+	for i in popLocations: # DOESN"T POP, FIX THIS
+		loadedSong.i = {}
+	
+
 
 
 #func _on_random_timer_timeout() -> void:
