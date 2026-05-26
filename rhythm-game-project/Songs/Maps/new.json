@@ -1,6 +1,7 @@
 {
 	"Notes": [
 		{
+			"name": "EditorNote",
 			"position": {
 				"x": 500.0,
 				"y": 400.0
@@ -12,6 +13,7 @@
 			"time": 2.0
 		},
 		{
+			"name": "@Node2D@12",
 			"position": {
 				"x": 300.0,
 				"y": 200.0
@@ -23,6 +25,7 @@
 			"time": 1.2
 		},
 		{
+			"name": "@Node2D@13",
 			"position": {
 				"x": 800.0,
 				"y": 200.0

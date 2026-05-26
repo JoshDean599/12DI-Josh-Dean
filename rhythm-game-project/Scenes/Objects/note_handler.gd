@@ -35,7 +35,7 @@ func _process(_delta: float) -> void:
 	if noteQueue.size() > 0 and noteQueue.front().position.x < 0.0: # Change to proper range
 		noteQueue.pop_front()
 	
-	if loadedSong != null:
+	if loadedSong != null and loadedSong.Notes.size() > 0:
 		check_note()
 	
 	pass
@@ -45,6 +45,7 @@ func _process(_delta: float) -> void:
 func create_note(noteSettings: Dictionary) -> void:
 	var noteInstance = Globals.GameNote.instantiate()
 	$Notes.call_deferred("add_child", noteInstance)
+	noteSettings.position.y -= self.position.y
 	noteInstance.setup(self, noteSettings, get_parent().currentTime)
 	# Add the note to the end of the note queue
 	noteQueue.push_back(noteInstance)
@@ -59,26 +60,20 @@ func remove_note(id):
 
 func load_song(song):
 	loadedSong = Globals.load_song(Globals.mapPath + song + ".json")
-	print("loadedSong?")
+
 
 func check_note():
-	print("checkingNotes")
-	var popLocations = []
+	var closestNote = 0 # Index of closest note
+	var currentIndex = 0
 	for i in loadedSong.Notes:
-		if i.position.x / i.time >= game.currentTime:
-			create_note({
-				position = {
-					x = i.position.x,
-					y = i.position.y - position.y
-					},
-				tailPosition = {
-					x = i.tailPosition.x,
-					y = i.tailPosition.y
-					}
-				})
-			popLocations.push_back(i)
-	for i in popLocations: # DOESN"T POP, FIX THIS
-		loadedSong.i = {}
+		if loadedSong.Notes[currentIndex].time < loadedSong.Notes[closestNote].time:
+			closestNote = currentIndex
+		currentIndex += 1
+	print("Note time: ", loadedSong.Notes[closestNote].time, " Added time: ", loadedSong.Notes[closestNote].time + game.bufferTime, " CurrentTime: ", game.currentTime)
+	
+	if loadedSong.Notes[closestNote].time + game.bufferTime <= game.currentTime:
+		print("CreatedNote: ", loadedSong.Notes[closestNote])
+		create_note(loadedSong.Notes.pop_at(closestNote))
 	
 
 
