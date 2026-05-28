@@ -5,15 +5,23 @@ extends Node2D
 
 @export var noteSpeed = 250
 
+@onready var camera = $Camera2D
+var cameraOffset = 0
+var dragging = false
+var startDragPosition = Vector2.ZERO
+
+
 func _on_add_note_pressed() -> void:
-	createNewNote(Vector2(500, 500), Vector2())
+	createNewNote(Vector2(0, 0), Vector2())
 
 
 func createNewNote(Position: Vector2, TailPosition: Vector2) -> void:
 	var newNote = Globals.EditorNote.instantiate()
 	$Notes.add_child(newNote)
 	
-	newNote.position = Position
+	newNote.position.x = Position.x + camera.position.x
+	newNote.position.y = Position.y + camera.position.y
+	print(newNote.position, " ", camera.position)
 	
 	newNote.get_node("Tail").position = TailPosition
 	newNote.get_node("Line2D").set_point_position(1, TailPosition)
@@ -33,8 +41,8 @@ func _on_save_pressed() -> void:
 			{
 				time = i.position.x / noteSpeed,
 				position = {
-					x = i.position.x,
-					y = i.position.y
+					x = i.position.x - camera.position.x,
+					y = i.position.y - camera.position.y
 				},
 				tailPosition = {
 					x = i.get_node("Tail").position.x,
@@ -68,10 +76,24 @@ func _on_load_pressed() -> void:
 	
 	for i in saveAsDict.Notes: # Load the notes from the savePath
 		createNewNote(
-			Vector2(i.position.x, i.position.y), 		# Note Position
+			Vector2(i.position.x + camera.position.x, i.position.y + camera.position.y), # Note Position
 			Vector2(i.tailPosition.x, i.tailPosition.y) # Note Tail Position
 		)
 
 
 func _on_return_button_pressed() -> void:
 	Globals.change_scene(Globals.MainMenu)
+
+func _process(_delta: float) -> void:
+	if dragging:
+		camera.position.x = DisplayServer.mouse_get_position().x - startDragPosition
+		$UI/Control/MarginContainer2/Label.text = "Time: " + str(camera.position.x / noteSpeed)
+
+
+func _on_drag_detector_button_down() -> void:
+	dragging = true
+	startDragPosition = DisplayServer.mouse_get_position().x - camera.position.x
+
+
+func _on_drag_detector_button_up() -> void:
+	dragging = false

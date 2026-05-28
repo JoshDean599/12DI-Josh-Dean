@@ -58,7 +58,7 @@ func _process(_delta: float) -> void:
 
 func _on_click_detector_button_down() -> void:
 	dragging = true
-	draggedOffset  = get_global_mouse_position() - global_position
+	draggedOffset = get_global_mouse_position() - global_position
 	
 #	var currentTime = Time.get_ticks_msec() / 1000.0
 #	if currentTime - lastClickTime <= doubleClickThreshold:

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://brfyccsgwq6rl"]
 
 [ext_resource type="Script" uid="uid://i5pwojav548r" path="res://Scenes/editor.gd" id="1_wqabg"]
+[ext_resource type="Texture2D" uid="uid://43s0ilqd1cce" path="res://icon.svg" id="2_24ceq"]
 
 [node name="Editor" type="Node2D" unique_id=219707909]
 script = ExtResource("1_wqabg")
@@ -64,9 +65,39 @@ layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "SongName"
 
+[node name="MarginContainer2" type="MarginContainer" parent="UI/Control" unique_id=2146079056]
+layout_mode = 0
+offset_top = 608.0
+offset_right = 56.0
+offset_bottom = 648.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="UI/Control/MarginContainer2" unique_id=934091839]
+layout_mode = 2
+text = "Time: 0"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1114025308]
+position = Vector2(0, 1001)
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D" unique_id=2048603556]
+scale = Vector2(0.040001586, 4.4399996)
+texture = ExtResource("2_24ceq")
+
+[node name="Drag Detector" type="Button" parent="Camera2D" unique_id=360671343]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -578.0
+offset_top = -326.0
+offset_right = 578.0
+offset_bottom = 326.0
+
 [node name="Notes" type="Node2D" parent="." unique_id=443945100]
 
 [connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Return" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Add Note" to="." method="_on_add_note_pressed"]
 [connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Load" to="." method="_on_load_pressed"]
+[connection signal="button_down" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_button_down"]
+[connection signal="button_up" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_button_up"]

@@ -45,17 +45,11 @@ func _process(_delta: float) -> void:
 func create_note(noteSettings: Dictionary) -> void:
 	var noteInstance = Globals.GameNote.instantiate()
 	$Notes.call_deferred("add_child", noteInstance)
+	noteSettings.position.x = 1220
 	noteSettings.position.y -= self.position.y
 	noteInstance.setup(self, noteSettings, get_parent().currentTime)
 	# Add the note to the end of the note queue
 	noteQueue.push_back(noteInstance)
-
-func remove_note(id):
-	if noteQueue.get(id):
-		var noteToPop = noteQueue.get(id)
-		noteToPop.queue_free()
-		pass
-	pass
 
 
 func load_song(song):
@@ -69,10 +63,8 @@ func check_note():
 		if loadedSong.Notes[currentIndex].time < loadedSong.Notes[closestNote].time:
 			closestNote = currentIndex
 		currentIndex += 1
-	print("Note time: ", loadedSong.Notes[closestNote].time, " Added time: ", loadedSong.Notes[closestNote].time + game.bufferTime, " CurrentTime: ", game.currentTime)
 	
 	if loadedSong.Notes[closestNote].time + game.bufferTime <= game.currentTime:
-		print("CreatedNote: ", loadedSong.Notes[closestNote])
 		create_note(loadedSong.Notes.pop_at(closestNote))
 	
 

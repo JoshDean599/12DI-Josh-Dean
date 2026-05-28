@@ -32,11 +32,6 @@ func _on_tree_entered() -> void: # Happens before @onready is called
 	songHandler.get_node("Audio").stop()
 	playing = false
 	
-	# Remove all loaded notes from the scene and queue:
-	for i in noteHandler.noteQueue:
-		noteHandler.remove_note(i) # Maybe...
-	
-	
 	for i in noteHandler.get_node("Notes").get_children().size():
 		noteHandler.get_node("Notes").get_child(i).queue_free()
 	noteHandler.noteQueue = []
