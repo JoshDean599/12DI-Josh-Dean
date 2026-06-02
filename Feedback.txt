@@ -1,0 +1,1 @@
+add indication for main note hovering and reduce the overall size of editor hitbox  add textures  - merlin wightman - 2/6/26

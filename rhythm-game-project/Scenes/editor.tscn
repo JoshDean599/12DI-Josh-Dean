@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://brfyccsgwq6rl"]
 
 [ext_resource type="Script" uid="uid://i5pwojav548r" path="res://Scenes/editor.gd" id="1_wqabg"]
-[ext_resource type="Texture2D" uid="uid://43s0ilqd1cce" path="res://icon.svg" id="2_24ceq"]
 
 [node name="Editor" type="Node2D" unique_id=219707909]
 script = ExtResource("1_wqabg")
@@ -80,11 +79,6 @@ layout_mode = 2
 text = "Time: 0"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1114025308]
-position = Vector2(0, 1001)
-
-[node name="Sprite2D" type="Sprite2D" parent="Camera2D" unique_id=2048603556]
-scale = Vector2(0.040001586, 4.4399996)
-texture = ExtResource("2_24ceq")
 
 [node name="Drag Detector" type="Button" parent="Camera2D" unique_id=360671343]
 self_modulate = Color(1, 1, 1, 0)

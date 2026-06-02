@@ -2,7 +2,7 @@
 	"Notes": [
 		{
 			"position": {
-				"x": 0.0,
+				"x": -197.0,
 				"y": 0.0
 			},
 			"tailPosition": {
@@ -10,7 +10,128 @@
 				"y": 0.0
 			},
 			"time": 0.0
+		},
+		{
+			"position": {
+				"x": 3.0,
+				"y": -100.0
+			},
+			"tailPosition": {
+				"x": 200.0,
+				"y": 0.0
+			},
+			"time": 0.8
+		},
+		{
+			"position": {
+				"x": 3.0,
+				"y": 100.0
+			},
+			"tailPosition": {
+				"x": 200.0,
+				"y": 0.0
+			},
+			"time": 0.8
+		},
+		{
+			"position": {
+				"x": 403.0,
+				"y": 0.0
+			},
+			"tailPosition": {
+				"x": 300.0,
+				"y": 0.0
+			},
+			"time": 2.4
+		},
+		{
+			"position": {
+				"x": 903.0,
+				"y": -100.0
+			},
+			"tailPosition": {
+				"x": 0.0,
+				"y": 0.0
+			},
+			"time": 4.4
+		},
+		{
+			"position": {
+				"x": 903.0,
+				"y": 100.0
+			},
+			"tailPosition": {
+				"x": 0.0,
+				"y": 0.0
+			},
+			"time": 4.4
+		},
+		{
+			"position": {
+				"x": 1103.0,
+				"y": -100.0
+			},
+			"tailPosition": {
+				"x": 200.0,
+				"y": 0.0
+			},
+			"time": 5.2
+		},
+		{
+			"position": {
+				"x": 1303.0,
+				"y": 100.0
+			},
+			"tailPosition": {
+				"x": 200.0,
+				"y": 0.0
+			},
+			"time": 6.0
+		},
+		{
+			"position": {
+				"x": 1703.0,
+				"y": 0.0
+			},
+			"tailPosition": {
+				"x": 0.0,
+				"y": 0.0
+			},
+			"time": 7.6
+		},
+		{
+			"position": {
+				"x": 1903.0,
+				"y": 0.0
+			},
+			"tailPosition": {
+				"x": 0.0,
+				"y": 0.0
+			},
+			"time": 8.4
+		},
+		{
+			"position": {
+				"x": 2103.0,
+				"y": -100.0
+			},
+			"tailPosition": {
+				"x": 0.0,
+				"y": 0.0
+			},
+			"time": 9.2
+		},
+		{
+			"position": {
+				"x": 2103.0,
+				"y": 100.0
+			},
+			"tailPosition": {
+				"x": 0.0,
+				"y": 0.0
+			},
+			"time": 9.2
 		}
 	],
-	"Song": ""
+	"Song": "NEFFEX - Hate It or Love It"
 }

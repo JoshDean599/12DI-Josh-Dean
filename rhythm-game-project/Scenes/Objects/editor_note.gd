@@ -8,8 +8,12 @@ var tailDragging = false
 var tailDraggingOffset = Vector2.ZERO
 var GridLockKeyPress = false
 @export var snappingKey = KEY_SPACE
+@export var baseHeadScale: float = 1.0
+@export var onHoverHeadScale: float = 1.1
 @export var baseTailSize: float = 0.8
 @export var onHoverTailSize: float = 1.1
+@export var tailDragDetectorBaseScale: float = 2.0
+@export var tailDragDetectorOffsetScale: float = 1.3
 
 # Double click variables
 #const doubleClickThreshold = 0.2
@@ -72,15 +76,29 @@ func _on_click_detector_button_down() -> void:
 func _on_click_detector_button_up() -> void:
 	dragging = false
 
+func _on_click_detector_mouse_entered() -> void:
+	$Head.scale = Vector2(onHoverHeadScale, onHoverHeadScale)
+
+func _on_click_detector_mouse_exited() -> void:
+	$Head.scale = Vector2(baseHeadScale, baseHeadScale)
+
 
 func _on_drag_detector_button_down() -> void:
 	tailDragging = true
 	tailDraggingOffset = get_global_mouse_position() - $Tail.position
+	
+	$Head/ClickDetector.visible = false
 
 
 func _on_drag_detector_button_up() -> void:
 	tailDragging = false
 	duration = abs($Head.position.x - $Tail.position.x)
+	
+	$Head/ClickDetector.visible = true
+	if $Tail.position.x <= 30 and $Tail.position.x >= -30 and $Tail.position.y >= -30 and $Tail.position.y <= 30:
+		$Tail/DragDetector.scale = Vector2(tailDragDetectorBaseScale, tailDragDetectorBaseScale)
+	else:
+		$Tail/DragDetector.scale = Vector2(tailDragDetectorOffsetScale, tailDragDetectorOffsetScale)
 
 
 func _on_drag_detector_mouse_entered() -> void:
