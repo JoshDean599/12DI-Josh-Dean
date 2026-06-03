@@ -36,8 +36,7 @@ offset_left = -64.0
 offset_top = -64.0
 offset_right = 64.0
 offset_bottom = 64.0
-
-[node name="Timer" type="Timer" parent="." unique_id=900252859]
+button_mask = 3
 
 [connection signal="button_down" from="Tail/DragDetector" to="." method="_on_drag_detector_button_down"]
 [connection signal="button_up" from="Tail/DragDetector" to="." method="_on_drag_detector_button_up"]
@@ -45,5 +44,6 @@ offset_bottom = 64.0
 [connection signal="mouse_exited" from="Tail/DragDetector" to="." method="_on_drag_detector_mouse_exited"]
 [connection signal="button_down" from="Head/ClickDetector" to="." method="_on_click_detector_button_down"]
 [connection signal="button_up" from="Head/ClickDetector" to="." method="_on_click_detector_button_up"]
+[connection signal="gui_input" from="Head/ClickDetector" to="." method="_on_click_detector_gui_input"]
 [connection signal="mouse_entered" from="Head/ClickDetector" to="." method="_on_click_detector_mouse_entered"]
 [connection signal="mouse_exited" from="Head/ClickDetector" to="." method="_on_click_detector_mouse_exited"]

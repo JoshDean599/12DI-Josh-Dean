@@ -10,9 +10,9 @@ var cameraOffset = 0
 var dragging = false
 var startDragPosition = Vector2.ZERO
 
+var clickTime: float = 0.0
+var clickPosition: Vector2i = Vector2.ZERO
 
-func _on_add_note_pressed() -> void:
-	createNewNote(camera.position, Vector2())
 
 
 func createNewNote(Position: Vector2, TailPosition: Vector2) -> void:
@@ -93,7 +93,17 @@ func _process(_delta: float) -> void:
 func _on_drag_detector_button_down() -> void:
 	dragging = true
 	startDragPosition = DisplayServer.mouse_get_position().x + camera.position.x
+	
+	clickPosition = DisplayServer.mouse_get_position()
+	clickTime = Time.get_ticks_msec() / 1000.0
 
 
 func _on_drag_detector_button_up() -> void:
 	dragging = false
+	
+	if clickPosition == DisplayServer.mouse_get_position() and Time.get_ticks_msec() / 1000.0 - clickTime < 0.25:
+		var mousePosition = Vector2(
+			float(DisplayServer.mouse_get_position().x) - float(DisplayServer.screen_get_size().x) / 2,
+			float(DisplayServer.mouse_get_position().y) - float(DisplayServer.screen_get_size().y) / 2
+		)
+		createNewNote( mousePosition + camera.position, Vector2())
