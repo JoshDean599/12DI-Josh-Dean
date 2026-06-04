@@ -86,7 +86,10 @@ func _on_return_button_pressed() -> void:
 
 func _process(_delta: float) -> void:
 	if dragging:
-		camera.position.x = -(DisplayServer.mouse_get_position().x - startDragPosition)
+		if Globals.editorGridLockKeyPress:
+			camera.position.x = snapped(-(DisplayServer.mouse_get_position().x - startDragPosition), Globals.editorGrid.x / 2)
+		else:
+			camera.position.x = -(DisplayServer.mouse_get_position().x - startDragPosition)
 		$UI/Control/MarginContainer2/Label.text = "Time: " + str(camera.position.x / noteSpeed)
 
 

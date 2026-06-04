@@ -1,13 +1,12 @@
 extends Node2D
 
 # Editor note movement variables
-const GRID_SIZE: Vector2 = Vector2(100, 100)
 var dragging = false
 var draggedOffset = Vector2.ZERO
 var tailDragging = false
 var tailDraggingOffset = Vector2.ZERO
-var GridLockKeyPress = false
-@export var snappingKey = KEY_SPACE
+var clickPosition: Vector2i = Vector2i.ZERO
+var clickTime = 0.0
 @export var baseHeadScale: float = 1.0
 @export var onHoverHeadScale: float = 1.1
 @export var baseTailSize: float = 0.8
@@ -21,22 +20,16 @@ var noteType: int = 0
 
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if event.keycode == snappingKey:
-			GridLockKeyPress = event.pressed
-
-
 func _process(_delta: float) -> void:
 	if dragging:
-		if GridLockKeyPress:
-			position = (get_global_mouse_position() - draggedOffset).snapped(GRID_SIZE)
+		if Globals.editorGridLockKeyPress:
+			position = (get_global_mouse_position() - draggedOffset).snapped(Globals.editorGrid)
 		else:
 			position = get_global_mouse_position() - draggedOffset
 	
 	if tailDragging:
-		if GridLockKeyPress:
-			$Tail.position = (get_global_mouse_position() - tailDraggingOffset).snapped(GRID_SIZE)
+		if Globals.editorGridLockKeyPress:
+			$Tail.position = (get_global_mouse_position() - tailDraggingOffset).snapped(Globals.editorGrid)
 		else:
 			$Tail.position = get_global_mouse_position() - tailDraggingOffset
 		$Line2D.set_point_position(1, $Tail.position)
@@ -68,6 +61,7 @@ func _on_drag_detector_button_up() -> void:
 	
 	$Head/ClickDetector.visible = true
 	if $Tail.position.x <= 30 and $Tail.position.x >= -30 and $Tail.position.y >= -30 and $Tail.position.y <= 30:
+		$Tail.position = Vector2.ZERO
 		$Tail/DragDetector.scale = Vector2(tailDragDetectorBaseScale, tailDragDetectorBaseScale)
 	else:
 		$Tail/DragDetector.scale = Vector2(tailDragDetectorOffsetScale, tailDragDetectorOffsetScale)
@@ -82,6 +76,10 @@ func _on_drag_detector_mouse_exited() -> void:
 
 
 func _on_click_detector_gui_input(event: InputEvent) -> void:
-	if event == InputEventMouseButton and event.is_pressed(): # And right click
-		queue_free()
-	pass # Replace with function body.
+	if event is InputEventMouseButton and event.button_index == 2:
+		if event.pressed:
+			clickPosition = DisplayServer.mouse_get_position()
+			clickTime = Time.get_ticks_msec() / 1000.0
+		else:
+			if clickPosition == DisplayServer.mouse_get_position() and Time.get_ticks_msec() / 1000.0 - clickTime < 0.25:
+				queue_free()

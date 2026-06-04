@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 	# Check if the note is held:
 	if active:
 		if noteHandler.holding:
-			if game.currentTime - holdEndTime >= 0:
+			if game.currentTime - holdEndTime >= 0: # Successfuly held note! - Change to proper range
 				game.incriment_score(10)
 				queue_free()
 			else:

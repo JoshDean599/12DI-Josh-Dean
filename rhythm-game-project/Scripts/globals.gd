@@ -13,6 +13,11 @@ var EditorNote = preload("res://Scenes/Objects/editor_note.tscn")
 var mapPath = "res://Songs/Maps/"
 var musicPath = "res://Songs/Music/"
 
+# EditorGrid:
+const editorGrid = Vector2(100, 100)
+const editorSnappingKey = KEY_SPACE
+var editorGridLockKeyPress: bool = false
+
 
 func change_scene(node):
 	var tree = get_tree()
@@ -21,6 +26,7 @@ func change_scene(node):
 	tree.root.add_child(node) # Add the new scene
 	tree.current_scene = node # Set the new scene to the current
 
+
 func load_song(path) -> Dictionary:
 	if not FileAccess.open(path, FileAccess.READ):
 		return {}
@@ -28,16 +34,8 @@ func load_song(path) -> Dictionary:
 	var saveString = FileAccess.get_file_as_string(path)
 	return JSON.parse_string(saveString)
 
-# Score definitions. CHANGE TO SOMEWHERE BETTER THAN HERE
-var scores = {
-	ok = {
-		lower = -.5,
-		upper = .5,
-		score = 50
-	},
-	perfect = {
-		lower = -.1,
-		upper = .1,
-		score = 200
-	}
-}
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.keycode == editorSnappingKey:
+			editorGridLockKeyPress = event.pressed
