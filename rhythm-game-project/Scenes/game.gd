@@ -8,7 +8,7 @@ var songHandler = null
 
 var currentScore: int = 0
 var currentTime: float = 0.0
-var bufferTime: float = 2.0 # Time until game starts so it doesn't start instantly
+var bufferTime: float = 0.5 # Time until game starts so it doesn't start instantly
 
 var playing = false
 

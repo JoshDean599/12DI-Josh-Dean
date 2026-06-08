@@ -1,7 +1,5 @@
 extends Sprite2D
 
-@export var noteSpawnLocation = 1220
-
 @onready var game = get_parent()
 var loadedSong = null
 
@@ -57,7 +55,6 @@ func _process(_delta: float) -> void:
 func create_note(noteSettings: Dictionary) -> void:
 	var noteInstance = Globals.GameNote.instantiate()
 	$Notes.call_deferred("add_child", noteInstance)
-	noteSettings.position.x = noteSpawnLocation
 	noteInstance.setup(self, noteSettings, get_parent().currentTime)
 	# Add the note to the end of the note queue
 	noteQueue.push_back(noteInstance)

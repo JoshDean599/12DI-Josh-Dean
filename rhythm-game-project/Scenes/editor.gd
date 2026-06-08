@@ -3,7 +3,7 @@ extends Node2D
 @onready var filePath = $UI/Control/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/FilePath
 @onready var songName = $UI/Control/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/SongName
 
-@export var noteSpeed = 250
+@onready var noteSpeed = Globals.noteMoveSpeed
 
 @onready var camera = $Camera2D
 var cameraOffset = 0
@@ -38,6 +38,7 @@ func _on_save_pressed() -> void:
 	for i in $Notes.get_children(): # Insert each notes into the table
 		saveData.Notes.push_back(
 			{
+				# Speed = distance / time
 				time = i.position.x / noteSpeed,
 				position = {
 					x = i.position.x - camera.position.x,
