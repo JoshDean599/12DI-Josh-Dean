@@ -19,7 +19,7 @@ const editorSnappingKey = KEY_SPACE
 var editorGridLockKeyPress: bool = false
 
 # Note variables:
-var noteMoveSpeed = 750.0
+var noteMoveSpeed = 1
 
 func change_scene(node):
 	var tree = get_tree()

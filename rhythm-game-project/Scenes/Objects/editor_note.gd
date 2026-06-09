@@ -34,15 +34,19 @@ func _process(_delta: float) -> void:
 			$Tail.position = get_global_mouse_position() - tailDraggingOffset
 		$Line2D.set_point_position(1, $Tail.position)
 
+
 func _on_click_detector_button_down() -> void:
 	dragging = true
 	draggedOffset = get_global_mouse_position() - global_position
 
+
 func _on_click_detector_button_up() -> void:
 	dragging = false
 
+
 func _on_click_detector_mouse_entered() -> void:
 	$Head.scale = Vector2(onHoverHeadScale, onHoverHeadScale)
+
 
 func _on_click_detector_mouse_exited() -> void:
 	$Head.scale = Vector2(baseHeadScale, baseHeadScale)

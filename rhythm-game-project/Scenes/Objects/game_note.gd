@@ -3,7 +3,7 @@ extends Node2D
 var desitedSpawnLocation = 1200
 
 var noteHandler = null # Gets set on setup before @onready
-@onready var game = noteHandler.get_parent()
+var game = null
 
 var movingSpeed: float = 0.0
 var holdEndTime: float = 0.0
@@ -37,12 +37,11 @@ func _process(delta: float) -> void:
 
 func setup(NoteHandler, noteSettings: Dictionary, currentTime):
 	noteHandler = NoteHandler # Define the note handler
-	movingSpeed = Globals.noteMoveSpeed # Overrides the variable before an @onready could
-	noteSettings.position.x = + NoteHandler.position.x + 64 + (round(currentTime* 10) / 10 - noteSettings.time) * movingSpeed
-	print(round(currentTime* 10) / 10, " ", noteSettings.time, " ", currentTime - noteSettings.time)
-	# Speed = distance / time
-	# distance = speed * time
-	# time =  distance / speed
+	game = noteHandler.get_parent()
+	movingSpeed = Globals.noteMoveSpeed # Overrides the variable before an @onready could define
+	
+	noteSettings.position.x = (currentTime - noteSettings.time) * movingSpeed
+	print((currentTime - noteSettings.time) * movingSpeed)
 	
 	var holdDuration = abs(noteSettings.tailPosition.x / movingSpeed)
 	var endTime = (noteSettings.position.x - NoteHandler.position.x + 64) / movingSpeed + currentTime + holdDuration
