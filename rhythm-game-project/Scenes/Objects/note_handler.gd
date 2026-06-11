@@ -1,6 +1,5 @@
 extends Sprite2D
 
-@onready var game = get_parent()
 var loadedSong = null
 
 var noteQueue = [] #  Keeps track of what notes to process first
@@ -42,9 +41,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	$Notes.position.x -= Globals.noteMoveSpeed
+	
 	# Remove if passed point of hitting
-	if noteQueue.size() > 0 and get_parent().currentTime - noteQueue.front().holdEndTime > 0.0: # Change to proper range
-		noteQueue.pop_front()
+	if noteQueue.size() > 0 and Globals.gameTime - noteQueue.front().holdEndTime > 0.0: # Change to proper range
+		noteQueue.pop_front().visible = false
 	
 	if loadedSong != null and loadedSong.Notes.size() > 0:
 		check_note()
@@ -55,12 +56,13 @@ func _process(_delta: float) -> void:
 func create_note(noteSettings: Dictionary) -> void:
 	var noteInstance = Globals.GameNote.instantiate()
 	$Notes.call_deferred("add_child", noteInstance)
-	noteInstance.setup(self, noteSettings, get_parent().currentTime)
+	noteInstance.setup(self, noteSettings)
 	# Add the note to the end of the note queue
 	noteQueue.push_back(noteInstance)
 
 
 func load_song(song):
+	$Notes.position.x = Globals.gameTime * Globals.noteMoveSpeed
 	loadedSong = Globals.load_song(Globals.mapPath + song + ".json")
 
 
@@ -72,6 +74,6 @@ func check_note():
 			closestNote = currentIndex
 		currentIndex += 1
 	
-	if loadedSong.Notes[closestNote].time + game.bufferTime <= game.currentTime - game.bufferTime:
+	if loadedSong.Notes[closestNote].time + Globals.gameBufferTime <= Globals.gameTime - Globals.gameBufferTime:
 		create_note(loadedSong.Notes.pop_at(closestNote))
 	

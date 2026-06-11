@@ -7,10 +7,4 @@
 texture = ExtResource("1_xy2le")
 script = ExtResource("2_f8bsx")
 
-[node name="RandomSpawnTimer" type="Timer" parent="." unique_id=1737574455]
-one_shot = true
-autostart = true
-
 [node name="Notes" type="Node2D" parent="." unique_id=1589741201]
-
-[connection signal="timeout" from="RandomSpawnTimer" to="." method="_on_random_timer_timeout"]
