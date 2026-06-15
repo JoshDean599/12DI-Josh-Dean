@@ -19,7 +19,7 @@ const editorSnappingKey = KEY_SPACE
 var editorGridLockKeyPress: bool = false
 
 # Note variables:
-var noteMoveSpeed = 250
+var noteMoveSpeed = 250.0
 
 # GameVariables
 var loadedSong := "new"

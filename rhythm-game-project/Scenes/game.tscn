@@ -45,9 +45,6 @@ text = "Return"
 [node name="NoteHandler" parent="." unique_id=1143384118 instance=ExtResource("1_qxrlw")]
 position = Vector2(64.00009, 322)
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=495846435]
-position = Vector2(576, 324.00003)
-
 [node name="SongHandler" parent="." unique_id=1731543359 instance=ExtResource("3_wrm1d")]
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

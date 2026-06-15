@@ -41,12 +41,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	#$Notes.position.x = 500 - (Globals.gameTime) * Globals.noteMoveSpeed
+	$Notes.position.x = 0
 	
-	# Remove if passed point of hitting
-	if noteQueue.size() > 0 and Globals.gameTime + Globals.gameBufferTime - noteQueue.front().noteTime > 0.0: # Change to proper range
+	# Remove from noteqQueue if passed point of hitting
+	if noteQueue.size() > 0 and noteQueue.front().noteTime <= Globals.gameTime: # Change to proper range
 		noteQueue.pop_front().visible = false
-		print("HidNote")
 	
 	if loadedSong != null and loadedSong.Notes.size() > 0:
 		check_note()
@@ -74,7 +73,6 @@ func check_note():
 			closestNote = currentIndex
 		currentIndex += 1
 	
-	print(Globals.gameTime, " ", Globals.gameTime - 100.0 / Globals.noteMoveSpeed, " ", 100.0 / Globals.noteMoveSpeed)
-	if loadedSong.Notes[closestNote].time <= Globals.gameTime - 1000.0 / Globals.noteMoveSpeed:
+	if loadedSong.Notes[closestNote].time <= Globals.gameTime + loadedSong.Notes[closestNote].position.x / Globals.noteMoveSpeed:
 		create_note(loadedSong.Notes.pop_at(closestNote))
 	

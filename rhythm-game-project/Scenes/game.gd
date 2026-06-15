@@ -22,6 +22,9 @@ func reset_game() -> void:
 	for i in noteHandler.get_node("Notes").get_children().size():
 		noteHandler.get_node("Notes").get_child(i).queue_free()
 	noteHandler.noteQueue = []
+	
+	await get_tree().create_timer(.01).timeout
+	play_game()
 
 
 func pause_game() -> void:
@@ -43,12 +46,7 @@ func incriment_score(value: int) -> void:
 	scoreLabel.text = "Score: " + str(Globals.gameScore)
 
 
-func _ready() -> void:
-	play_game()
-
-
 func _process(delta: float) -> void:
 	if Globals.gamePlaying:
 		Globals.gameTime += delta # Increase the time with delta
-	
 	
