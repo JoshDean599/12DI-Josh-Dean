@@ -3,8 +3,6 @@ extends Node2D
 @onready var filePath = $UI/Control/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/FilePath
 @onready var songName = $UI/Control/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/SongName
 
-@onready var noteSpeed = Globals.noteMoveSpeed
-
 @onready var camera = $Camera2D
 var cameraOffset = 0
 var dragging = false
@@ -39,7 +37,7 @@ func _on_save_pressed() -> void:
 		saveData.Notes.push_back(
 			{
 				# Speed = distance / time
-				time = i.position.x / noteSpeed,
+				time = i.position.x / $UI/Control/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/NoteSpeed.value * 100,
 				position = {
 					x = i.position.x - camera.position.x,
 					y = i.position.y - camera.position.y
@@ -70,7 +68,10 @@ func save_map(path: String, data: Dictionary) -> void:
 
 func _on_load_pressed() -> void:
 	var saveAsDict = Globals.load_song(Globals.mapPath + filePath.text + ".json")
-	
+	if saveAsDict == {}:
+		print("Unable to load map: Unknown File Path")
+		return
+		
 	for i in $Notes.get_children(): # Remove all Editor Notes
 		i.free() # Remove the note during the frame, unlike queue_free() which removes after the frame
 	
@@ -91,7 +92,7 @@ func _process(_delta: float) -> void:
 			camera.position.x = snapped(-(DisplayServer.mouse_get_position().x - startDragPosition), Globals.editorGrid.x / 2)
 		else:
 			camera.position.x = -(DisplayServer.mouse_get_position().x - startDragPosition)
-		$UI/Control/MarginContainer2/Label.text = "Time: " + str(camera.position.x / noteSpeed)
+		$UI/Control/MarginContainer2/Label.text = "Time: " + str(camera.position.x / ($UI/Control/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/NoteSpeed.value * 100))
 
 
 func _on_drag_detector_button_down() -> void:

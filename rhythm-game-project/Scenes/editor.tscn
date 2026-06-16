@@ -44,6 +44,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Load Map"
 
+[node name="PanelContainer" type="PanelContainer" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1593090105]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer" unique_id=1745579220]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer" unique_id=503179665]
+layout_mode = 2
+text = "NoteSpeed:"
+
+[node name="NoteSpeed" type="SpinBox" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer" unique_id=1573151200]
+layout_mode = 2
+
 [node name="PanelContainer" type="PanelContainer" parent="UI/Control/MarginContainer/VBoxContainer" unique_id=2084397225]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
@@ -85,7 +98,6 @@ offset_left = -578.0
 offset_top = -326.0
 offset_right = 578.0
 offset_bottom = 326.0
-button_mask = 3
 
 [node name="Notes" type="Node2D" parent="." unique_id=443945100]
 

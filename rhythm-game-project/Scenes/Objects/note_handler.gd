@@ -41,19 +41,22 @@ func _unhandled_input(event: InputEvent) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	$Notes.position.x = 0
+	$Notes.position.x = -Globals.noteMoveSpeed * Globals.gameTime
 	
 	# Remove from noteqQueue if passed point of hitting
 	if noteQueue.size() > 0 and noteQueue.front().noteTime <= Globals.gameTime: # Change to proper range
+		print("Disable note")
 		noteQueue.pop_front().visible = false
 	
-	if loadedSong != null and loadedSong.Notes.size() > 0:
+	if loadedSong != null and loadedSong.Notes.size() > 0: # If a song is loaded and there's still notes to load
 		check_note()
 	
 	
 
 
 func create_note(noteSettings: Dictionary) -> void:
+	print("CreateNote")
+	noteSettings.position.x = Globals.noteMoveSpeed * noteSettings.time
 	var noteInstance = Globals.GameNote.instantiate()
 	$Notes.call_deferred("add_child", noteInstance)
 	noteInstance.setup(self, noteSettings)
@@ -73,6 +76,6 @@ func check_note():
 			closestNote = currentIndex
 		currentIndex += 1
 	
-	if loadedSong.Notes[closestNote].time <= Globals.gameTime + loadedSong.Notes[closestNote].position.x / Globals.noteMoveSpeed:
+	if loadedSong.Notes[closestNote].time - DisplayServer.screen_get_size().x / Globals.noteMoveSpeed <= Globals.gameTime:
 		create_note(loadedSong.Notes.pop_at(closestNote))
 	
