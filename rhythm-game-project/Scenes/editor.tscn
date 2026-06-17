@@ -44,19 +44,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Load Map"
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1593090105]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer" unique_id=1745579220]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer" unique_id=503179665]
-layout_mode = 2
-text = "NoteSpeed:"
-
-[node name="NoteSpeed" type="SpinBox" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer" unique_id=1573151200]
-layout_mode = 2
-
 [node name="PanelContainer" type="PanelContainer" parent="UI/Control/MarginContainer/VBoxContainer" unique_id=2084397225]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
@@ -106,4 +93,3 @@ offset_bottom = 326.0
 [connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Load" to="." method="_on_load_pressed"]
 [connection signal="button_down" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_button_down"]
 [connection signal="button_up" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_button_up"]
-[connection signal="gui_input" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_gui_input"]

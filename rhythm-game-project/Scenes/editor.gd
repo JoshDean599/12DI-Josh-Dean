@@ -37,7 +37,7 @@ func _on_save_pressed() -> void:
 		saveData.Notes.push_back(
 			{
 				# Speed = distance / time
-				time = i.position.x / $UI/Control/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/NoteSpeed.value * 100,
+				time = i.position.x / Globals.noteMoveSpeed,
 				position = {
 					x = i.position.x - camera.position.x,
 					y = i.position.y - camera.position.y
@@ -89,10 +89,10 @@ func _on_return_button_pressed() -> void:
 func _process(_delta: float) -> void:
 	if dragging:
 		if Globals.editorGridLockKeyPress:
-			camera.position.x = snapped(-(DisplayServer.mouse_get_position().x - startDragPosition), Globals.editorGrid.x / 2)
+			camera.position.x = snapped(-(DisplayServer.mouse_get_position().x - startDragPosition), Globals.noteMoveSpeed)
 		else:
 			camera.position.x = -(DisplayServer.mouse_get_position().x - startDragPosition)
-		$UI/Control/MarginContainer2/Label.text = "Time: " + str(camera.position.x / ($UI/Control/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/NoteSpeed.value * 100))
+		$UI/Control/MarginContainer2/Label.text = "Time: " + str(camera.position.x / Globals.noteMoveSpeed)
 
 
 func _on_drag_detector_button_down() -> void:

@@ -50,5 +50,4 @@ func incriment_score(value: int) -> void:
 func _process(delta: float) -> void:
 	if Globals.gamePlaying:
 		Globals.gameTime += delta # Increase the time with delta
-		print("Game Time: ",Globals.gameTime)
 	

@@ -21,12 +21,11 @@ var scores = {
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_echo() and event is InputEventKey:
 		if event.is_pressed():
-			if heldKeys.find(event.keycode) == -1:
-				heldKeys.push_back(event.keycode)
+			if heldKeys.find(event.keycode) == -1: # If the key press isn't found to be already pressing:
+				heldKeys.push_back(event.keycode) # Add it to the list of pressed keys
 			
-			if noteQueue.size() > 0 and noteQueue.front().position.x < 250: # Change to a proper range
-				var noteIndexToPop = noteQueue.pop_front()
-				noteIndexToPop.active = true
+			if noteQueue.size() > 0 and noteQueue.front().noteTime < Globals.gameTime + 1: # Change to a proper range
+				noteQueue.pop_front().active = true
 		elif event.is_released():
 			if heldKeys.find(event.keycode) >= 0:
 				heldKeys.pop_at(heldKeys.find(event.keycode))
@@ -45,17 +44,14 @@ func _process(_delta: float) -> void:
 	
 	# Remove from noteqQueue if passed point of hitting
 	if noteQueue.size() > 0 and noteQueue.front().noteTime <= Globals.gameTime: # Change to proper range
-		print("Disable note")
+		print("Popped note")
 		noteQueue.pop_front().visible = false
 	
 	if loadedSong != null and loadedSong.Notes.size() > 0: # If a song is loaded and there's still notes to load
 		check_note()
-	
-	
 
 
 func create_note(noteSettings: Dictionary) -> void:
-	print("CreateNote")
 	noteSettings.position.x = Globals.noteMoveSpeed * noteSettings.time
 	var noteInstance = Globals.GameNote.instantiate()
 	$Notes.call_deferred("add_child", noteInstance)

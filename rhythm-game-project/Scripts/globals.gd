@@ -14,12 +14,11 @@ var mapPath = "res://Songs/Maps/"
 var musicPath = "res://Songs/Music/"
 
 # EditorGrid:
-const editorGrid = Vector2(100, 100)
 const editorSnappingKey = KEY_SPACE
 var editorGridLockKeyPress: bool = false
 
 # Note variables:
-var noteMoveSpeed = 2000.0
+var noteMoveSpeed = 150.0
 
 # GameVariables
 var loadedSong := "new"
