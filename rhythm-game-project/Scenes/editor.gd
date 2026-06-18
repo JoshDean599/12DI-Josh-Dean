@@ -36,16 +36,10 @@ func _on_save_pressed() -> void:
 	for i in $Notes.get_children(): # Insert each notes into the table
 		saveData.Notes.push_back(
 			{
-				# Speed = distance / time
 				time = i.position.x / Globals.noteMoveSpeed,
-				position = {
-					x = i.position.x - camera.position.x,
-					y = i.position.y - camera.position.y
-				},
-				tailPosition = {
-					x = i.get_node("Tail").position.x,
-					y = i.get_node("Tail").position.y
-				}
+				endTime = i.position.x / Globals.noteMoveSpeed + i.get_node("Tail").position.x / Globals.noteMoveSpeed,
+				positionY = i.position.y - camera.position.y,
+				tailY = i.get_node("Tail").position.y,
 			}
 		)
 	save_map(Globals.mapPath + filePath.text + ".json", saveData)
@@ -77,8 +71,8 @@ func _on_load_pressed() -> void:
 	
 	for i in saveAsDict.Notes: # Load the notes from the savePath
 		createNewNote(
-			Vector2(i.position.x, i.position.y), # Note Position
-			Vector2(i.tailPosition.x, i.tailPosition.y) # Note Tail Position
+			Vector2(i.time * Globals.noteMoveSpeed, i.positionY), # Note Position
+			Vector2(i.endTime * Globals.noteMoveSpeed, i.tailY) # Note Tail Position
 		)
 
 
@@ -92,7 +86,7 @@ func _process(_delta: float) -> void:
 			camera.position.x = snapped(-(DisplayServer.mouse_get_position().x - startDragPosition), Globals.noteMoveSpeed)
 		else:
 			camera.position.x = -(DisplayServer.mouse_get_position().x - startDragPosition)
-		$UI/Control/MarginContainer2/Label.text = "Time: " + str(camera.position.x / Globals.noteMoveSpeed)
+	$UI/Control/MarginContainer2/Label.text = "Time: " + str(round((camera.position.x / Globals.noteMoveSpeed)* 100) / 100)
 
 
 func _on_drag_detector_button_down() -> void:
@@ -112,3 +106,19 @@ func _on_drag_detector_button_up() -> void:
 			float(DisplayServer.mouse_get_position().y) - float(DisplayServer.screen_get_size().y) / 2
 		)
 		createNewNote( mousePosition + camera.position, Vector2())
+
+
+func _on_drag_detector_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			if Globals.editorGridLockKeyPress:
+				camera.position.x -= Globals.noteMoveSpeed * 5
+			else:
+				camera.position.x -= Globals.editorScrollSpeed
+		elif event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			if Globals.editorGridLockKeyPress:
+				camera.position.x += Globals.noteMoveSpeed * 5
+			else:
+				camera.position.x += Globals.editorScrollSpeed
+	
+	pass # Replace with function body.

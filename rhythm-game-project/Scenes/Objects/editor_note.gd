@@ -21,15 +21,16 @@ var noteType: int = 0
 
 
 func _process(_delta: float) -> void:
+	var gridSize = Vector2(Globals.noteMoveSpeed, Globals.noteMoveSpeed / 2)
 	if dragging:
 		if Globals.editorGridLockKeyPress:
-			position = (get_global_mouse_position() - draggedOffset).snapped(Vector2(Globals.noteMoveSpeed, Globals.noteMoveSpeed))
+			position = (get_global_mouse_position() - draggedOffset).snapped(gridSize)
 		else:
 			position = get_global_mouse_position() - draggedOffset
 	
 	if tailDragging:
 		if Globals.editorGridLockKeyPress:
-			$Tail.position = (get_global_mouse_position() - tailDraggingOffset).snapped(Vector2(Globals.noteMoveSpeed, Globals.noteMoveSpeed))
+			$Tail.position = (get_global_mouse_position() - tailDraggingOffset).snapped(gridSize)
 		else:
 			$Tail.position = get_global_mouse_position() - tailDraggingOffset
 		$Line2D.set_point_position(1, $Tail.position)

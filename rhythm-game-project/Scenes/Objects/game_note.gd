@@ -13,11 +13,11 @@ func _process(_delta: float) -> void:
 	# Check if the note is held:
 	if active:
 		if noteHandler.holding:
-			if Globals.gameTime - holdEndTime >= 0: # Successfuly held note! - Change to proper range
+			if Globals.gameTime - holdEndTime >= 0 or holdEndTime - noteTime == 0: # Successfuly held note! - Change to proper range
 				print("Success!")
 				noteHandler.get_parent().incriment_score(10)
 				queue_free()
-			else:
+			else: # Holding note:
 				# Update visuals
 				$Tail.modulate = Color(0.631, 0.886, 0.122, 1.0)
 				pass
@@ -36,12 +36,9 @@ func _process(_delta: float) -> void:
 func setup(NoteHandler, noteSettings: Dictionary):
 	noteHandler = NoteHandler # Define the note handler
 	noteTime = noteSettings.time
-	
-	var holdDuration = abs(noteSettings.tailPosition.x / Globals.noteMoveSpeed)
-	holdEndTime = noteTime + holdDuration
-	print(noteTime, " ", holdEndTime, " ", holdDuration)
+	holdEndTime = noteSettings.endTime
 	# Set the notes initial position
-	global_position = Vector2(noteSettings.position.x, noteSettings.position.y)
+	global_position = Vector2(noteSettings.time * Globals.noteMoveSpeed, noteSettings.positionY)
 	# Setup the notes tail position
-	$Tail.position =  Vector2(noteSettings.tailPosition.x, noteSettings.tailPosition.y)
+	$Tail.position =  Vector2((noteSettings.endTime - noteSettings.time) * Globals.noteMoveSpeed, noteSettings.tailY)
 	

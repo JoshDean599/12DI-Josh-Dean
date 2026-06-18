@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://brfyccsgwq6rl"]
 
 [ext_resource type="Script" uid="uid://i5pwojav548r" path="res://Scenes/editor.gd" id="1_wqabg"]
+[ext_resource type="Texture2D" uid="uid://43s0ilqd1cce" path="res://icon.svg" id="2_24ceq"]
 
 [node name="Editor" type="Node2D" unique_id=219707909]
 script = ExtResource("1_wqabg")
@@ -86,6 +87,10 @@ offset_top = -326.0
 offset_right = 578.0
 offset_bottom = 326.0
 
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D" unique_id=2073504154]
+scale = Vector2(0.225635, 8.096504)
+texture = ExtResource("2_24ceq")
+
 [node name="Notes" type="Node2D" parent="." unique_id=443945100]
 
 [connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Return" to="." method="_on_return_button_pressed"]
@@ -93,3 +98,4 @@ offset_bottom = 326.0
 [connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Load" to="." method="_on_load_pressed"]
 [connection signal="button_down" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_button_down"]
 [connection signal="button_up" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_button_up"]
+[connection signal="gui_input" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_gui_input"]

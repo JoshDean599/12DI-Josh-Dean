@@ -45,14 +45,13 @@ func _process(_delta: float) -> void:
 	# Remove from noteqQueue if passed point of hitting
 	if noteQueue.size() > 0 and noteQueue.front().noteTime <= Globals.gameTime: # Change to proper range
 		print("Popped note")
-		noteQueue.pop_front().visible = false
+		noteQueue.pop_front()
 	
 	if loadedSong != null and loadedSong.Notes.size() > 0: # If a song is loaded and there's still notes to load
 		check_note()
 
 
 func create_note(noteSettings: Dictionary) -> void:
-	noteSettings.position.x = Globals.noteMoveSpeed * noteSettings.time
 	var noteInstance = Globals.GameNote.instantiate()
 	$Notes.call_deferred("add_child", noteInstance)
 	noteInstance.setup(self, noteSettings)

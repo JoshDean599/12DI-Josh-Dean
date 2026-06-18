@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dymj5kx5woj8y" path="res://Scenes/game.gd" id="1_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://blddwce4egim7" path="res://Scenes/Objects/song_handler.tscn" id="3_wrm1d"]
 
-[node name="Game" type="Node2D" unique_id=1834466343]
+[node name="Game" type="Camera2D" unique_id=1467266006]
 script = ExtResource("1_wrm1d")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=403988764]
@@ -43,7 +43,7 @@ layout_mode = 2
 text = "Return"
 
 [node name="NoteHandler" parent="." unique_id=1143384118 instance=ExtResource("1_qxrlw")]
-position = Vector2(64.00009, 322)
+position = Vector2(-507, 0)
 
 [node name="SongHandler" parent="." unique_id=1731543359 instance=ExtResource("3_wrm1d")]
 

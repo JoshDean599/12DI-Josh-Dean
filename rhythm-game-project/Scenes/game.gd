@@ -12,7 +12,7 @@ func _on_tree_entered() -> void: # Happens before @onready is called
 func reset_game() -> void:
 	pause_game()
 	Globals.gameBufferTime = DisplayServer.screen_get_size().x / Globals.noteMoveSpeed
-	Globals.gameTime = 0.0 - Globals.gameBufferTime
+	Globals.gameTime = 3.5 - Globals.gameBufferTime
 	Globals.gameScore = 0
 	scoreLabel.text = "Score: 0"
 	

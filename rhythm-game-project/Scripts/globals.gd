@@ -15,6 +15,7 @@ var musicPath = "res://Songs/Music/"
 
 # EditorGrid:
 const editorSnappingKey = KEY_SPACE
+const editorScrollSpeed = 150
 var editorGridLockKeyPress: bool = false
 
 # Note variables:
