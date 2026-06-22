@@ -5,7 +5,6 @@ var noteHandler = null # Gets set on setup before @onready
 var noteTime := 0.0
 var holdEndTime := 0.0
 
-var freeQueueTime: float = -500.0
 var active = false
 
 
@@ -28,7 +27,7 @@ func _process(_delta: float) -> void:
 	
 	
 	# Clear the note once it's no longer in use
-	if not active and Globals.gameTime > (noteTime + 1) * Globals.noteMoveSpeed:
+	if not active and Globals.gameTime > noteTime + holdEndTime + 1:
 		print("Freeing Note")
 		queue_free()
 

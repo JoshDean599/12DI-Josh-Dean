@@ -6,5 +6,5 @@
 [node name="SongHandler" type="Node" unique_id=1731543359]
 script = ExtResource("1_qsvg7")
 
-[node name="Audio" type="AudioStreamPlayer2D" parent="." unique_id=1921127021]
+[node name="Audio" type="AudioStreamPlayer" parent="." unique_id=692770479]
 stream = ExtResource("2_54eop")

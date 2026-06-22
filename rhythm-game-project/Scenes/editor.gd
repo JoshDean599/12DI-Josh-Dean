@@ -11,6 +11,7 @@ var startDragPosition = Vector2.ZERO
 var clickTime: float = 0.0
 var clickPosition: Vector2i = Vector2.ZERO
 
+var testing = false
 
 
 func createNewNote(Position: Vector2, TailPosition: Vector2) -> void:
@@ -80,13 +81,16 @@ func _on_return_button_pressed() -> void:
 	Globals.change_scene(Globals.MainMenu)
 
 
-func _process(_delta: float) -> void:
-	if dragging:
+func _process(delta: float) -> void:
+	if dragging and not testing:
 		if Globals.editorGridLockKeyPress:
 			camera.position.x = snapped(-(DisplayServer.mouse_get_position().x - startDragPosition), Globals.noteMoveSpeed)
 		else:
 			camera.position.x = -(DisplayServer.mouse_get_position().x - startDragPosition)
 	$UI/Control/MarginContainer2/Label.text = "Time: " + str(round((camera.position.x / Globals.noteMoveSpeed)* 100) / 100)
+	if testing:
+		Globals.gameTime += delta
+		$Camera2D.position.x = Globals.noteMoveSpeed * Globals.gameTime
 
 
 func _on_drag_detector_button_down() -> void:
@@ -120,5 +124,22 @@ func _on_drag_detector_gui_input(event: InputEvent) -> void:
 				camera.position.x += Globals.noteMoveSpeed * 5
 			else:
 				camera.position.x += Globals.editorScrollSpeed
+
+
+func _on_test_pressed() -> void:
+	var SongHandler = $Camera2D/SongHandler
+	var Audio = $Camera2D/SongHandler/Audio
+	SongHandler.load_song(songName.text, 0)
+	$UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Return.visible = testing
+	$UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Save.visible = testing
+	$UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Load.visible = testing
+	$UI/Control/MarginContainer/VBoxContainer/PanelContainer.visible = testing
 	
-	pass # Replace with function body.
+	testing = !testing
+	if testing:
+		Globals.gameTime = round((camera.position.x / Globals.noteMoveSpeed)* 100) / 100
+		Audio.play()
+		Audio.seek(round((camera.position.x / Globals.noteMoveSpeed)* 100) / 100)
+	else:
+		Audio.stop()
+	

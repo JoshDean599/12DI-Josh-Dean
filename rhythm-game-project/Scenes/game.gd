@@ -18,7 +18,7 @@ func reset_game() -> void:
 	
 	var noteHandler = $NoteHandler
 	noteHandler.load_song(Globals.loadedSong)
-	$SongHandler.load_song(Globals.loadedSong)
+	$SongHandler.load_song(Globals.loadedSong, 1)
 	
 	for i in noteHandler.get_node("Notes").get_children().size():
 		noteHandler.get_node("Notes").get_child(i).queue_free()

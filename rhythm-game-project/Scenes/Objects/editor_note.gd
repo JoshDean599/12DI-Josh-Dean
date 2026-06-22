@@ -18,10 +18,12 @@ var clickTime = 0.0
 var duration: float = 0
 var noteType: int = 0
 
+var gridSize = Vector2.ZERO
 
 
 func _process(_delta: float) -> void:
-	var gridSize = Vector2(Globals.noteMoveSpeed, Globals.noteMoveSpeed / 2)
+	if gridSize != Vector2(Globals.noteMoveSpeed/4, Globals.noteMoveSpeed / 4):
+		gridSize = Vector2(Globals.noteMoveSpeed/4, Globals.noteMoveSpeed / 4)
 	if dragging:
 		if Globals.editorGridLockKeyPress:
 			position = (get_global_mouse_position() - draggedOffset).snapped(gridSize)

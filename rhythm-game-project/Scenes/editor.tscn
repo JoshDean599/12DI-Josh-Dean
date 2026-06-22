@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://i5pwojav548r" path="res://Scenes/editor.gd" id="1_wqabg"]
 [ext_resource type="Texture2D" uid="uid://43s0ilqd1cce" path="res://icon.svg" id="2_24ceq"]
+[ext_resource type="PackedScene" uid="uid://blddwce4egim7" path="res://Scenes/Objects/song_handler.tscn" id="3_a7iym"]
 
 [node name="Editor" type="Node2D" unique_id=219707909]
 script = ExtResource("1_wqabg")
@@ -44,6 +45,11 @@ text = "Save Map"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Load Map"
+
+[node name="Test" type="Button" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1016227265]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Test Map"
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/Control/MarginContainer/VBoxContainer" unique_id=2084397225]
 custom_minimum_size = Vector2(0, 40)
@@ -91,11 +97,14 @@ offset_bottom = 326.0
 scale = Vector2(0.225635, 8.096504)
 texture = ExtResource("2_24ceq")
 
+[node name="SongHandler" parent="Camera2D" unique_id=1731543359 instance=ExtResource("3_a7iym")]
+
 [node name="Notes" type="Node2D" parent="." unique_id=443945100]
 
 [connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Return" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Test" to="." method="_on_test_pressed"]
 [connection signal="button_down" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_button_down"]
 [connection signal="button_up" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_button_up"]
 [connection signal="gui_input" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_gui_input"]
