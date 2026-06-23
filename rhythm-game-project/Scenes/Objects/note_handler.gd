@@ -1,6 +1,9 @@
 extends Sprite2D
 
+@onready var songHandler = get_parent().get_node("SongHandler")
 var loadedSong = null
+var noteMoveSpeed = 250
+
 
 var noteQueue = [] #  Keeps track of what notes to process first
 var heldKeys = [] # Keeps track of the held keys
@@ -17,6 +20,8 @@ var scores = {
 	}
 }
 
+func on_load(map):
+	loadedSong = map
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_echo() and event is InputEventKey:
@@ -24,7 +29,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if heldKeys.find(event.keycode) == -1: # If the key press isn't found to be already pressing:
 				heldKeys.push_back(event.keycode) # Add it to the list of pressed keys
 			
-			if noteQueue.size() > 0 and noteQueue.front().noteTime < Globals.gameTime + 1: # Change to a proper range
+			if noteQueue.size() > 0 and noteQueue.front().noteTime < songHandler.Audio.get_playback_position() + 1: # Change to a proper range
 				noteQueue.pop_front().active = true
 		elif event.is_released():
 			if heldKeys.find(event.keycode) >= 0:
@@ -40,10 +45,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	$Notes.position.x = -Globals.noteMoveSpeed * Globals.gameTime
+	$Notes.position.x = -noteMoveSpeed * songHandler.Audio.get_playback_position()
 	
 	# Remove from noteqQueue if passed point of hitting
-	if noteQueue.size() > 0 and noteQueue.front().noteTime <= Globals.gameTime: # Change to proper range
+	if noteQueue.size() > 0 and noteQueue.front().noteTime <= songHandler.Audio.get_playback_position(): # Change to proper range
 		print("Popped note")
 		noteQueue.pop_front()
 	
@@ -59,10 +64,6 @@ func create_note(noteSettings: Dictionary) -> void:
 	noteQueue.push_back(noteInstance)
 
 
-func load_song(song):
-	loadedSong = Globals.load_song(Globals.mapPath + song + ".json")
-
-
 func check_note():
 	var closestNote = 0 # Index of closest note
 	var currentIndex = 0
@@ -71,6 +72,6 @@ func check_note():
 			closestNote = currentIndex
 		currentIndex += 1
 	
-	if loadedSong.Notes[closestNote].time - DisplayServer.screen_get_size().x / Globals.noteMoveSpeed <= Globals.gameTime:
+	if loadedSong.Notes[closestNote].time - DisplayServer.screen_get_size().x / noteMoveSpeed <= songHandler.Audio.get_playback_position():
 		create_note(loadedSong.Notes.pop_at(closestNote))
 	
