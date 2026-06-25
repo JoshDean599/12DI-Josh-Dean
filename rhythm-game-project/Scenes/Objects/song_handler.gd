@@ -8,6 +8,7 @@ extends Node
 var map = {}
 
 
+
 func load_map(Map : String): # Used in game:
 	
 	if not Audio:
@@ -19,10 +20,11 @@ func load_map(Map : String): # Used in game:
 		return
 	map = JSON.parse_string(FileAccess.get_file_as_string(mapLocation))
 	
-	load_song(songLocation + "/Music/" + map.Song + ".wav")
+	load_song(map.Song)
 	
 
 func load_song(Song): # The song file to load
+	Song = songLocation + "/Music/" + Song + ".wav"
 	if not FileAccess.open(Song, FileAccess.READ):
 		print(Song)
 		push_error("Song can't be found, Returning")

@@ -11,76 +11,98 @@ script = ExtResource("1_wqabg")
 
 [node name="Control" type="Control" parent="UI" unique_id=523003306]
 layout_mode = 3
-anchors_preset = 9
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Control" unique_id=2095939836]
-layout_mode = 0
-offset_right = 331.0
-offset_bottom = 152.0
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control" unique_id=2071460136]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="PanelContainer" parent="UI/Control/VBoxContainer" unique_id=562267281]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/VBoxContainer/Panel" unique_id=1214686876]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control/VBoxContainer/Panel/HBoxContainer" unique_id=2095939836]
+layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/MarginContainer" unique_id=359179287]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/VBoxContainer/Panel/HBoxContainer/MarginContainer" unique_id=359179287]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/MarginContainer/VBoxContainer" unique_id=1176281824]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/VBoxContainer/Panel/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1176281824]
 layout_mode = 2
 
-[node name="Return" type="Button" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1404491943]
+[node name="Return" type="Button" parent="UI/Control/VBoxContainer/Panel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1404491943]
 layout_mode = 2
 text = "Return"
 
-[node name="Save" type="Button" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1224184711]
+[node name="Save" type="Button" parent="UI/Control/VBoxContainer/Panel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1224184711]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Save Map"
 
-[node name="Load" type="Button" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer" unique_id=689076928]
+[node name="Load" type="Button" parent="UI/Control/VBoxContainer/Panel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=689076928]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Load Map"
 
-[node name="Test" type="Button" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1016227265]
+[node name="Test" type="Button" parent="UI/Control/VBoxContainer/Panel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1016227265]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Test Map"
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/Control/MarginContainer/VBoxContainer" unique_id=2084397225]
+[node name="PanelContainer" type="PanelContainer" parent="UI/Control/VBoxContainer/Panel/HBoxContainer/MarginContainer/VBoxContainer" unique_id=2084397225]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/MarginContainer/VBoxContainer/PanelContainer" unique_id=587581480]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/VBoxContainer/Panel/HBoxContainer/MarginContainer/VBoxContainer/PanelContainer" unique_id=587581480]
 layout_mode = 2
 
-[node name="FilePath" type="TextEdit" parent="UI/Control/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1860289911]
+[node name="FilePath" type="TextEdit" parent="UI/Control/VBoxContainer/Panel/HBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1860289911]
 layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "FilePath"
 
-[node name="SongName" type="TextEdit" parent="UI/Control/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=282430820]
+[node name="SongName" type="TextEdit" parent="UI/Control/VBoxContainer/Panel/HBoxContainer/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=282430820]
 layout_mode = 2
 size_flags_vertical = 3
 text = "NEFFEX - Hate It or Love It"
 placeholder_text = "SongName"
 
-[node name="MarginContainer2" type="MarginContainer" parent="UI/Control" unique_id=2146079056]
-layout_mode = 0
-offset_top = 608.0
-offset_right = 56.0
-offset_bottom = 648.0
+[node name="VSeparator" type="VSeparator" parent="UI/Control/VBoxContainer/Panel/HBoxContainer" unique_id=1016126313]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSeparator" type="HSeparator" parent="UI/Control/VBoxContainer" unique_id=426421350]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/Control/VBoxContainer" unique_id=2146079056]
+layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="UI/Control/MarginContainer2" unique_id=934091839]
+[node name="Label" type="Label" parent="UI/Control/VBoxContainer/MarginContainer2" unique_id=934091839]
 layout_mode = 2
 text = "Time: 0"
 
@@ -92,6 +114,7 @@ offset_left = -578.0
 offset_top = -326.0
 offset_right = 578.0
 offset_bottom = 326.0
+metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Camera2D" unique_id=2073504154]
 scale = Vector2(0.225635, 8.096504)
@@ -101,10 +124,10 @@ texture = ExtResource("2_24ceq")
 
 [node name="Notes" type="Node2D" parent="." unique_id=443945100]
 
-[connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Return" to="." method="_on_return_button_pressed"]
-[connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Save" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Load" to="." method="_on_load_pressed"]
-[connection signal="pressed" from="UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Test" to="." method="_on_test_pressed"]
+[connection signal="pressed" from="UI/Control/VBoxContainer/Panel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Return" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="UI/Control/VBoxContainer/Panel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="UI/Control/VBoxContainer/Panel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="UI/Control/VBoxContainer/Panel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Test" to="." method="_on_test_pressed"]
 [connection signal="button_down" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_button_down"]
 [connection signal="button_up" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_button_up"]
 [connection signal="gui_input" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_gui_input"]

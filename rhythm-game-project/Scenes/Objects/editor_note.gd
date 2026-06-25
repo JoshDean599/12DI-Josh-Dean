@@ -29,6 +29,8 @@ func _process(_delta: float) -> void:
 			position = (get_global_mouse_position() - draggedOffset).snapped(gridSize)
 		else:
 			position = get_global_mouse_position() - draggedOffset
+		if position.x < 0:
+			position.x = 0
 	
 	if tailDragging:
 		if Globals.editorGridLockKeyPress:

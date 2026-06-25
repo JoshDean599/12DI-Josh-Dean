@@ -72,6 +72,6 @@ func check_note():
 			closestNote = currentIndex
 		currentIndex += 1
 	
-	if loadedSong.Notes[closestNote].time - DisplayServer.screen_get_size().x / noteMoveSpeed <= songHandler.Audio.get_playback_position():
+	if loadedSong.Notes[closestNote].time - float(DisplayServer.screen_get_size().x) / noteMoveSpeed <= songHandler.Audio.get_playback_position():
 		create_note(loadedSong.Notes.pop_at(closestNote))
 	

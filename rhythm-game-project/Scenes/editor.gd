@@ -88,6 +88,7 @@ func _process(delta: float) -> void:
 		else:
 			camera.position.x = -(DisplayServer.mouse_get_position().x - startDragPosition)
 	$UI/Control/MarginContainer2/Label.text = "Time: " + str(round((camera.position.x / Globals.noteMoveSpeed)* 100) / 100)
+	
 	if testing:
 		Globals.gameTime += delta
 		$Camera2D.position.x = Globals.noteMoveSpeed * Globals.gameTime
@@ -129,13 +130,15 @@ func _on_drag_detector_gui_input(event: InputEvent) -> void:
 func _on_test_pressed() -> void:
 	var SongHandler = $Camera2D/SongHandler
 	var Audio = $Camera2D/SongHandler/Audio
-	SongHandler.load_song(songName.text, 0)
+	SongHandler.load_song(songName.text)
+	# Hide the UI
 	$UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Return.visible = testing
 	$UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Save.visible = testing
 	$UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Load.visible = testing
 	$UI/Control/MarginContainer/VBoxContainer/PanelContainer.visible = testing
 	
 	testing = !testing
+	# Change to Note Move speed
 	if testing:
 		Globals.gameTime = round((camera.position.x / Globals.noteMoveSpeed)* 100) / 100
 		Audio.play()

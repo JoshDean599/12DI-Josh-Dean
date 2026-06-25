@@ -34,12 +34,12 @@ func _process(_delta: float) -> void:
 
 
 func setup(NoteHandler, noteSettings: Dictionary):
-	songHandler = noteHandler.songHandler
+	songHandler = NoteHandler.songHandler
 	noteHandler = NoteHandler # Define the note handler
 	noteTime = noteSettings.time
 	holdEndTime = noteSettings.endTime
 	# Set the notes initial position
-	global_position = Vector2(noteSettings.time * Globals.noteMoveSpeed, noteSettings.positionY)
+	global_position = Vector2(noteSettings.time * noteHandler.noteMoveSpeed, noteSettings.positionY)
 	# Setup the notes tail position
-	$Tail.position =  Vector2((noteSettings.endTime - noteSettings.time) * Globals.noteMoveSpeed, noteSettings.tailY)
+	$Tail.position =  Vector2((noteSettings.endTime - noteSettings.time) * noteHandler.noteMoveSpeed, noteSettings.tailY)
 	
