@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var filePath = $UI/Control/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/FilePath
-@onready var songName = $UI/Control/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/SongName
+@onready var filePath = $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/FilePath
+@onready var songName = $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/SongName
 
 @onready var camera = $Camera2D
 var cameraOffset = 0
@@ -87,7 +87,7 @@ func _process(delta: float) -> void:
 			camera.position.x = snapped(-(DisplayServer.mouse_get_position().x - startDragPosition), Globals.noteMoveSpeed)
 		else:
 			camera.position.x = -(DisplayServer.mouse_get_position().x - startDragPosition)
-	$UI/Control/MarginContainer2/Label.text = "Time: " + str(round((camera.position.x / Globals.noteMoveSpeed)* 100) / 100)
+	$UI/MarginContainer/VBoxContainer/HBoxContainer/Label.text = "Time: " + str(round((camera.position.x / Globals.noteMoveSpeed)* 100) / 100)
 	
 	if testing:
 		Globals.gameTime += delta
@@ -132,10 +132,10 @@ func _on_test_pressed() -> void:
 	var Audio = $Camera2D/SongHandler/Audio
 	SongHandler.load_song(songName.text)
 	# Hide the UI
-	$UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Return.visible = testing
-	$UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Save.visible = testing
-	$UI/Control/MarginContainer/VBoxContainer/HBoxContainer/Load.visible = testing
-	$UI/Control/MarginContainer/VBoxContainer/PanelContainer.visible = testing
+	$UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/Return.visible = testing
+	$UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/Save.visible = testing
+	$UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/Load.visible = testing
+	$UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer.visible = testing
 	
 	testing = !testing
 	# Change to Note Move speed
