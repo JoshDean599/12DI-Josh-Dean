@@ -1,6 +1,9 @@
 extends Node2D
 
 # Editor note movement variables
+var time: float = 0.0
+var offset: float = 0.0 # How far from the center the note is
+
 var dragging = false
 var draggedOffset = Vector2.ZERO
 var tailDragging = false
@@ -22,21 +25,17 @@ var gridSize = Vector2.ZERO
 
 
 func _process(_delta: float) -> void:
-	if gridSize != Vector2(Globals.noteMoveSpeed/4, Globals.noteMoveSpeed / 4):
-		gridSize = Vector2(Globals.noteMoveSpeed/4, Globals.noteMoveSpeed / 4)
+	if gridSize != Vector2( get_parent().get_parent().snapDistance * Globals.noteMoveSpeed, # Correct the gridSize if it changes
+	get_parent().get_parent().snapDistance * Globals.noteMoveSpeed):
+		gridSize = Vector2( get_parent().get_parent().snapDistance * Globals.noteMoveSpeed,
+	get_parent().get_parent().snapDistance * Globals.noteMoveSpeed)
 	if dragging:
-		if Globals.editorGridLockKeyPress:
-			position = (get_global_mouse_position() - draggedOffset).snapped(gridSize)
-		else:
-			position = get_global_mouse_position() - draggedOffset
-		if position.x < 0:
+		position = (get_global_mouse_position() - draggedOffset).snapped(gridSize)
+		if position.x < 0: # Limit the x position
 			position.x = 0
 	
 	if tailDragging:
-		if Globals.editorGridLockKeyPress:
-			$Tail.position = (get_global_mouse_position() - tailDraggingOffset).snapped(gridSize)
-		else:
-			$Tail.position = get_global_mouse_position() - tailDraggingOffset
+		$Tail.position = (get_global_mouse_position() - tailDraggingOffset).snapped(gridSize)
 		$Line2D.set_point_position(1, $Tail.position)
 
 

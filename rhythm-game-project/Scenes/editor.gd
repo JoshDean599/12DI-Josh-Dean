@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var filePath = $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/FilePath
 @onready var songName = $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/SongName
+@onready var songHandler = $Camera2D/SongHandler
 
 @onready var camera = $Camera2D
 var cameraOffset = 0
@@ -11,14 +12,20 @@ var startDragPosition = Vector2.ZERO
 var clickTime: float = 0.0
 var clickPosition: Vector2i = Vector2.ZERO
 
+var snapDistance: float = 1.0
+
 var testing = false
 
 
-func createNewNote(Position: Vector2, TailPosition: Vector2) -> void:
+func createNewNote(Position: Vector2, TailPosition: Vector2, setTime: float, offset: float) -> void:
 	var newNote = Globals.EditorNote.instantiate()
 	$Notes.add_child(newNote)
 	
-	newNote.position.x = Position.x
+	print(setTime)
+	newNote.time = setTime
+	newNote.offset = offset
+	
+	newNote.position.x = snapped(Position.x, setTime * Globals.noteMoveSpeed)
 	newNote.position.y = Position.y
 	
 	newNote.get_node("Tail").position = TailPosition
@@ -73,7 +80,9 @@ func _on_load_pressed() -> void:
 	for i in saveAsDict.Notes: # Load the notes from the savePath
 		createNewNote(
 			Vector2(i.time * Globals.noteMoveSpeed, i.positionY), # Note Position
-			Vector2(i.endTime * Globals.noteMoveSpeed, i.tailY) # Note Tail Position
+			Vector2(i.endTime * Globals.noteMoveSpeed, i.tailY), # Note Tail Position
+			i.time,
+			0.0
 		)
 
 
@@ -91,7 +100,10 @@ func _process(delta: float) -> void:
 	
 	if testing:
 		Globals.gameTime += delta
-		$Camera2D.position.x = Globals.noteMoveSpeed * Globals.gameTime
+		camera.position.x = Globals.noteMoveSpeed * Globals.gameTime
+	
+	if camera.position.x < 0:
+		camera.position.x = 0
 
 
 func _on_drag_detector_button_down() -> void:
@@ -110,39 +122,34 @@ func _on_drag_detector_button_up() -> void:
 			float(DisplayServer.mouse_get_position().x) - float(DisplayServer.screen_get_size().x) / 2,
 			float(DisplayServer.mouse_get_position().y) - float(DisplayServer.screen_get_size().y) / 2
 		)
-		createNewNote( mousePosition + camera.position, Vector2())
+		createNewNote( mousePosition + camera.position, Vector2(), snapped((mousePosition.x + camera.position.x) / Globals.noteMoveSpeed, snapDistance), 0.0)
 
 
-func _on_drag_detector_gui_input(event: InputEvent) -> void:
+func _on_drag_detector_gui_input(event: InputEvent) -> void: # Scrolling around the editor
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			if Globals.editorGridLockKeyPress:
-				camera.position.x -= Globals.noteMoveSpeed * 5
-			else:
-				camera.position.x -= Globals.editorScrollSpeed
+			camera.position.x -= Globals.noteMoveSpeed * snapDistance / 2
 		elif event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			if Globals.editorGridLockKeyPress:
-				camera.position.x += Globals.noteMoveSpeed * 5
-			else:
-				camera.position.x += Globals.editorScrollSpeed
+			camera.position.x += Globals.noteMoveSpeed * snapDistance / 2
 
 
-func _on_test_pressed() -> void:
-	var SongHandler = $Camera2D/SongHandler
-	var Audio = $Camera2D/SongHandler/Audio
-	SongHandler.load_song(songName.text)
-	# Hide the UI
-	$UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/Return.visible = testing
-	$UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/Save.visible = testing
-	$UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/Load.visible = testing
-	$UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer.visible = testing
+func _on_play_button_pressed() -> void:
+	Globals.gameTime = camera.position.x / Globals.noteMoveSpeed
+	testing = true
+	$UI/MarginContainer/VBoxContainer/HBoxContainer/PlayButton.visible = false
+	$UI/MarginContainer/VBoxContainer/HBoxContainer/PauseButton.visible = true
 	
-	testing = !testing
-	# Change to Note Move speed
-	if testing:
-		Globals.gameTime = round((camera.position.x / Globals.noteMoveSpeed)* 100) / 100
-		Audio.play()
-		Audio.seek(round((camera.position.x / Globals.noteMoveSpeed)* 100) / 100)
-	else:
-		Audio.stop()
+	songHandler.play_song(Globals.gameTime)
+
+
+func _on_pause_button_pressed() -> void:
+	testing = false
+	$UI/MarginContainer/VBoxContainer/HBoxContainer/PlayButton.visible = true
+	$UI/MarginContainer/VBoxContainer/HBoxContainer/PauseButton.visible = false
 	
+	songHandler.stop_song()
+
+
+func _on_option_button_item_selected(index: int) -> void:
+	snapDistance = 1.0 / $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/OptionButton.get_item_id(index)
+	print(snapDistance)
