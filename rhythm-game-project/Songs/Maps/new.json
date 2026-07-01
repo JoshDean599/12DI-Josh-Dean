@@ -1,88 +1,28 @@
 {
 	"Notes": [
 		{
-			"endTime": 9.5,
+			"endTime": 8.0,
 			"positionY": 0.0,
 			"tailY": 0.0,
-			"time": 9.5
+			"time": 8.0
 		},
 		{
-			"endTime": 9.75,
-			"positionY": 150.0,
-			"tailY": 0.0,
-			"time": 9.75
-		},
-		{
-			"endTime": 12.5,
-			"positionY": -225.0,
-			"tailY": 0.0,
-			"time": 10.75
-		},
-		{
-			"endTime": 15.25,
-			"positionY": -75.0,
-			"tailY": 0.0,
-			"time": 13.0
-		},
-		{
-			"endTime": 18.25,
-			"positionY": 37.5,
-			"tailY": 0.0,
-			"time": 15.75
-		},
-		{
-			"endTime": 20.75,
-			"positionY": 187.5,
-			"tailY": 0.0,
-			"time": 18.5
-		},
-		{
-			"endTime": 21.0,
-			"positionY": -112.5,
-			"tailY": 0.0,
-			"time": 21.0
-		},
-		{
-			"endTime": 21.0,
-			"positionY": 37.5,
-			"tailY": 0.0,
-			"time": 21.0
-		},
-		{
-			"endTime": 3.75,
+			"endTime": 0.0,
 			"positionY": 0.0,
 			"tailY": 0.0,
-			"time": 3.75
+			"time": 0.0
 		},
 		{
-			"endTime": 5.25,
+			"endTime": 3.0,
 			"positionY": 0.0,
 			"tailY": 0.0,
-			"time": 5.25
+			"time": 3.0
 		},
 		{
-			"endTime": 2.25,
+			"endTime": 6.0,
 			"positionY": 0.0,
 			"tailY": 0.0,
-			"time": 2.25
-		},
-		{
-			"endTime": 0.75,
-			"positionY": 0.0,
-			"tailY": 0.0,
-			"time": 0.75
-		},
-		{
-			"endTime": 6.75,
-			"positionY": 0.0,
-			"tailY": 0.0,
-			"time": 6.75
-		},
-		{
-			"endTime": 8.25,
-			"positionY": 0.0,
-			"tailY": 0.0,
-			"time": 8.25
+			"time": 6.0
 		}
 	],
 	"Song": "NEFFEX - Hate It or Love It"

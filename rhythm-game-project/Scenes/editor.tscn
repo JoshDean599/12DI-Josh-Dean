@@ -59,7 +59,7 @@ text = "Load Map"
 
 [node name="Label" type="Label" parent="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=321760662]
 layout_mode = 2
-text = "Snap length (seconds):"
+text = "Snap Distance (Seconds):"
 
 [node name="OptionButton" type="OptionButton" parent="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=292164829]
 layout_mode = 2

@@ -29,7 +29,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if heldKeys.find(event.keycode) == -1: # If the key press isn't found to be already pressing:
 				heldKeys.push_back(event.keycode) # Add it to the list of pressed keys
 			
-			if noteQueue.size() > 0 and noteQueue.front().noteTime < songHandler.Audio.get_playback_position() + 1: # Change to a proper range
+			if noteQueue.size() > 0 and noteQueue.front().noteTime < songHandler.trueTime + 1: # Change to a proper range
 				noteQueue.pop_front().active = true
 		elif event.is_released():
 			if heldKeys.find(event.keycode) >= 0:
@@ -45,10 +45,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	$Notes.position.x = -noteMoveSpeed * songHandler.Audio.get_playback_position()
+	$Notes.position.x = -noteMoveSpeed * songHandler.trueTime
 	
 	# Remove from noteqQueue if passed point of hitting
-	if noteQueue.size() > 0 and noteQueue.front().noteTime <= songHandler.Audio.get_playback_position(): # Change to proper range
+	if noteQueue.size() > 0 and noteQueue.front().noteTime <= songHandler.trueTime: # Change to proper range
 		print("Popped note")
 		noteQueue.pop_front()
 	
@@ -72,6 +72,6 @@ func check_note():
 			closestNote = currentIndex
 		currentIndex += 1
 	
-	if loadedSong.Notes[closestNote].time - float(DisplayServer.screen_get_size().x) / noteMoveSpeed <= songHandler.Audio.get_playback_position():
+	if loadedSong.Notes[closestNote].time - float(DisplayServer.screen_get_size().x) / noteMoveSpeed <= songHandler.trueTime:
 		create_note(loadedSong.Notes.pop_at(closestNote))
 	

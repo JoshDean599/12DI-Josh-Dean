@@ -13,7 +13,7 @@ func _process(_delta: float) -> void:
 	# Check if the note is held:
 	if active:
 		if noteHandler.holding:
-			if songHandler.Audio.get_playback_position() - holdEndTime >= 0 or holdEndTime - noteTime == 0: # Successfuly held note! - Change to proper range
+			if songHandler.trueTime - holdEndTime >= 0 or holdEndTime - noteTime == 0: # Successfuly held note! - Change to proper range
 				print("Success!")
 				noteHandler.get_parent().incriment_score(10)
 				queue_free()
@@ -28,7 +28,7 @@ func _process(_delta: float) -> void:
 	
 	
 	# Clear the note once it's no longer in use
-	if not active and songHandler.Audio.get_playback_position() > noteTime + holdEndTime + 1:
+	if not active and songHandler.trueTime > noteTime + holdEndTime + 1:
 		print("Freeing Note")
 		queue_free()
 

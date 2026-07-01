@@ -5,7 +5,6 @@ extends Node2D
 @onready var songHandler = $Camera2D/SongHandler
 
 @onready var camera = $Camera2D
-var cameraOffset = 0
 var dragging = false
 var startDragPosition = Vector2.ZERO
 
@@ -13,6 +12,7 @@ var clickTime: float = 0.0
 var clickPosition: Vector2i = Vector2.ZERO
 
 var snapDistance: float = 1.0
+var songNoteMoveSpeed: int = 250
 
 var testing = false
 
@@ -92,11 +92,9 @@ func _on_return_button_pressed() -> void:
 
 func _process(delta: float) -> void:
 	if dragging and not testing:
-		if Globals.editorGridLockKeyPress:
-			camera.position.x = snapped(-(DisplayServer.mouse_get_position().x - startDragPosition), Globals.noteMoveSpeed)
-		else:
-			camera.position.x = -(DisplayServer.mouse_get_position().x - startDragPosition)
-	$UI/MarginContainer/VBoxContainer/HBoxContainer/Label.text = "Time: " + str(round((camera.position.x / Globals.noteMoveSpeed)* 100) / 100)
+		camera.position.x = snapped(-(DisplayServer.mouse_get_position().x - startDragPosition), snapDistance * Globals.noteMoveSpeed)
+	
+	$UI/MarginContainer/VBoxContainer/HBoxContainer/Label.text = "Time at cursor: " + str(snapped((DisplayServer.mouse_get_position().x - DisplayServer.screen_get_size().x / 2.0) + camera.position.x, snapDistance * Globals.noteMoveSpeed)/150)
 	
 	if testing:
 		Globals.gameTime += delta

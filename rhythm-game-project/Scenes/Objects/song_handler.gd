@@ -7,7 +7,9 @@ extends Node
 
 var map = {}
 
-
+var buffer = 0.0
+var buffering = false
+var trueTime = 0.0
 
 func load_map(Map : String): # Used in game:
 	
@@ -33,9 +35,26 @@ func load_song(Song): # The song file to load
 	Audio.stream = load(Song)
 
 func play_song(PlayPosition: float):
-	Audio.play()
-	Audio.seek(PlayPosition) # Jump to the position to start the song from
+	if PlayPosition < 0:
+		buffer = -PlayPosition
+		buffering = true
+	else:
+		Audio.play()
+		Audio.seek(PlayPosition) # Jump to the position to start the song from
 	
 
 func stop_song():
+	if buffering:
+		buffering = false
 	Audio.stop()
+
+func _process(delta: float) -> void:
+	if buffering:
+		buffer -= delta
+		if buffer <= 0:
+			buffering = false
+			Audio.play()
+			Audio.seek(0.0)
+	
+	trueTime = Audio.get_playback_position() - buffer
+	

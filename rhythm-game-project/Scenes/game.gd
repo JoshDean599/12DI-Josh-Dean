@@ -34,7 +34,7 @@ func pause_game() -> void:
 	songHandler.stop_song()
 
 func play_game() -> void:
-	songHandler.play_song(0.0)
+	songHandler.play_song(-5.0)
 
 
 func _on_button_pressed() -> void: # Return button - Change name to fit
