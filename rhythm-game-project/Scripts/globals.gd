@@ -13,20 +13,8 @@ var EditorNote = preload("res://Scenes/Objects/editor_note.tscn")
 var mapPath = "res://Songs/Maps/"
 var musicPath = "res://Songs/Music/"
 
-# EditorGrid:
-const editorSnappingKey = KEY_SPACE
-const editorScrollSpeed = 150
-var editorGridLockKeyPress: bool = false
-
 # Note variables:
 var noteMoveSpeed = 150.0
-
-# GameVariables
-var loadedSong := "new"
-var gameTime := 0.0
-var gameBufferTime := 0.0
-var gameScore := 0
-var gamePlaying := false
 
 
 func change_scene(node):
@@ -43,9 +31,3 @@ func load_song(path) -> Dictionary:
 	
 	var saveString = FileAccess.get_file_as_string(path)
 	return JSON.parse_string(saveString)
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if event.keycode == editorSnappingKey:
-			editorGridLockKeyPress = event.pressed

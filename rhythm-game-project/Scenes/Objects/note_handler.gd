@@ -2,8 +2,8 @@ extends Sprite2D
 
 @onready var songHandler = get_parent().get_node("SongHandler")
 var loadedSong = null
+var active = false
 var noteMoveSpeed = 250
-
 
 var noteQueue = [] #  Keeps track of what notes to process first
 var heldKeys = [] # Keeps track of the held keys
@@ -45,6 +45,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	if not active: return
 	$Notes.position.x = -noteMoveSpeed * songHandler.trueTime
 	
 	# Remove from noteqQueue if passed point of hitting

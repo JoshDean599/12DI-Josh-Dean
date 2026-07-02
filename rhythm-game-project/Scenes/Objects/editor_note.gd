@@ -16,26 +16,23 @@ var clickTime = 0.0
 @export var onHoverTailSize: float = 1.1
 @export var tailDragDetectorBaseScale: float = 2.0
 @export var tailDragDetectorOffsetScale: float = 1.3
+@onready var editor = get_parent().get_parent()
 
 # Note Variables
 var duration: float = 0
 var noteType: int = 0
 
-var gridSize = Vector2.ZERO
-
 
 func _process(_delta: float) -> void:
-	if gridSize != Vector2( get_parent().get_parent().snapDistance * Globals.noteMoveSpeed, # Correct the gridSize if it changes
-	get_parent().get_parent().snapDistance * Globals.noteMoveSpeed):
-		gridSize = Vector2( get_parent().get_parent().snapDistance * Globals.noteMoveSpeed,
-	get_parent().get_parent().snapDistance * Globals.noteMoveSpeed)
 	if dragging:
-		position = (get_global_mouse_position() - draggedOffset).snapped(gridSize)
+		position.x = snapped(get_global_mouse_position().x - draggedOffset.x, editor.snapDistance * editor.songNoteMoveSpeed)
+		position.y = snapped(get_global_mouse_position().y - draggedOffset.y, editor.songNoteMoveSpeed / 4.0)
 		if position.x < 0: # Limit the x position
 			position.x = 0
 	
 	if tailDragging:
-		$Tail.position = (get_global_mouse_position() - tailDraggingOffset).snapped(gridSize)
+		$Tail.position.x = snapped(get_global_mouse_position().x - tailDraggingOffset.x, editor.snapDistance * editor.songNoteMoveSpeed)
+		$Tail.position.y = snapped(get_global_mouse_position().y - tailDraggingOffset.y, editor.songNoteMoveSpeed / 4.0)
 		$Line2D.set_point_position(1, $Tail.position)
 
 

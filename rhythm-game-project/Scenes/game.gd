@@ -11,15 +11,15 @@ var score = 0
 func _on_tree_entered() -> void: # Happens before @onready is called
 	if not gameReady:
 		await ready
-	reset_game() #Only reset game once ready
+	reset_game("new") # Only reset game once ready -- Create way to dynamically open different songs
 	
 
-func reset_game() -> void:
+func reset_game(song) -> void:
 	score = 0
 	scoreLabel.text = "Score: 0"
 	
-	
-	songHandler.load_map(Globals.loadedSong)
+	noteHandler.active = false
+	songHandler.load_map(song)
 	noteHandler.on_load(songHandler.map)
 	
 	for i in noteHandler.get_node("Notes").get_children().size():
@@ -35,6 +35,7 @@ func pause_game() -> void:
 
 func play_game() -> void:
 	songHandler.play_song(-5.0)
+	noteHandler.active = true
 
 
 func _on_button_pressed() -> void: # Return button - Change name to fit

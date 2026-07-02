@@ -1,28 +1,22 @@
 {
 	"Notes": [
 		{
-			"endTime": 8.0,
-			"positionY": 0.0,
-			"tailY": 0.0,
-			"time": 8.0
-		},
-		{
-			"endTime": 0.0,
-			"positionY": 0.0,
-			"tailY": 0.0,
+			"offset": -62.5,
+			"tailOffset": 0.0,
+			"tailTime": 1.0,
 			"time": 0.0
 		},
 		{
-			"endTime": 3.0,
-			"positionY": 0.0,
-			"tailY": 0.0,
-			"time": 3.0
+			"offset": 62.5,
+			"tailOffset": 0.0,
+			"tailTime": 0.5,
+			"time": 0.0
 		},
 		{
-			"endTime": 6.0,
-			"positionY": 0.0,
-			"tailY": 0.0,
-			"time": 6.0
+			"offset": -187.5,
+			"tailOffset": 0.0,
+			"tailTime": 1.5,
+			"time": 0.0
 		}
 	],
 	"Song": "NEFFEX - Hate It or Love It"

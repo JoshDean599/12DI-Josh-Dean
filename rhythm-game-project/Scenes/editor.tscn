@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://i5pwojav548r" path="res://Scenes/editor.gd" id="1_wqabg"]
 [ext_resource type="Texture2D" uid="uid://cbbnl80tr27bh" path="res://Assets/PlaceHolderPlayButton.png" id="2_7wlcy"]
-[ext_resource type="Texture2D" uid="uid://43s0ilqd1cce" path="res://icon.svg" id="2_24ceq"]
 [ext_resource type="PackedScene" uid="uid://blddwce4egim7" path="res://Scenes/Objects/song_handler.tscn" id="3_a7iym"]
 [ext_resource type="Texture2D" uid="uid://d2u00xhj31tag" path="res://Assets/PlaceHolderPauseButton.png" id="3_wkuwf"]
 
@@ -130,10 +129,6 @@ offset_top = -326.0
 offset_right = 578.0
 offset_bottom = 326.0
 metadata/_edit_use_anchors_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Camera2D" unique_id=2073504154]
-scale = Vector2(0.225635, 8.096504)
-texture = ExtResource("2_24ceq")
 
 [node name="SongHandler" parent="Camera2D" unique_id=1731543359 instance=ExtResource("3_a7iym")]
 

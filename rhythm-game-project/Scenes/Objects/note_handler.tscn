@@ -8,3 +8,4 @@ texture = ExtResource("1_xy2le")
 script = ExtResource("2_f8bsx")
 
 [node name="Notes" type="Node2D" parent="." unique_id=1589741201]
+position = Vector2(2000, 0)
