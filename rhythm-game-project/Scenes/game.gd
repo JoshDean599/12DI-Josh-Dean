@@ -11,7 +11,9 @@ var score = 0
 func _on_tree_entered() -> void: # Happens before @onready is called
 	if not gameReady:
 		await ready
-	reset_game("new") # Only reset game once ready -- Create way to dynamically open different songs
+	reset_game("new") # Only reset game once ready
+	
+	# Create way to dynamically open different songs
 	
 
 func reset_game(song) -> void:
@@ -34,7 +36,10 @@ func pause_game() -> void:
 	songHandler.stop_song()
 
 func play_game() -> void:
-	songHandler.play_song(-5.0)
+	# Speed = distance / time
+	# Distance = Speed * Time
+	# Time = Distance/ Speed
+	songHandler.play_song(-(DisplayServer.window_get_size().x / noteHandler.noteMoveSpeed) - 1)
 	noteHandler.active = true
 
 

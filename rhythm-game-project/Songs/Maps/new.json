@@ -3,21 +3,22 @@
 		{
 			"offset": -62.5,
 			"tailOffset": 0.0,
-			"tailTime": 1.0,
+			"tailTime": 0.0,
 			"time": 0.0
 		},
 		{
-			"offset": 62.5,
+			"offset": -62.5,
 			"tailOffset": 0.0,
-			"tailTime": 0.5,
-			"time": 0.0
+			"tailTime": 0.0,
+			"time": 1.0
 		},
 		{
-			"offset": -187.5,
+			"offset": -62.5,
 			"tailOffset": 0.0,
-			"tailTime": 1.5,
-			"time": 0.0
+			"tailTime": 0.0,
+			"time": 2.0
 		}
 	],
-	"Song": "NEFFEX - Hate It or Love It"
+	"Song": "NEFFEX - Hate It or Love It",
+	"bufferTime": 1.0
 }

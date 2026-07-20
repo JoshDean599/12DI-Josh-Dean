@@ -13,9 +13,6 @@ var EditorNote = preload("res://Scenes/Objects/editor_note.tscn")
 var mapPath = "res://Songs/Maps/"
 var musicPath = "res://Songs/Music/"
 
-# Note variables:
-var noteMoveSpeed = 150.0
-
 
 func change_scene(node):
 	var tree = get_tree()

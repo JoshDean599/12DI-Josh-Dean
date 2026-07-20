@@ -1,6 +1,7 @@
 extends Node2D
 
-@onready var filePath = $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/FilePath
+@onready var filePath = $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer/FilePath
+@onready var mapOffset = $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer/SpinBox
 @onready var songName = $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/SongName
 @onready var songHandler = $Camera2D/SongHandler
 @onready var label = $UI/MarginContainer/VBoxContainer/HBoxContainer/Label
@@ -15,6 +16,7 @@ var snapDistance: float = 1.0
 var songNoteMoveSpeed: int = 250
 
 var testing = false
+var testingGameTime = 0
 
 
 func createNewNote(Position: Vector2, TailPosition: Vector2) -> void:
@@ -35,7 +37,8 @@ func _on_save_pressed() -> void:
 	
 	var saveData = {
 		Notes = [],
-		Song = songName.text
+		Song = songName.text,
+		bufferTime = mapOffset.value,
 		}
 	for i in $Notes.get_children(): # Insert each notes into the table
 		saveData.Notes.push_back(
@@ -97,8 +100,8 @@ func _process(delta: float) -> void:
 		label.modulate = Color.WHITE
 	
 	if testing:
-		Globals.gameTime += delta
-		camera.position.x = songNoteMoveSpeed * Globals.gameTime
+		testingGameTime += delta
+		camera.position.x = songNoteMoveSpeed * testingGameTime
 	
 	if camera.position.x < 0:
 		camera.position.x = 0
@@ -132,12 +135,12 @@ func _on_drag_detector_gui_input(event: InputEvent) -> void: # Scrolling around 
 
 
 func _on_play_button_pressed() -> void:
-	Globals.gameTime = camera.position.x / songNoteMoveSpeed
+	testingGameTime = camera.position.x / songNoteMoveSpeed
 	testing = true
 	$UI/MarginContainer/VBoxContainer/HBoxContainer/PlayButton.visible = false
 	$UI/MarginContainer/VBoxContainer/HBoxContainer/PauseButton.visible = true
 	
-	songHandler.play_song(Globals.gameTime)
+	songHandler.play_song(testingGameTime)
 
 
 func _on_pause_button_pressed() -> void:
@@ -150,4 +153,4 @@ func _on_pause_button_pressed() -> void:
 
 func _on_option_button_item_selected(index: int) -> void:
 	snapDistance = 1.0 / $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/OptionButton.get_item_id(index)
-	print(snapDistance)
+	
