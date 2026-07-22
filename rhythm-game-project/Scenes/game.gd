@@ -2,7 +2,7 @@ extends Node2D
 
 # Handles Game logic
 
-@onready var gameReady = true
+@onready var gameReady = false
 @onready var scoreLabel = $UI/Control/HBoxContainer/MarginContainer/Label
 @onready var noteHandler = $NoteHandler
 @onready var songHandler = $SongHandler
@@ -11,7 +11,8 @@ var score = 0
 func _on_tree_entered() -> void: # Happens before @onready is called
 	if not gameReady:
 		await ready
-	reset_game("new") # Only reset game once ready
+		gameReady = true
+	reset_game(Globals.current_song) # Only reset game once ready
 	
 	# Create way to dynamically open different songs
 	
@@ -44,7 +45,7 @@ func play_game() -> void:
 
 
 func _on_button_pressed() -> void: # Return button - Change name to fit
-	Globals.change_scene(Globals.MainMenu)
+	Globals.change_scene(Globals.SongSelectMenu)
 
 
 func incriment_score(value: int) -> void:

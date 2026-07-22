@@ -1,24 +1,54 @@
 {
 	"Notes": [
 		{
-			"offset": -62.5,
+			"offset": 0.0,
 			"tailOffset": 0.0,
 			"tailTime": 0.0,
 			"time": 0.0
 		},
 		{
-			"offset": -62.5,
+			"offset": 0.0,
 			"tailOffset": 0.0,
 			"tailTime": 0.0,
 			"time": 1.0
 		},
 		{
-			"offset": -62.5,
+			"offset": 0.0,
 			"tailOffset": 0.0,
 			"tailTime": 0.0,
 			"time": 2.0
+		},
+		{
+			"offset": 125.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 0.5
+		},
+		{
+			"offset": 125.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 1.5
+		},
+		{
+			"offset": 125.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 2.5
+		},
+		{
+			"offset": 0.0,
+			"tailOffset": 0.0,
+			"tailTime": 1.0,
+			"time": 3.0
+		},
+		{
+			"offset": -125.0,
+			"tailOffset": 0.0,
+			"tailTime": 1.0,
+			"time": 4.5
 		}
 	],
 	"Song": "NEFFEX - Hate It or Love It",
-	"bufferTime": 1.0
+	"bufferTime": 0.0
 }
