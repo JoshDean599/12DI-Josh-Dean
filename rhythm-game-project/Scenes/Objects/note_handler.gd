@@ -10,18 +10,55 @@ var heldKeys = [] # Keeps track of the held keys
 var holding = false
 
 var scores = {
-	perfect = {
-		range = .05,
+	Perfect = {
+		min = .05,
+		max = .05,
 		score = 100
 	},
-	miss = {
-		range = .3,
+	Good = {
+		min = 0.1,
+		max = 0.1,
+		score = 10
+	},
+	Ok = {
+		min = 0.25,
+		max = 0.25,
+		score = 10
+	},
+	Bad = {
+		min = 0.5,
+		max = 0.5,
+		score = 10
+	},
+	Miss = {
+		min = 1,
+		max = 1,
 		score = 0
 	}
 }
 
+
 func on_load(map):
 	loadedSong = map
+	
+	#visualizeScoreDistance()
+
+func visualizeScoreDistance():
+	for i in $Node2D.get_children().size():
+		$Node2D.get_child(i).queue_free()
+	
+	for i in scores:
+		i = scores[i]
+		var visualizor = Sprite2D.new()
+		visualizor.texture = load("res://icon.svg")
+		var distance = (i.max + i.min) * noteMoveSpeed
+		visualizor.position.y = i.max * 128
+		visualizor.scale.x = distance / 128
+		#128 = spride width == 1 scale
+		$Node2D.call_deferred("add_child", visualizor)
+		pass
+	pass
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_echo() and event is InputEventKey:
@@ -29,7 +66,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if heldKeys.find(event.keycode) == -1: # If the key press isn't found to be already pressing:
 				heldKeys.push_back(event.keycode) # Add it to the list of pressed keys
 			
-			if noteQueue.size() > 0 and noteQueue.front().noteTime < songHandler.trueTime + 1: # Change to a proper range
+			if noteQueue.size() > 0 and noteQueue.front().noteTime < songHandler.trueTime + scores.Miss.max:
 				noteQueue.pop_front().active = true
 		elif event.is_released():
 			if heldKeys.find(event.keycode) >= 0:
@@ -49,7 +86,7 @@ func _process(_delta: float) -> void:
 	$Notes.position.x = -noteMoveSpeed * songHandler.trueTime
 	
 	# Remove from noteqQueue if passed point of hitting
-	if noteQueue.size() > 0 and noteQueue.front().noteTime <= songHandler.trueTime: # Change to proper range
+	if noteQueue.size() > 0 and noteQueue.front().noteTime <= songHandler.trueTime - scores.Miss.min:
 		print("Popped note")
 		noteQueue.pop_front()
 	

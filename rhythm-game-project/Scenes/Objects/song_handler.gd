@@ -8,7 +8,6 @@ extends Node
 var map = {}
 
 var buffer = 0.0
-var bufferTime = 0.0
 var buffering = false
 var trueTime = 0.0
 
@@ -23,7 +22,6 @@ func load_map(Map : String): # Used in game:
 	map = JSON.parse_string(FileAccess.get_file_as_string(mapLocation))
 	
 	load_song(map.Song)
-	bufferTime = map.bufferTime
 	
 	
 

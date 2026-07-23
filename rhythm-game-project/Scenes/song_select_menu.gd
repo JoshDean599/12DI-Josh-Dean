@@ -21,7 +21,7 @@ func dir_contents(path):
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				print("Found directory: " + file_name)
+				pass
 			else:
 				var new_file_name = ""
 				for i in file_name:
@@ -32,15 +32,13 @@ func dir_contents(path):
 				newButton.text = new_file_name
 				newButton.connect("pressed", on_select_button_pressed.bind(newButton))
 				$UI/VBoxContainer/VBoxContainer.add_child(newButton)
-				print("Found file: " + new_file_name)
 			file_name = dir.get_next()
 	else:
 		print("An error occurred when trying to access the path.")
 
 func on_select_button_pressed(Self) -> void:
 	Globals.start_game(Self.text)
-	pass
-
+	
 
 func _on_button_pressed() -> void:
 	Globals.change_scene(Globals.MainMenu)

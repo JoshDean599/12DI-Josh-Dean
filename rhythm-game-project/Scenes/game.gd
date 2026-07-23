@@ -37,9 +37,6 @@ func pause_game() -> void:
 	songHandler.stop_song()
 
 func play_game() -> void:
-	# Speed = distance / time
-	# Distance = Speed * Time
-	# Time = Distance/ Speed
 	songHandler.play_song(-(DisplayServer.window_get_size().x / noteHandler.noteMoveSpeed) - 1)
 	noteHandler.active = true
 

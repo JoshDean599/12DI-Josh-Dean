@@ -1,11 +1,15 @@
 [gd_scene format=3 uid="uid://2iriodn8taii"]
 
-[ext_resource type="Texture2D" uid="uid://43s0ilqd1cce" path="res://icon.svg" id="1_xy2le"]
 [ext_resource type="Script" uid="uid://pkyy3p5v70cx" path="res://Scenes/Objects/note_handler.gd" id="2_f8bsx"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xy2le"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+
 [node name="NoteHandler" type="Sprite2D" unique_id=1143384118]
-texture = ExtResource("1_xy2le")
+texture = SubResource("CompressedTexture2D_xy2le")
 script = ExtResource("2_f8bsx")
 
 [node name="Notes" type="Node2D" parent="." unique_id=1589741201]
 position = Vector2(2000, 0)
+
+[node name="Node2D" type="Node2D" parent="." unique_id=253820691]

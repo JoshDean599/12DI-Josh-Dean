@@ -1,7 +1,6 @@
 extends Node2D
 
-@onready var filePath = $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer/FilePath
-@onready var mapOffset = $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer/SpinBox
+@onready var filePath = $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/FilePath
 @onready var songName = $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/SongName
 @onready var songHandler = $Camera2D/SongHandler
 @onready var label = $UI/MarginContainer/VBoxContainer/HBoxContainer/Label
@@ -38,7 +37,6 @@ func _on_save_pressed() -> void:
 	var saveData = {
 		Notes = [],
 		Song = songName.text,
-		bufferTime = mapOffset.value,
 		}
 	for i in $Notes.get_children(): # Insert each notes into the table
 		saveData.Notes.push_back(
