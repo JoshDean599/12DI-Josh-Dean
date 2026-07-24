@@ -2,15 +2,20 @@ extends Node2D
 
 var gameReady = false
 var maps = "res://Songs/Maps"
+var button = preload("res://Scenes/Objects/song_select_button.tscn")
+@onready var vbox = $UI/VBoxContainer/VBoxContainer
 
 func _on_tree_entered() -> void:
 	if not gameReady:
 		await ready
 		gameReady = true
 	
+	refresh()
+
+func refresh():
 	# Clear the vBoxContainer
-	for i in $UI/VBoxContainer/VBoxContainer.get_children().size():
-		$UI/VBoxContainer/VBoxContainer.get_child(i).queue_free()
+	for i in vbox.get_children().size():
+		vbox.get_child(i).queue_free()
 	
 	dir_contents(maps)
 
@@ -28,17 +33,13 @@ func dir_contents(path):
 					if new_file_name.length() < file_name.length() - 5:
 						new_file_name = new_file_name + i
 				
-				var newButton = Button.new()
-				newButton.text = new_file_name
-				newButton.connect("pressed", on_select_button_pressed.bind(newButton))
-				$UI/VBoxContainer/VBoxContainer.add_child(newButton)
+				var newButton = button.instantiate()
+				newButton.get_node("HBoxContainer/Button").text = new_file_name
+				vbox.add_child(newButton)
+				
 			file_name = dir.get_next()
 	else:
 		print("An error occurred when trying to access the path.")
-
-func on_select_button_pressed(Self) -> void:
-	Globals.start_game(Self.text)
-	
 
 func _on_button_pressed() -> void:
 	Globals.change_scene(Globals.MainMenu)

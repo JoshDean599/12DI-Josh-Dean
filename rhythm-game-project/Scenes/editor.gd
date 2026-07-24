@@ -37,8 +37,12 @@ func _on_save_pressed() -> void:
 	var saveData = {
 		Notes = [],
 		Song = songName.text,
+		bufferTime = 5
 		}
+	var firstNote = null
 	for i in $Notes.get_children(): # Insert each notes into the table
+		if firstNote == null or i.position.x < firstNote.position.x:
+			firstNote = i
 		saveData.Notes.push_back(
 			{
 				time = i.position.x / songNoteMoveSpeed,
@@ -47,6 +51,7 @@ func _on_save_pressed() -> void:
 				tailOffset = i.get_node("Tail").position.y
 			}
 		)
+	saveData.bufferTime = firstNote.position.x / songNoteMoveSpeed
 	save_map(Globals.mapPath + filePath.text + ".json", saveData)
 
 

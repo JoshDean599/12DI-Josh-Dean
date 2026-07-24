@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://c5cr60xxxs04m"]
+
+[ext_resource type="Script" uid="uid://bm0gn3ftqke4o" path="res://Scenes/Objects/song_select_button.gd" id="1_nkk2q"]
+
+[node name="SongSelectButton" type="PanelContainer" unique_id=366585905]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+script = ExtResource("1_nkk2q")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=813509291]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer" unique_id=616559512]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PlaceHolderSongName"
+flat = true
+
+[node name="Options" type="MenuButton" parent="HBoxContainer" unique_id=1662820089]
+layout_mode = 2
+text = "•••"
+flat = false
+item_count = 1
+popup/item_0/text = "Delete"
+popup/item_0/id = 0
+
+[connection signal="pressed" from="HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/Options" to="." method="_on_options_pressed"]

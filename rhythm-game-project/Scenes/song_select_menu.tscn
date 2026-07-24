@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bvoo50mlc8oxu"]
 
 [ext_resource type="Script" uid="uid://bi8p4i2pam0lu" path="res://Scenes/song_select_menu.gd" id="1_gnggo"]
+[ext_resource type="PackedScene" uid="uid://c5cr60xxxs04m" path="res://Scenes/Objects/song_select_button.tscn" id="2_lywtl"]
 
 [node name="SongSelectMenu" type="Node2D" unique_id=510244915]
 script = ExtResource("1_gnggo")
@@ -8,14 +9,18 @@ script = ExtResource("1_gnggo")
 [node name="UI" type="CanvasLayer" parent="." unique_id=421583053]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=1557365720]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 45.0
+offset_bottom = 43.0
 
 [node name="Back" type="Button" parent="UI/VBoxContainer" unique_id=242756527]
 layout_mode = 2
+size_flags_horizontal = 0
 text = "Back"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/VBoxContainer" unique_id=2059699575]
+layout_mode = 2
+
+[node name="SongSelectButton" parent="UI/VBoxContainer/VBoxContainer" unique_id=366585905 instance=ExtResource("2_lywtl")]
 layout_mode = 2
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

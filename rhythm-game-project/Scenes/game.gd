@@ -37,7 +37,10 @@ func pause_game() -> void:
 	songHandler.stop_song()
 
 func play_game() -> void:
-	songHandler.play_song(-(DisplayServer.window_get_size().x / noteHandler.noteMoveSpeed) - 1)
+	var startTime = DisplayServer.window_get_size().x / noteHandler.noteMoveSpeed + 1 - songHandler.map.bufferTime
+	if startTime < 0:
+		startTime = 0
+	songHandler.play_song(-startTime)
 	noteHandler.active = true
 
 
