@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cbbnl80tr27bh" path="res://Assets/PlaceHolderPlayButton.png" id="2_7wlcy"]
 [ext_resource type="PackedScene" uid="uid://blddwce4egim7" path="res://Scenes/Objects/song_handler.tscn" id="3_a7iym"]
 [ext_resource type="Texture2D" uid="uid://d2u00xhj31tag" path="res://Assets/PlaceHolderPauseButton.png" id="3_wkuwf"]
+[ext_resource type="Texture2D" uid="uid://43s0ilqd1cce" path="res://icon.svg" id="5_wkuwf"]
 
 [node name="Editor" type="Node2D" unique_id=219707909]
 script = ExtResource("1_wqabg")
@@ -132,6 +133,12 @@ offset_bottom = 326.0
 metadata/_edit_use_anchors_ = true
 
 [node name="SongHandler" parent="Camera2D" unique_id=1731543359 instance=ExtResource("3_a7iym")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=13957113]
+self_modulate = Color(18.892157, 0, 0, 0.36862746)
+position = Vector2(-1262, 356)
+scale = Vector2(19.710938, 20.02344)
+texture = ExtResource("5_wkuwf")
 
 [node name="Notes" type="Node2D" parent="." unique_id=443945100]
 

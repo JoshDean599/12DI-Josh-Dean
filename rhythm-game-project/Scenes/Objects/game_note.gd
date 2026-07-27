@@ -7,17 +7,17 @@ var noteTime := 0.0
 var holdEndTime := 0.0
 
 var active = false
-
+var failed = false
 
 func _process(_delta: float) -> void:
 	# Check if the note is held:
+	var distanceFromHit = songHandler.trueTime - holdEndTime
 	if active:
-		var distanceFromHit = songHandler.trueTime - holdEndTime
 		if noteHandler.holding:
 			#First condition for hold notes, second for single notes
 			if distanceFromHit >= 0 or holdEndTime - noteTime == 0: # Successfuly held note!
 				if distanceFromHit < noteHandler.scores.Bad.max and distanceFromHit > -noteHandler.scores.Bad.min:
-					onSuccess()
+					onSuccess(distanceFromHit)
 				else:
 					onFail()
 				queue_free()
@@ -27,20 +27,31 @@ func _process(_delta: float) -> void:
 				pass
 		else: # Stopped holding Note -- Add some drop offset so you don't need to hold it for all the time to still pass it
 			if distanceFromHit >= -noteHandler.scores.Bad.min:
-				onSuccess()
+				onSuccess(distanceFromHit)
 			else:
 				onFail()
 			queue_free()
 			pass
+	else:
+		if distanceFromHit >= noteHandler.scores.Miss.min and not failed:
+			onFail()
+			failed = true
+	
 	
 	# Clear the note once it's no longer in use
-	if not active and songHandler.trueTime > noteTime + holdEndTime + 1 + noteHandler.scores.Miss.min:
+	if not active and songHandler.trueTime > holdEndTime + noteHandler.scores.Miss.min:
 		print("Freeing Note")
 		queue_free()
 
-func onSuccess():
-	noteHandler.get_parent().incriment_score(10)
-	print("Success!")
+func onSuccess(distanceFromHit):
+	var score = "bad"
+	for i in noteHandler.scores:
+		if distanceFromHit > -noteHandler.scores[i].min and distanceFromHit < noteHandler.scores[i].max:
+			score = i
+			break
+	print(score)
+	noteHandler.get_parent().incriment_score(noteHandler.scores[score].score)
+	#print("Success!")
 	pass
 
 func onFail():

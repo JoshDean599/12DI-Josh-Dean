@@ -11,19 +11,19 @@ var holding = false
 
 var scores = {
 	Perfect = {
-		min = .05,
-		max = .05,
+		min = .06,
+		max = .06,
 		score = 100
 	},
 	Good = {
-		min = 0.1,
-		max = 0.1,
-		score = 10
+		min = 0.15,
+		max = 0.15,
+		score = 50
 	},
 	Ok = {
 		min = 0.25,
 		max = 0.25,
-		score = 10
+		score = 25
 	},
 	Bad = {
 		min = 0.5,
@@ -40,25 +40,6 @@ var scores = {
 
 func on_load(map):
 	loadedSong = map
-	
-	#visualizeScoreDistance()
-
-func visualizeScoreDistance():
-	for i in $Node2D.get_children().size():
-		$Node2D.get_child(i).queue_free()
-	
-	for i in scores:
-		i = scores[i]
-		var visualizor = Sprite2D.new()
-		visualizor.texture = load("res://icon.svg")
-		var distance = (i.max + i.min) * noteMoveSpeed
-		visualizor.position.y = i.max * 128
-		visualizor.scale.x = distance / 128
-		#128 = spride width == 1 scale
-		$Node2D.call_deferred("add_child", visualizor)
-		pass
-	pass
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_echo() and event is InputEventKey:
@@ -79,10 +60,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			holding = false
 	
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if not active: return
+	if not active:
+		return
 	$Notes.position.x = -noteMoveSpeed * songHandler.trueTime
 	
 	# Remove from noteqQueue if passed point of hitting
@@ -90,8 +71,13 @@ func _process(_delta: float) -> void:
 		print("Popped note")
 		noteQueue.pop_front()
 	
-	if loadedSong != null and loadedSong.Notes.size() > 0: # If a song is loaded and there's still notes to load
-		check_note()
+	if loadedSong != null:
+		if loadedSong.Notes.size() > 0: # If a song is loaded and there's still notes to load
+			check_note()
+		elif noteQueue.size() == 0:
+			# Song Ended
+			active = false
+			print("Finish")
 
 
 func create_note(noteSettings: Dictionary) -> void:

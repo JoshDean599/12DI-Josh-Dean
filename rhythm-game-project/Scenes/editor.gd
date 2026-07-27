@@ -24,6 +24,8 @@ func createNewNote(Position: Vector2, TailPosition: Vector2) -> void:
 	
 	newNote.position.x = snapped(Position.x, snapDistance * songNoteMoveSpeed)
 	newNote.position.y = snapped(Position.y, songNoteMoveSpeed / 4.0)
+	if newNote.position.x < 0: # Limit the x position
+			newNote.position.x = 0
 	
 	newNote.get_node("Tail").position = TailPosition
 	newNote.get_node("Line2D").set_point_position(1, TailPosition)
@@ -94,9 +96,9 @@ func _process(delta: float) -> void:
 	if dragging and not testing:
 		camera.position.x = snapped(-(DisplayServer.mouse_get_position().x - startDragPosition), snapDistance * songNoteMoveSpeed)
 	
-	var time = round( snapped( DisplayServer.mouse_get_position().x - DisplayServer.screen_get_size().x / 2.0 + camera.position.x,
-	snapDistance * songNoteMoveSpeed) / songNoteMoveSpeed * 100 ) / 100
-	label.text = "Time at cursor: " + str(time)
+	var time = DisplayServer.mouse_get_position().x - DisplayServer.screen_get_size().x / 2.0 + camera.position.x
+	var displayedTime = round(snapped(time, snapDistance * songNoteMoveSpeed) / songNoteMoveSpeed * 100 ) / 100
+	label.text = "Time at cursor: " + str(displayedTime)
 	if time < 0:
 		label.modulate = Color.RED
 	else:

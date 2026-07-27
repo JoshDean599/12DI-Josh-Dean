@@ -14,8 +14,6 @@ func _on_tree_entered() -> void: # Happens before @onready is called
 		gameReady = true
 	reset_game(Globals.current_song) # Only reset game once ready
 	
-	# Create way to dynamically open different songs
-	
 
 func reset_game(song) -> void:
 	score = 0
@@ -29,9 +27,11 @@ func reset_game(song) -> void:
 		noteHandler.get_node("Notes").get_child(i).queue_free()
 	noteHandler.noteQueue = []
 	
-	await get_tree().create_timer(.01).timeout
+	await buffer()
 	play_game()
 
+func buffer() -> void:
+	await get_tree().create_timer(.01).timeout
 
 func pause_game() -> void:
 	songHandler.stop_song()
@@ -41,6 +41,7 @@ func play_game() -> void:
 	if startTime < 0:
 		startTime = 0
 	songHandler.play_song(-startTime)
+	await buffer()
 	noteHandler.active = true
 
 
