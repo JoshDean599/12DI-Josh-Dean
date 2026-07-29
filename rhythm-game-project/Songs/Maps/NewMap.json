@@ -1,13 +1,13 @@
 {
 	"Notes": [
 		{
-			"offset": -125.0,
+			"offset": -62.5,
 			"tailOffset": 0.0,
 			"tailTime": 0.0,
 			"time": 0.0
 		},
 		{
-			"offset": 0.0,
+			"offset": 62.5,
 			"tailOffset": 0.0,
 			"tailTime": 0.0,
 			"time": 1.0
@@ -17,6 +17,24 @@
 			"tailOffset": 0.0,
 			"tailTime": 0.0,
 			"time": 2.0
+		},
+		{
+			"offset": 62.5,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 3.0
+		},
+		{
+			"offset": -62.5,
+			"tailOffset": 0.0,
+			"tailTime": 2.0,
+			"time": 4.0
+		},
+		{
+			"offset": 125.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 6.25
 		}
 	],
 	"Song": "NEFFEX - Hate It or Love It",

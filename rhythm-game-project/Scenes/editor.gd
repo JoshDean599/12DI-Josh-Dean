@@ -53,6 +53,9 @@ func _on_save_pressed() -> void:
 				tailOffset = i.get_node("Tail").position.y
 			}
 		)
+	if firstNote == null:
+		print("No notes within map, returning")
+		return
 	saveData.bufferTime = firstNote.position.x / songNoteMoveSpeed
 	save_map(Globals.mapPath + filePath.text + ".json", saveData)
 

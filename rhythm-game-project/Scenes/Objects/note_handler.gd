@@ -74,10 +74,13 @@ func _process(_delta: float) -> void:
 	if loadedSong != null:
 		if loadedSong.Notes.size() > 0: # If a song is loaded and there's still notes to load
 			check_note()
-		elif noteQueue.size() == 0:
+		elif noteQueue.size() == 0 and $Notes.get_children().size() == 0:
 			# Song Ended
 			active = false
 			print("Finish")
+			await get_tree().create_timer(2).timeout
+			# Create a song end title card
+			Globals.change_scene(Globals.SongSelectMenu)
 
 
 func create_note(noteSettings: Dictionary) -> void:

@@ -1,14 +1,15 @@
 [gd_scene format=3 uid="uid://be8wqiglekldc"]
 
 [ext_resource type="Script" uid="uid://l5rs2ftsjg3e" path="res://Scenes/Objects/game_note.gd" id="1_bv6e1"]
-[ext_resource type="Texture2D" uid="uid://43s0ilqd1cce" path="res://icon.svg" id="1_yjfqu"]
+[ext_resource type="Texture2D" uid="uid://bay7rqv1pebyj" path="res://Assets/Note.png" id="2_el4r1"]
 
 [node name="Note" type="Node2D" unique_id=1319781420]
 script = ExtResource("1_bv6e1")
 
 [node name="Tail" type="Sprite2D" parent="." unique_id=1826716656]
-scale = Vector2(0.5599972, 0.5599972)
-texture = ExtResource("1_yjfqu")
+scale = Vector2(2.24, 2.24)
+texture = ExtResource("2_el4r1")
 
 [node name="Head" type="Sprite2D" parent="." unique_id=1646859482]
-texture = ExtResource("1_yjfqu")
+scale = Vector2(4, 4)
+texture = ExtResource("2_el4r1")

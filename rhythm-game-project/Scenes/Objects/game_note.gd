@@ -23,6 +23,7 @@ func _process(_delta: float) -> void:
 				queue_free()
 			else: # Holding note:
 				# Update visuals
+				$Head.position.x = (songHandler.trueTime - noteTime) * noteHandler.noteMoveSpeed
 				$Tail.modulate = Color(0.0, 1.0, 0.0, 1.0)
 				pass
 		else: # Stopped holding Note -- Add some drop offset so you don't need to hold it for all the time to still pass it
