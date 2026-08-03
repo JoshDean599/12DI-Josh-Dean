@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://8w0ps6ic53jc"]
+
+[ext_resource type="Script" uid="uid://bssh4f7tpqr6f" path="res://Scenes/editor.gd" id="1_eyy8u"]
+
+[node name="Editor" type="Node2D" unique_id=1265935660]
+script = ExtResource("1_eyy8u")
+
+[node name="Back" type="Button" parent="." unique_id=660728159]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Back"
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

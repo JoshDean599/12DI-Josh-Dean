@@ -7,9 +7,9 @@
 script = ExtResource("1_bv6e1")
 
 [node name="Tail" type="Sprite2D" parent="." unique_id=1826716656]
-scale = Vector2(2.24, 2.24)
+scale = Vector2(1.12, 1.12)
 texture = ExtResource("2_el4r1")
 
 [node name="Head" type="Sprite2D" parent="." unique_id=1646859482]
-scale = Vector2(4, 4)
+scale = Vector2(2, 2)
 texture = ExtResource("2_el4r1")

@@ -3,7 +3,7 @@ extends Sprite2D
 @onready var songHandler = get_parent().get_node("SongHandler")
 var loadedSong = null
 var active = false
-var noteMoveSpeed = 250
+var noteMoveSpeed = 500
 
 var noteQueue = [] #  Keeps track of what notes to process first
 var heldKeys = [] # Keeps track of the held keys

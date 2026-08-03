@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bp25e03odl5q"]
+
+[ext_resource type="Script" uid="uid://fgnbohxmsb5y" path="res://Scenes/Menus/song_select_menu.gd" id="1_8ud5j"]
+[ext_resource type="PackedScene" uid="uid://cwcjrn7hdneyk" path="res://Scenes/Objects/song_select_button.tscn" id="2_83smf"]
+
+[node name="SongSelectMenu" type="Node2D" unique_id=7160056]
+script = ExtResource("1_8ud5j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1313871366]
+offset_right = 45.0
+offset_bottom = 40.0
+
+[node name="Back" type="Button" parent="VBoxContainer" unique_id=212006133]
+layout_mode = 2
+text = "Back"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=110674608]
+layout_mode = 2
+
+[node name="SongSelectButton" parent="VBoxContainer/VBoxContainer" unique_id=313263511 instance=ExtResource("2_83smf")]
+layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="visibility_changed" from="VBoxContainer/VBoxContainer/SongSelectButton" to="." method="_on_song_select_button_visibility_changed"]

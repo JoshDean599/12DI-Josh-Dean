@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cxpdl6qevh3vd"]
+
+[ext_resource type="Script" uid="uid://bxgdwsmep7icd" path="res://Scenes/game_handler.gd" id="1_jqstq"]
+[ext_resource type="PackedScene" uid="uid://d0ogdfm02rt1s" path="res://Scenes/Menus/main_menu.tscn" id="2_fdak8"]
+[ext_resource type="PackedScene" uid="uid://bp25e03odl5q" path="res://Scenes/Menus/song_select_menu.tscn" id="3_nwul3"]
+[ext_resource type="PackedScene" uid="uid://8w0ps6ic53jc" path="res://Scenes/editor.tscn" id="4_aqcph"]
+[ext_resource type="PackedScene" uid="uid://cchg3l8kejua6" path="res://Scenes/game.tscn" id="5_plgud"]
+
+[node name="GameHandler" type="Node2D" unique_id=987273405]
+script = ExtResource("1_jqstq")
+
+[node name="MainMenu" parent="." unique_id=2098503698 instance=ExtResource("2_fdak8")]
+
+[node name="SongSelectMenu" parent="." unique_id=7160056 instance=ExtResource("3_nwul3")]
+visible = false
+
+[node name="Editor" parent="." unique_id=1265935660 instance=ExtResource("4_aqcph")]
+visible = false
+
+[node name="Game" parent="." unique_id=1689311946 instance=ExtResource("5_plgud")]
