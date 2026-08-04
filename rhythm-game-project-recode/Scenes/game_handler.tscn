@@ -18,3 +18,4 @@ visible = false
 visible = false
 
 [node name="Game" parent="." unique_id=1689311946 instance=ExtResource("5_plgud")]
+visible = false

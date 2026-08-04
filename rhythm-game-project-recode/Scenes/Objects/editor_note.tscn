@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://b7veyi3o55v2y"]
+
+[ext_resource type="Script" uid="uid://5ss7w24udi8l" path="res://Scenes/Objects/editor_note.gd" id="1_mygmu"]
+[ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="2_gkeuy"]
+
+[node name="EditorNote" type="Node2D" unique_id=1214834050]
+script = ExtResource("1_mygmu")
+
+[node name="Tail" type="Sprite2D" parent="." unique_id=774094697]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_gkeuy")
+
+[node name="Head" type="Sprite2D" parent="." unique_id=8246068]
+texture = ExtResource("2_gkeuy")

@@ -1,7 +1,9 @@
 extends Node2D
 
 @onready var currentScene = $MainMenu
-var MapPath = "res://LoadedMaps/"
+const MapPath = "res://LoadedMaps/"
+
+var noteMoveSpeed = 250 # Pixels a second
 
 func _ready() -> void:
 	# Make sure everything is hidden, apart from the starting scene

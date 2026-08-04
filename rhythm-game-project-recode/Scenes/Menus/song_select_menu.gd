@@ -15,7 +15,7 @@ func load_songs() -> void:
 	for i in $VBoxContainer/VBoxContainer.get_children():
 		i.queue_free()
 	
-	var dir = DirAccess.open(get_tree().MapPath)
+	var dir = DirAccess.open(get_parent().MapPath)
 	if dir:
 		dir.list_dir_begin()
 		var fileName = dir.get_next()
@@ -28,7 +28,7 @@ func load_songs() -> void:
 				
 				var newButton = songSelectButton.instantiate()
 				newButton.get_node("HBoxContainer/Button").text = newFileName
-				$VBoxContainer/VBoxContainer.add_child(newButton)
+				$VBoxContainer/VBoxContainer.add_child.call_deferred(newButton)
 				
 			fileName = dir.get_next()
 	else:
