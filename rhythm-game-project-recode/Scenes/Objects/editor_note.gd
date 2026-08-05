@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 
 func update_position() -> void:
 	position.x = time * get_tree().current_scene.noteMoveSpeed
-	position.y = DisplayServer.window_get_size().y * offset
+	position.y = offset
 	
 	$Tail.position.x = tailTime * get_tree().current_scene.noteMoveSpeed
 	$Tail.position.y = DisplayServer.window_get_size().y * tailOffset

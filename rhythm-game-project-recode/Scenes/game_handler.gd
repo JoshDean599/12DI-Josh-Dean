@@ -9,17 +9,19 @@ func _ready() -> void:
 	# Make sure everything is hidden, apart from the starting scene
 	for i in get_children():
 		if i == currentScene:
-			i.visible = true
-			i.set_process(true)
+			set_scene_visible(i, true)
 			continue
-		i.visible = false
-		i.set_process(false)
+		set_scene_visible(i, false)
 
 
 func change_scene(scene: String):
-	currentScene.set_process(false)
-	currentScene.visible = false
+	set_scene_visible(currentScene, false)
 	var newScene = get_node(scene)
-	newScene.set_process(true)
-	newScene.visible = true
+	set_scene_visible(newScene, true)
 	currentScene = newScene
+
+func set_scene_visible(scene, type: bool) -> void:
+	scene.visible = type
+	if scene.find_child("CanvasLayer"):
+		scene.get_node("CanvasLayer").visible = type
+	scene.set_process(type)
