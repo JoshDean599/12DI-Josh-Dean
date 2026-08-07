@@ -10,5 +10,33 @@ script = ExtResource("1_mygmu")
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_gkeuy")
 
+[node name="TailDetector" type="Button" parent="Tail" unique_id=1732891292]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Head" type="Sprite2D" parent="." unique_id=8246068]
 texture = ExtResource("2_gkeuy")
+
+[node name="HeadDetector" type="Button" parent="Head" unique_id=102543192]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="button_down" from="Tail/TailDetector" to="." method="_on_tail_detector_button_down"]
+[connection signal="button_up" from="Tail/TailDetector" to="." method="_on_tail_detector_button_up"]
+[connection signal="button_down" from="Head/HeadDetector" to="." method="_on_head_detector_button_down"]
+[connection signal="button_up" from="Head/HeadDetector" to="." method="_on_head_detector_button_up"]
+[connection signal="gui_input" from="Head/HeadDetector" to="." method="_on_head_detector_gui_input"]

@@ -85,6 +85,6 @@ func _on_click_detector_gui_input(event: InputEvent) -> void:
 		if event.pressed:
 			clickPosition = DisplayServer.mouse_get_position()
 			clickTime = Time.get_ticks_msec() / 1000.0
-		else:
+		else: #Onrelease
 			if clickPosition == DisplayServer.mouse_get_position() and Time.get_ticks_msec() / 1000.0 - clickTime < 0.25:
 				queue_free()

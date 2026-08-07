@@ -4,6 +4,7 @@ extends Node2D
 const MapPath = "res://LoadedMaps/"
 
 var noteMoveSpeed = 250 # Pixels a second
+var YCollumnHeight = 10
 
 func _ready() -> void:
 	# Make sure everything is hidden, apart from the starting scene

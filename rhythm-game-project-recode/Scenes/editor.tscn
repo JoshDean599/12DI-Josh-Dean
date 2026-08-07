@@ -5,57 +5,58 @@
 [node name="Editor" type="Node2D" unique_id=1265935660]
 script = ExtResource("1_eyy8u")
 
+[node name="DragDetector" type="Button" parent="." unique_id=350895989]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1159.0
+offset_bottom = 658.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Notes" type="Node2D" parent="." unique_id=566472359]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=894447930]
 
-[node name="DragDetector" type="Button" parent="CanvasLayer" unique_id=350895989]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/DragDetector" unique_id=400809824]
-layout_mode = 0
-offset_right = 377.0
-offset_bottom = 31.0
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=400809824]
+offset_right = 387.0
+offset_bottom = 41.0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/DragDetector/MarginContainer" unique_id=555935797]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer" unique_id=555935797]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DragDetector/MarginContainer/PanelContainer" unique_id=1168934915]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer" unique_id=1168934915]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/DragDetector/MarginContainer/PanelContainer/VBoxContainer" unique_id=290561333]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer" unique_id=290561333]
 layout_mode = 2
 
-[node name="Back" type="Button" parent="CanvasLayer/DragDetector/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=660728159]
+[node name="Back" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=660728159]
 layout_mode = 2
 text = "Back"
 
-[node name="SaveMap" type="Button" parent="CanvasLayer/DragDetector/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=167484592]
+[node name="SaveMap" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=167484592]
 layout_mode = 2
 text = "Save Map"
 
-[node name="LoadMap" type="Button" parent="CanvasLayer/DragDetector/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1971683785]
+[node name="LoadMap" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1971683785]
 layout_mode = 2
 text = "Load Map"
 
-[node name="Label" type="Label" parent="CanvasLayer/DragDetector/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1317025995]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1317025995]
 layout_mode = 2
 text = "Snap Distance: "
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/DragDetector/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1476677540]
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1476677540]
 layout_mode = 2
 
-[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="button_down" from="CanvasLayer/DragDetector" to="." method="_on_drag_detector_button_down"]
-[connection signal="button_up" from="CanvasLayer/DragDetector" to="." method="_on_drag_detector_button_up"]
-[connection signal="pressed" from="CanvasLayer/DragDetector/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="CanvasLayer/DragDetector/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SaveMap" to="." method="_on_save_map_pressed"]
-[connection signal="pressed" from="CanvasLayer/DragDetector/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/LoadMap" to="." method="_on_load_map_pressed"]
+[connection signal="button_down" from="DragDetector" to="." method="_on_drag_detector_button_down"]
+[connection signal="button_up" from="DragDetector" to="." method="_on_drag_detector_button_up"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SaveMap" to="." method="_on_save_map_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/LoadMap" to="." method="_on_load_map_pressed"]
