@@ -14,10 +14,10 @@ texture = ExtResource("2_gkeuy")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -64.0
-offset_top = -64.0
-offset_right = -64.0
-offset_bottom = -64.0
+offset_left = -97.499985
+offset_top = -99.999985
+offset_right = -30.500015
+offset_bottom = -28.000015
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -25,6 +25,7 @@ grow_vertical = 2
 texture = ExtResource("2_gkeuy")
 
 [node name="HeadDetector" type="Button" parent="Head" unique_id=102543192]
+self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -35,8 +36,5 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="button_down" from="Tail/TailDetector" to="." method="_on_tail_detector_button_down"]
-[connection signal="button_up" from="Tail/TailDetector" to="." method="_on_tail_detector_button_up"]
-[connection signal="button_down" from="Head/HeadDetector" to="." method="_on_head_detector_button_down"]
-[connection signal="button_up" from="Head/HeadDetector" to="." method="_on_head_detector_button_up"]
+[connection signal="gui_input" from="Tail/TailDetector" to="." method="_on_tail_detector_gui_input"]
 [connection signal="gui_input" from="Head/HeadDetector" to="." method="_on_head_detector_gui_input"]

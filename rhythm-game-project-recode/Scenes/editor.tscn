@@ -55,8 +55,7 @@ text = "Snap Distance: "
 [node name="OptionButton" type="OptionButton" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1476677540]
 layout_mode = 2
 
-[connection signal="button_down" from="DragDetector" to="." method="_on_drag_detector_button_down"]
-[connection signal="button_up" from="DragDetector" to="." method="_on_drag_detector_button_up"]
+[connection signal="gui_input" from="DragDetector" to="." method="_on_drag_detector_gui_input"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SaveMap" to="." method="_on_save_map_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/LoadMap" to="." method="_on_load_map_pressed"]

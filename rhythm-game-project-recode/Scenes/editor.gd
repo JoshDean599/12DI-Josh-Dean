@@ -1,7 +1,8 @@
 extends Node2D
 
 var editorNote = preload("res://Scenes/Objects/editor_note.tscn")
-var dragDetectorStart = Vector2.ZERO
+var dragging = false
+var clickPosition = Vector2.ZERO
 var clickTime: float = 0.0
 var timeFrame = 1
 
@@ -36,12 +37,18 @@ func create_new_note(impPosition, tailTime: float, tailOffset: float) -> void:
 	
 	newNote.update_position()
 
-func _on_drag_detector_button_down() -> void:
-	dragDetectorStart = DisplayServer.mouse_get_position()
-	clickTime = Time.get_ticks_msec() / 1000.0
-
-func _on_drag_detector_button_up() -> void:
-	if dragDetectorStart.distance_to(DisplayServer.mouse_get_position()) < 20.0 and Time.get_ticks_msec() / 1000.0 - clickTime < 0.25:
-		var mousePosition = Vector2(DisplayServer.mouse_get_position() - DisplayServer.window_get_position()) + $Notes.position
-		print(mousePosition) # (0, 0) == top left
-		create_new_note(mousePosition, 0, 0)
+func _on_drag_detector_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == 1:
+			if event.pressed:
+				dragging = true
+				clickPosition = Vector2(DisplayServer.mouse_get_position()) - $Notes.position
+				clickTime = Time.get_ticks_msec() / 1000.0
+			else:
+				dragging = false
+				if clickPosition.distance_to(DisplayServer.mouse_get_position()) < 20.0 and Time.get_ticks_msec() / 1000.0 - clickTime < 0.25:
+					var mousePosition = Vector2(DisplayServer.mouse_get_position() - DisplayServer.window_get_position()) + $Notes.position
+					create_new_note(mousePosition, 0, 0)
+	elif event is InputEventMouseMotion:
+		if dragging:
+			$Notes.position.x = snapped((DisplayServer.mouse_get_position().x - clickPosition.x), get_parent().noteMoveSpeed)
