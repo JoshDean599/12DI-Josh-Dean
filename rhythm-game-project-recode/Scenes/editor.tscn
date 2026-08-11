@@ -5,22 +5,90 @@
 [node name="Editor" type="Node2D" unique_id=1265935660]
 script = ExtResource("1_eyy8u")
 
-[node name="DragDetector" type="Button" parent="." unique_id=350895989]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=894447930]
+
+[node name="DragDetector" type="Button" parent="CanvasLayer" unique_id=350895989]
 self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 1159.0
-offset_bottom = 658.0
+offset_right = 8.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Notes" type="Node2D" parent="." unique_id=566472359]
+[node name="Notes" type="Node2D" parent="CanvasLayer/DragDetector" unique_id=566472359]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=894447930]
+[node name="OptionsMenu" type="HBoxContainer" parent="CanvasLayer" unique_id=2035302677]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VSeparator" type="VSeparator" parent="CanvasLayer/OptionsMenu" unique_id=1570809696]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+mouse_filter = 1
+mouse_behavior_recursive = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/OptionsMenu" unique_id=1794822794]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 15.0
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/OptionsMenu/VBoxContainer" unique_id=1196533130]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+mouse_filter = 1
+mouse_behavior_recursive = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer" unique_id=1913115771]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer" unique_id=928214456]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer" unique_id=170434493]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/ScrollContainer" unique_id=584029091]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/ScrollContainer/PanelContainer" unique_id=894349322]
+layout_mode = 2
+text = "????????"
+
+[node name="SongName" type="LineEdit" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1476332473]
+layout_mode = 2
+text = "wow"
+
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/OptionsMenu/VBoxContainer" unique_id=913368011]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+mouse_filter = 1
+mouse_behavior_recursive = 1
+
+[node name="VSeparator2" type="VSeparator" parent="CanvasLayer/OptionsMenu" unique_id=221482659]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+mouse_filter = 1
+mouse_behavior_recursive = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=400809824]
-offset_right = 387.0
+offset_right = 129.0
 offset_bottom = 41.0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
@@ -40,22 +108,10 @@ layout_mode = 2
 layout_mode = 2
 text = "Back"
 
-[node name="SaveMap" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=167484592]
+[node name="Options" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=167484592]
 layout_mode = 2
-text = "Save Map"
+text = "Options"
 
-[node name="LoadMap" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1971683785]
-layout_mode = 2
-text = "Load Map"
-
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1317025995]
-layout_mode = 2
-text = "Snap Distance: "
-
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1476677540]
-layout_mode = 2
-
-[connection signal="gui_input" from="DragDetector" to="." method="_on_drag_detector_gui_input"]
+[connection signal="gui_input" from="CanvasLayer/DragDetector" to="." method="_on_drag_detector_gui_input"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/SaveMap" to="." method="_on_save_map_pressed"]
-[connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/LoadMap" to="." method="_on_load_map_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/Options" to="." method="_on_options_pressed"]
