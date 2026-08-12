@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bbyrfeu41824o" path="res://Scenes/Objects/song_select_button.gd" id="1_nkk2q"]
 
 [node name="SongSelectButton" type="PanelContainer" unique_id=337063113]
+offset_right = 217.0
+offset_bottom = 31.0
 script = ExtResource("1_nkk2q")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=213263752]
@@ -10,8 +12,8 @@ layout_mode = 2
 
 [node name="Button" type="Button" parent="HBoxContainer" unique_id=982200939]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "PlaceHolderSongName"
-flat = true
 
 [node name="MenuButton" type="MenuButton" parent="HBoxContainer" unique_id=359169090]
 layout_mode = 2

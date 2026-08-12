@@ -1,22 +1,24 @@
 extends Node2D
 
 @onready var notes = $CanvasLayer/DragDetector/Notes
-@onready var songName = $CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/SongName
-@onready var saveMenu = $CanvasLayer/OptionsMenu
+@onready var songName = $CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/SaveMenu/VBoxContainer/SongName
+@onready var editorMenu = $CanvasLayer/OptionsMenu
 var editorNote = preload("res://Scenes/Objects/editor_note.tscn")
 var dragging = false
 var clickPosition = Vector2.ZERO
 var clickTime: float = 0.0
 var timeFrame = 1
 
+# Add save warnings when exiting editor
+
 func _ready() -> void:
-	saveMenu.visible = false
+	editorMenu.visible = false
 
 func _on_back_pressed() -> void:
 	get_parent().change_scene("MainMenu")
 
 func _on_options_pressed() -> void:
-	saveMenu.visible = !saveMenu.visible
+	editorMenu.visible = !editorMenu.visible
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_pressed("save"):
@@ -93,3 +95,8 @@ func _on_drag_detector_gui_input(event: InputEvent) -> void:
 			notes.position.x = snapped((get_global_mouse_position().x - clickPosition.x), get_parent().noteMoveSpeed)
 			if notes.position.x > get_parent().noteMoveSpeed:
 				notes.position.x = get_parent().noteMoveSpeed
+
+
+func _on_save_pressed() -> void:
+	save_map()
+	pass # Replace with function body.

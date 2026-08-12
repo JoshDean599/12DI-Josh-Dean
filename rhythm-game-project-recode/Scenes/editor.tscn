@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://8w0ps6ic53jc"]
 
 [ext_resource type="Script" uid="uid://bssh4f7tpqr6f" path="res://Scenes/editor.gd" id="1_eyy8u"]
+[ext_resource type="PackedScene" uid="uid://cwcjrn7hdneyk" path="res://Scenes/Objects/song_select_button.tscn" id="2_24ceq"]
 
 [node name="Editor" type="Node2D" unique_id=1265935660]
 script = ExtResource("1_eyy8u")
@@ -57,19 +58,63 @@ size_flags_stretch_ratio = 15.0
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer" unique_id=928214456]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer" unique_id=170434493]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1101407640]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.0
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/ScrollContainer" unique_id=584029091]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer" unique_id=170434493]
 layout_mode = 2
+horizontal_scroll_mode = 0
 
-[node name="Button" type="Button" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/ScrollContainer/PanelContainer" unique_id=894349322]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/ScrollContainer" unique_id=2001637569]
 layout_mode = 2
-text = "????????"
+size_flags_horizontal = 3
+alignment = 1
 
-[node name="SongName" type="LineEdit" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1476332473]
+[node name="Button" type="Button" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/ScrollContainer/VBoxContainer" unique_id=171456400]
+layout_mode = 2
+text = "Save"
+
+[node name="Button2" type="Button" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/ScrollContainer/VBoxContainer" unique_id=1617704458]
+layout_mode = 2
+text = "dwboau"
+
+[node name="Button3" type="Button" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/ScrollContainer/VBoxContainer" unique_id=808353846]
 layout_mode = 2
 text = "wow"
+
+[node name="SaveMenu" type="PanelContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1426959074]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/SaveMenu" unique_id=2067634347]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/SaveMenu/VBoxContainer" unique_id=1870777882]
+layout_mode = 2
+text = "Map name:"
+
+[node name="SongName" type="LineEdit" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/SaveMenu/VBoxContainer" unique_id=1476332473]
+layout_mode = 2
+placeholder_text = "Eg. newMap"
+
+[node name="Label2" type="Label" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/SaveMenu/VBoxContainer" unique_id=30166891]
+layout_mode = 2
+text = "Song:"
+
+[node name="FoldableContainer" type="FoldableContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/SaveMenu/VBoxContainer" unique_id=1025978807]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/SaveMenu/VBoxContainer/FoldableContainer" unique_id=1177268938]
+layout_mode = 2
+
+[node name="SongSelectButton" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/SaveMenu/VBoxContainer/FoldableContainer/VBoxContainer" unique_id=337063113 instance=ExtResource("2_24ceq")]
+layout_mode = 2
+
+[node name="Save" type="Button" parent="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/SaveMenu/VBoxContainer" unique_id=2010682594]
+layout_mode = 2
+text = "Save"
 
 [node name="HSeparator2" type="HSeparator" parent="CanvasLayer/OptionsMenu/VBoxContainer" unique_id=913368011]
 self_modulate = Color(1, 1, 1, 0)
@@ -113,5 +158,6 @@ layout_mode = 2
 text = "Options"
 
 [connection signal="gui_input" from="CanvasLayer/DragDetector" to="." method="_on_drag_detector_gui_input"]
+[connection signal="pressed" from="CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/SaveMenu/VBoxContainer/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/Options" to="." method="_on_options_pressed"]

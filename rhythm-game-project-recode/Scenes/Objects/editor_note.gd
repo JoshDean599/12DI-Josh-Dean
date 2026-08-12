@@ -39,7 +39,7 @@ func _on_head_detector_gui_input(event: InputEvent) -> void:
 				if clickPosition == DisplayServer.mouse_get_position() and Time.get_ticks_msec() / 1000.0 - clickTime < 0.25:
 					queue_free()
 	elif event is InputEventMouseMotion and dragging:
-		var snap = snapped(get_global_mouse_position().x - clickPosition.x, get_tree().current_scene.noteMoveSpeed)
+		var snap = snapped(get_global_mouse_position().x - clickPosition.x - get_parent().position.x, get_tree().current_scene.noteMoveSpeed)
 		time = snap / get_tree().current_scene.noteMoveSpeed
 		# Limit the time to be equal to or greater than 0
 		if time < 0:
