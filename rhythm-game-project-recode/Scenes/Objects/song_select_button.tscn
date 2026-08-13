@@ -5,6 +5,7 @@
 [node name="SongSelectButton" type="PanelContainer" unique_id=337063113]
 offset_right = 217.0
 offset_bottom = 31.0
+size_flags_horizontal = 3
 script = ExtResource("1_nkk2q")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=213263752]

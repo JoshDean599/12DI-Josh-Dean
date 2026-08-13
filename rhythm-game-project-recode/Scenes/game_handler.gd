@@ -14,7 +14,6 @@ func _ready() -> void:
 			continue
 		set_scene_visible(i, false)
 
-
 func change_scene(scene: String):
 	set_scene_visible(currentScene, false)
 	var newScene = get_node(scene)
@@ -26,3 +25,10 @@ func set_scene_visible(scene, type: bool) -> void:
 	if scene.find_child("CanvasLayer"):
 		scene.get_node("CanvasLayer").visible = type
 	scene.set_process(type)
+
+func load_map(MapName) -> Dictionary:
+	var mapLocation = MapPath + MapName + ".json"
+	if not FileAccess.open(mapLocation, FileAccess.READ): # If map can't be loaded: Return
+		push_error("Map can't be found, Returning")
+		return {}
+	return JSON.parse_string(FileAccess.get_file_as_string(mapLocation))

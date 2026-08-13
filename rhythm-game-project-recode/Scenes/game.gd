@@ -1,22 +1,27 @@
 extends Node2D
 
-var currentSong = ""
+var currentSong := ""
+var time : float = 0.0
 
 func _on_button_pressed() -> void:
+	pause()
 	get_parent().change_scene("SongSelectMenu")
-	pass # Replace with function body.
 
 func _on_visibility_changed() -> void:
 	if visible:
 		await get_tree().create_timer(0).timeout
 		print(currentSong)
 		play()
-	pass # Replace with function body.
+	
 
 func play():
 	$NoteHandler.active = true
-	pass
+	$NoteHandler.load_song()
 
 func pause():
 	$NoteHandler.active = false
-	pass
+
+func finish():
+	print("finish")
+	await get_tree().create_timer(2).timeout
+	get_parent().change_scene("SongSelectMenu")

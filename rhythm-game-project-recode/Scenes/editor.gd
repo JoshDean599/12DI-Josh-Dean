@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var notes = $CanvasLayer/DragDetector/Notes
-@onready var songName = $CanvasLayer/OptionsMenu/VBoxContainer/PanelContainer/HBoxContainer/SaveMenu/VBoxContainer/SongName
+@onready var notes = $CanvasLayer/Notes
+@onready var songName = $CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongName
 @onready var editorMenu = $CanvasLayer/OptionsMenu
 var editorNote = preload("res://Scenes/Objects/editor_note.tscn")
 var dragging = false
@@ -57,12 +57,33 @@ func save_map() -> void:
 	else:
 		print("Failed to create new file or write to current")
 
-func create_new_note(impPosition, tailTime: float, tailOffset: float) -> void:
+func load_map() -> void:
+	if songName.text.length() <= 0:
+		# Clear all notes from the tree if loading no map
+		for i in notes.get_children():
+			i.free()
+		return
+	
+	var loadedMap = get_parent().load_map(songName.text)
+	if loadedMap == {}:
+		return
+	
+	# Clear all notes from the tree
+	for i in notes.get_children():
+		i.free()
+	
+	for i in loadedMap.Notes:
+		create_new_note(
+			i.time,
+			i.offset,
+			i.tailTime,
+			i.tailOffset
+		)
+
+func create_new_note(time: float, offset: float, tailTime: float, tailOffset: float) -> void:
 	var newNote = editorNote.instantiate()
 	notes.add_child(newNote)
 	
-	var time = snapped(impPosition.x / get_parent().noteMoveSpeed, timeFrame)
-	var offset = snapped(impPosition.y / (float(DisplayServer.window_get_size().y) / (get_parent().YCollumnHeight + 1)), 1)
 	if offset > get_parent().YCollumnHeight:
 		offset = get_parent().YCollumnHeight
 	elif offset <= 0:
@@ -89,7 +110,12 @@ func _on_drag_detector_gui_input(event: InputEvent) -> void:
 			else:
 				dragging = false
 				if clickPosition.distance_to(get_global_mouse_position() - notes.position) < 20.0 and Time.get_ticks_msec() / 1000.0 - clickTime < 0.25:
-					create_new_note(clickPosition, 0, 0)
+					create_new_note(
+						snapped(clickPosition.x / get_parent().noteMoveSpeed, timeFrame), # Time
+						snapped(clickPosition.y / (float(DisplayServer.window_get_size().y) / (get_parent().YCollumnHeight + 1)), 1), # Offset
+						0, # tailTime
+						0  # tailOffset
+					)
 	elif event is InputEventMouseMotion:
 		if dragging:
 			notes.position.x = snapped((get_global_mouse_position().x - clickPosition.x), get_parent().noteMoveSpeed)
@@ -99,4 +125,6 @@ func _on_drag_detector_gui_input(event: InputEvent) -> void:
 
 func _on_save_pressed() -> void:
 	save_map()
-	pass # Replace with function body.
+
+func _on_load_pressed() -> void:
+	load_map()
