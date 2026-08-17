@@ -6,12 +6,21 @@
 [node name="Game" type="Node2D" unique_id=1689311946]
 script = ExtResource("1_ebmjs")
 
-[node name="Button" type="Button" parent="." unique_id=1160473181]
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=666341051]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=693776402]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=1160473181]
+layout_mode = 2
 text = "Back"
+
+[node name="Label" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=1007351764]
+layout_mode = 2
+text = "Score: 000"
 
 [node name="NoteHandler" parent="." unique_id=1555253545 instance=ExtResource("2_qxrlw")]
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Button" to="." method="_on_button_pressed"]
