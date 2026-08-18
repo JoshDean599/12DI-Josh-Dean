@@ -11,8 +11,14 @@
 			"tailOffset": 0.0,
 			"tailTime": 0.0,
 			"time": 4.0
+		},
+		{
+			"offset": 1.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 1.0
 		}
 	],
-	"Song": "newMap2",
+	"Song": "newMap3",
 	"bufferTime": 5
 }

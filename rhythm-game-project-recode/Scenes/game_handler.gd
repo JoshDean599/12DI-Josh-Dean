@@ -5,6 +5,7 @@ const MapPath = "res://LoadedMaps/"
 
 var noteMoveSpeed = 250 # Pixels a second
 var YCollumnHeight = 10
+var map = null
 
 func _ready() -> void:
 	# Make sure everything is hidden, apart from the starting scene
@@ -31,4 +32,5 @@ func load_map(MapName) -> Dictionary:
 	if not FileAccess.open(mapLocation, FileAccess.READ): # If map can't be loaded: Return
 		push_error("Map can't be found, Returning")
 		return {}
-	return JSON.parse_string(FileAccess.get_file_as_string(mapLocation))
+	map = JSON.parse_string(FileAccess.get_file_as_string(mapLocation))
+	return map

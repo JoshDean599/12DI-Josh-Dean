@@ -17,7 +17,7 @@ func on_window_size_changed():
 
 func update_position() -> void:
 	# Set the notes initial position
-	global_position = Vector2(settings.time * get_tree().current_scene.noteMoveSpeed,
+	position = Vector2(settings.time * get_tree().current_scene.noteMoveSpeed,
 		settings.offset * float(DisplayServer.window_get_size().y) / (get_tree().current_scene.YCollumnHeight + 1))
 	# Setup the notes tail position
 	$Tail.position =  Vector2(settings.tailTime * get_tree().current_scene.noteMoveSpeed,
@@ -25,7 +25,7 @@ func update_position() -> void:
 
 func _process(_delta: float) -> void:
 	# Check if the note is held:
-	var distanceFromHit = noteHandler.get_parent().time - holdEndTime
+	var distanceFromHit = noteHandler.get_parent().timeHandler.time - holdEndTime
 	if active:
 		if noteHandler.holding:
 			#First condition for hold notes, second for single notes
@@ -37,8 +37,8 @@ func _process(_delta: float) -> void:
 				queue_free()
 			else: # Holding note:
 				# Update visuals
-				if game.time - settings.time >= 0:
-					$Head.position.x = (game.time - settings.time) * get_tree().current_scene.noteMoveSpeed
+				if game.timeHandler.time - settings.time >= 0:
+					$Head.position.x = (game.timeHandler.time - settings.time) * get_tree().current_scene.noteMoveSpeed
 				$Tail.modulate = Color(0.0, 1.0, 0.0, 1.0)
 				pass
 		else: # Stopped holding Note -- Add some drop offset so you don't need to hold it for all the time to still pass it
@@ -54,7 +54,7 @@ func _process(_delta: float) -> void:
 			failed = true
 	
 	# Clear the note once it's no longer in use
-	if not active and game.time > holdEndTime + noteHandler.scores.Miss.min:
+	if not active and game.timeHandler.time > holdEndTime + noteHandler.scores.Miss.min:
 		print("Freeing Note")
 		queue_free()
 

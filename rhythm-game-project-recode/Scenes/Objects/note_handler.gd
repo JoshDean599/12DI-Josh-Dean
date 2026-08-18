@@ -38,8 +38,7 @@ var scores = {
 }
 
 func load_song():
-	loadedSong = get_tree().current_scene.load_map(get_parent().currentSong)
-	print(loadedSong)
+	loadedSong = get_tree().current_scene.map
 	for i in $Notes.get_children():
 		i.free()
 	noteQueue = []
@@ -50,7 +49,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if heldKeys.find(event.keycode) == -1: # If the key press isn't found to be already pressing:
 				heldKeys.push_back(event.keycode) # Add it to the list of pressed keys
 			
-			if noteQueue.size() > 0 and noteQueue.front().settings.time < get_parent().time + scores.Miss.max:
+			if noteQueue.size() > 0 and noteQueue.front().settings.time < get_parent().timeHandler.time + scores.Miss.max:
 				noteQueue.pop_front().active = true
 		elif event.is_released():
 			if heldKeys.find(event.keycode) >= 0:
@@ -67,7 +66,7 @@ func _process(_delta: float) -> void:
 	if not active:
 		return
 	
-	$Notes.position.x = -get_tree().current_scene.noteMoveSpeed * get_parent().time
+	$Notes.position.x = -get_tree().current_scene.noteMoveSpeed * (get_parent().timeHandler.time - 1.0/3.0)
 	
 	if loadedSong != null:
 		if loadedSong.Notes.size() > 0: # If a song is loaded and there's still notes to load
@@ -75,10 +74,7 @@ func _process(_delta: float) -> void:
 		elif noteQueue.size() == 0 and $Notes.get_children().size() == 0:
 			# Song Ended
 			active = false
-			print("Finish")
-			await get_tree().create_timer(2).timeout
-			# Create a song end title card
-			get_tree().current_scene.change_scene("SongSelectMenu")
+			get_parent().finish()
 
 func check_note():
 	var closestNote = 0 # Index of closest note
@@ -88,7 +84,7 @@ func check_note():
 			closestNote = currentIndex
 		currentIndex += 1
 	
-	if loadedSong.Notes[closestNote].time - float(DisplayServer.screen_get_size().x) / get_tree().current_scene.noteMoveSpeed <= get_parent().time:
+	if loadedSong.Notes[closestNote].time - float(DisplayServer.screen_get_size().x) / get_tree().current_scene.noteMoveSpeed <= get_parent().timeHandler.time:
 		create_note(loadedSong.Notes.pop_at(closestNote))
 	
 

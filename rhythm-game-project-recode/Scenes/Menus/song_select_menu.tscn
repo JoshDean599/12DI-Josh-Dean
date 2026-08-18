@@ -20,5 +20,6 @@ layout_mode = 2
 [node name="SongSelectButton" parent="VBoxContainer/VBoxContainer" unique_id=313263511 instance=ExtResource("2_83smf")]
 layout_mode = 2
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="visibility_changed" from="VBoxContainer/VBoxContainer/SongSelectButton" to="." method="_on_song_select_button_visibility_changed"]

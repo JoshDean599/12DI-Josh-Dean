@@ -3,7 +3,7 @@ extends Node2D
 var songSelectButton = preload("res://Scenes/Objects/song_select_button.tscn")
 
 
-func _on_song_select_button_visibility_changed() -> void:
+func _on_visibility_changed() -> void:
 	if visible: # The scene became the current
 		load_songs()
 

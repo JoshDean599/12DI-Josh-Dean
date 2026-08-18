@@ -7,7 +7,6 @@ func _on_button_pressed() -> void:
 	if get_tree().current_scene.get_node("SongSelectMenu").visible:
 		get_tree().current_scene.change_scene("Game")
 		get_tree().current_scene.get_node("Game").currentSong = $HBoxContainer/Button.text
-		print("StartSong: ", $HBoxContainer/Button.text)
 	else:
 		print("hi")
 	
