@@ -19,20 +19,16 @@ func _on_visibility_changed() -> void:
 		play()
 
 func play():
-	timeHandler.play()
+	var startTime = DisplayServer.window_get_size().x / get_parent().noteMoveSpeed - get_parent().map.bufferTime + 1
+	if startTime < 0:
+		startTime = 0
+	timeHandler.play(-startTime)
 	$NoteHandler.active = true
 	$NoteHandler.load_song()
 
 func pause():
 	timeHandler.pause()
 	$NoteHandler.active = false
-
-func finish():
-	print("finish")
-	var finishTime = 2
-	timeHandler.finish(finishTime)
-	await get_tree().create_timer(finishTime).timeout
-	get_parent().change_scene("SongSelectMenu")
 
 func incriment_score(Score):
 	score += Score

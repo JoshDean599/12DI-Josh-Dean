@@ -1,12 +1,30 @@
 {
 	"Notes": [
 		{
-			"offset": 2,
+			"offset": 4.0,
 			"tailOffset": 0.0,
 			"tailTime": 0.0,
-			"time": 0
+			"time": 0.0
+		},
+		{
+			"offset": 7.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 0.0
+		},
+		{
+			"offset": 7.0,
+			"tailOffset": 0.0,
+			"tailTime": 2.0,
+			"time": 1.0
+		},
+		{
+			"offset": 4.0,
+			"tailOffset": 0.0,
+			"tailTime": 1.0,
+			"time": 2.0
 		}
 	],
 	"Song": "newMap",
-	"bufferTime": 5
+	"bufferTime": 0.0
 }

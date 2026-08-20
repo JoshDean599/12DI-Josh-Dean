@@ -1,43 +1,49 @@
 extends Node2D
 
 @onready var audio = $AudioStreamPlayer
-var bufferTime = 0.0
-var buffering = true
+@onready var fadeTween: Tween
 var time = 0.0
+var bufferTime = 0.0
 var active = false
 
 func reset():
-	buffering = true
-	bufferTime = get_tree().current_scene.map.bufferTime
-	time = -bufferTime
-	pass
+	time = -get_tree().current_scene.map.bufferTime
 
-func play():
-	print("Play")
+func play(startTime):
+	time = startTime
+	print("Time: ", time)
 	active = true
-	if not buffering:
+	audio.volume_db = 0
+	if time >= 0:
 		audio.play()
 		audio.seek(time)
 
 func pause():
-	print("Pause")
+	if fadeTween:
+		fadeTween.kill()
 	active = false
 	audio.stop()
 
 func finish(finishTime):
-	Tween.new().tween_property(audio, "AudioStreamPlayer:volume_db", -100, finishTime) # >:(
+	if fadeTween:
+		fadeTween.kill()
+	fadeTween = create_tween()
+	fadeTween.connect("finished", on_tween_finished)
+	fadeTween.tween_property(audio, "volume_db", -80, finishTime + 2)
 
-	pass
+func on_tween_finished():
+	pause()
+	get_tree().current_scene.change_scene("SongSelectMenu") # Switch to end card instead of song select Menu
 
 func _process(delta: float) -> void:
 	if not active:
 		return
-	if buffering:
-		bufferTime -= delta
-		if bufferTime <= 0:
-			print("buffer end")
-			buffering = false
-			audio.play()
-			audio.seek(0.0)
+	if time < 0:
+		time += delta
+		return
+	elif not audio.playing:
+		bufferTime = time
+		audio.play()
+		audio.seek(0.0)
 	
-	time = audio.get_playback_position() - bufferTime
+	time = audio.get_playback_position() + bufferTime

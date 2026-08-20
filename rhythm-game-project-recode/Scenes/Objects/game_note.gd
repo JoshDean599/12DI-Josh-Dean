@@ -20,7 +20,7 @@ func update_position() -> void:
 	position = Vector2(settings.time * get_tree().current_scene.noteMoveSpeed,
 		settings.offset * float(DisplayServer.window_get_size().y) / (get_tree().current_scene.YCollumnHeight + 1))
 	# Setup the notes tail position
-	$Tail.position =  Vector2(settings.tailTime * get_tree().current_scene.noteMoveSpeed,
+	$Tail.position = Vector2(settings.tailTime * get_tree().current_scene.noteMoveSpeed,
 		settings.tailOffset * float(DisplayServer.window_get_size().y) / (get_tree().current_scene.YCollumnHeight + 1))
 
 func _process(_delta: float) -> void:
@@ -56,6 +56,7 @@ func _process(_delta: float) -> void:
 	# Clear the note once it's no longer in use
 	if not active and game.timeHandler.time > holdEndTime + noteHandler.scores.Miss.min:
 		print("Freeing Note")
+		noteHandler.noteQueue.pop_at(noteHandler.noteQueue.find(self))
 		queue_free()
 
 func on_success(distanceFromHit) -> void:

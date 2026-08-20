@@ -34,7 +34,10 @@ func save_map() -> void:
 		Song = songName.text,
 		bufferTime = 5
 	}
+	var firstNote = null
 	for i in notes.get_children(): # Insert each notes into the table
+		if firstNote == null or firstNote.time > i.time:
+			firstNote = i
 		saveData.Notes.push_back(
 			{
 				time = i.time,
@@ -43,6 +46,7 @@ func save_map() -> void:
 				tailOffset = i.tailOffset
 			}
 		)
+	saveData.bufferTime = firstNote.time
 	
 	if FileAccess.file_exists("res://LoadedMaps/" + songName.text + ".json"):
 		print("File Exists")

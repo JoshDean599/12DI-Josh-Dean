@@ -1,8 +1,14 @@
 [gd_scene format=3 uid="uid://b1vxx62f7jti6"]
 
 [ext_resource type="Script" uid="uid://b8w4t2bfbsiw" path="res://Scenes/Objects/note_handler.gd" id="1_xy2le"]
+[ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="2_f8bsx"]
 
 [node name="NoteHandler" type="Node2D" unique_id=1555253545]
 script = ExtResource("1_xy2le")
+
+[node name="HitMarker" type="Sprite2D" parent="." unique_id=1843504667]
+position = Vector2(64, 0)
+scale = Vector2(0.28125, 5.5)
+texture = ExtResource("2_f8bsx")
 
 [node name="Notes" type="Node2D" parent="." unique_id=86050689]

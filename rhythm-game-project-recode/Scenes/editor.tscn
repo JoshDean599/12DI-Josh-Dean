@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bssh4f7tpqr6f" path="res://Scenes/editor.gd" id="1_eyy8u"]
 [ext_resource type="PackedScene" uid="uid://cwcjrn7hdneyk" path="res://Scenes/Objects/song_select_button.tscn" id="2_24ceq"]
+[ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="3_a7iym"]
 
 [node name="Editor" type="Node2D" unique_id=1265935660]
 script = ExtResource("1_eyy8u")
@@ -21,6 +22,12 @@ mouse_filter = 1
 mouse_behavior_recursive = 2
 
 [node name="Notes" type="Node2D" parent="CanvasLayer" unique_id=566472359]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Notes" unique_id=262492499]
+self_modulate = Color(18.892157, 0, 0, 0.101960786)
+position = Vector2(-234.5, 295)
+scale = Vector2(3.6640625, 12.796876)
+texture = ExtResource("3_a7iym")
 
 [node name="OptionsMenu" type="HBoxContainer" parent="CanvasLayer" unique_id=2035302677]
 anchors_preset = 15
@@ -145,6 +152,10 @@ text = "Back"
 [node name="Options" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=167484592]
 layout_mode = 2
 text = "Options"
+
+[node name="Test" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=2055806561]
+layout_mode = 2
+text = "Test"
 
 [connection signal="gui_input" from="CanvasLayer/DragDetector" to="." method="_on_drag_detector_gui_input"]
 [connection signal="pressed" from="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer2/Save" to="." method="_on_save_pressed"]

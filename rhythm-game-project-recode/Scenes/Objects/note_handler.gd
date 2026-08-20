@@ -37,6 +37,13 @@ var scores = {
 	}
 }
 
+func _ready() -> void:
+	get_viewport().size_changed.connect(on_window_size_changed)
+	$HitMarker.position.y = float(DisplayServer.window_get_size().y) / 2
+
+func on_window_size_changed():
+	$HitMarker.position.y = float(DisplayServer.window_get_size().y) / 2
+
 func load_song():
 	loadedSong = get_tree().current_scene.map
 	for i in $Notes.get_children():
@@ -66,7 +73,8 @@ func _process(_delta: float) -> void:
 	if not active:
 		return
 	
-	$Notes.position.x = -get_tree().current_scene.noteMoveSpeed * (get_parent().timeHandler.time - 1.0/3.0)
+	$Notes.position.x = -get_tree().current_scene.noteMoveSpeed * (get_parent().timeHandler.time - 
+		$HitMarker.position.x / get_tree().current_scene.noteMoveSpeed)
 	
 	if loadedSong != null:
 		if loadedSong.Notes.size() > 0: # If a song is loaded and there's still notes to load
@@ -74,7 +82,7 @@ func _process(_delta: float) -> void:
 		elif noteQueue.size() == 0 and $Notes.get_children().size() == 0:
 			# Song Ended
 			active = false
-			get_parent().finish()
+			get_parent().timeHandler.finish(2)
 
 func check_note():
 	var closestNote = 0 # Index of closest note
