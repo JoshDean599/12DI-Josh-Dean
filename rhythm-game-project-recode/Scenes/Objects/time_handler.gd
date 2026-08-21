@@ -11,7 +11,6 @@ func reset():
 
 func play(startTime):
 	time = startTime
-	print("Time: ", time)
 	active = true
 	audio.volume_db = 0
 	if time >= 0:

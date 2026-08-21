@@ -24,6 +24,7 @@ func update_position() -> void:
 	$Tail.position.y = tailOffset * DisplayServer.window_get_size().y / (get_tree().current_scene.YCollumnHeight + 1)
 
 func _on_head_detector_gui_input(event: InputEvent) -> void:
+	if get_tree().current_scene.get_node("Editor").testing: return
 	if event is InputEventMouseButton:
 		if event.button_index == 1: # Left Click
 			if event.pressed:
@@ -59,6 +60,7 @@ func _on_head_detector_gui_input(event: InputEvent) -> void:
 		update_position()
 
 func _on_tail_detector_gui_input(event: InputEvent) -> void:
+	if get_tree().current_scene.get_node("Editor").testing: return
 	if event is InputEventMouseButton:
 		if event.button_index == 1: # Left Click
 			if event.pressed:

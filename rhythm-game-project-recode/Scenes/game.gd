@@ -14,7 +14,6 @@ func _on_visibility_changed() -> void:
 		await get_tree().create_timer(0).timeout
 		get_tree().current_scene.load_map(currentSong)
 		score = 0
-		timeHandler.reset()
 		incriment_score(0)
 		play()
 

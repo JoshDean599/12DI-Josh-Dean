@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://8w0ps6ic53jc"]
 
 [ext_resource type="Script" uid="uid://bssh4f7tpqr6f" path="res://Scenes/editor.gd" id="1_eyy8u"]
-[ext_resource type="PackedScene" uid="uid://cwcjrn7hdneyk" path="res://Scenes/Objects/song_select_button.tscn" id="2_24ceq"]
 [ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="3_a7iym"]
+[ext_resource type="PackedScene" uid="uid://bdmqx7otwye8k" path="res://Scenes/Objects/time_handler.tscn" id="4_7wlcy"]
 
 [node name="Editor" type="Node2D" unique_id=1265935660]
 script = ExtResource("1_eyy8u")
@@ -23,7 +23,7 @@ mouse_behavior_recursive = 2
 
 [node name="Notes" type="Node2D" parent="CanvasLayer" unique_id=566472359]
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Notes" unique_id=262492499]
+[node name="Deadzone" type="Sprite2D" parent="CanvasLayer/Notes" unique_id=262492499]
 self_modulate = Color(18.892157, 0, 0, 0.101960786)
 position = Vector2(-234.5, 295)
 scale = Vector2(3.6640625, 12.796876)
@@ -89,21 +89,12 @@ placeholder_text = "Eg. newMap"
 layout_mode = 2
 text = "Song:"
 
-[node name="FoldableContainer" type="FoldableContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1025978807]
+[node name="SongsSelect" type="MenuButton" parent="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer" unique_id=389081484]
 layout_mode = 2
-size_flags_vertical = 3
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/FoldableContainer" unique_id=679833235]
-layout_mode = 2
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/FoldableContainer/PanelContainer" unique_id=1789139470]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/FoldableContainer/PanelContainer/ScrollContainer" unique_id=1177268938]
-layout_mode = 2
-
-[node name="SongSelectButton" parent="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/FoldableContainer/PanelContainer/ScrollContainer/VBoxContainer" unique_id=337063113 instance=ExtResource("2_24ceq")]
-layout_mode = 2
+text = "songs. :D"
+item_count = 1
+popup/item_0/text = ":D"
+popup/item_0/id = 0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer" unique_id=24526070]
 layout_mode = 2
@@ -157,8 +148,14 @@ text = "Options"
 layout_mode = 2
 text = "Test"
 
+[node name="TimeHandler" parent="." unique_id=1403582281 instance=ExtResource("4_7wlcy")]
+
 [connection signal="gui_input" from="CanvasLayer/DragDetector" to="." method="_on_drag_detector_gui_input"]
+[connection signal="about_to_popup" from="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongsSelect" to="." method="_on_songs_select_about_to_popup"]
+[connection signal="pressed" from="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongsSelect" to="." method="_on_songs_select_pressed"]
+[connection signal="toggled" from="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongsSelect" to="." method="_on_songs_select_toggled"]
 [connection signal="pressed" from="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer2/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer2/Load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/Test" to="." method="_on_test_pressed"]

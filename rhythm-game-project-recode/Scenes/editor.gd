@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var notes = $CanvasLayer/Notes
 @onready var songName = $CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongName
+@onready var songSelectPopup = $CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongsSelect
 @onready var editorMenu = $CanvasLayer/OptionsMenu
 var editorNote = preload("res://Scenes/Objects/editor_note.tscn")
 var dragging = false
@@ -9,10 +10,15 @@ var clickPosition = Vector2.ZERO
 var clickTime: float = 0.0
 var timeFrame = 1
 
+var testing = false
+var testingStartPosition: Vector2
+var testingEndTween: Tween
+
 # Add save warnings when exiting editor
 
 func _ready() -> void:
 	editorMenu.visible = false
+	songSelectPopup.get_popup().connect("index_pressed", on_song_select_popup_press)
 
 func _on_back_pressed() -> void:
 	get_parent().change_scene("MainMenu")
@@ -36,6 +42,7 @@ func save_map() -> void:
 	}
 	var firstNote = null
 	for i in notes.get_children(): # Insert each notes into the table
+		if i == $CanvasLayer/Notes/Deadzone: continue
 		if firstNote == null or firstNote.time > i.time:
 			firstNote = i
 		saveData.Notes.push_back(
@@ -105,6 +112,7 @@ func create_new_note(time: float, offset: float, tailTime: float, tailOffset: fl
 	newNote.update_position()
 
 func _on_drag_detector_gui_input(event: InputEvent) -> void:
+	if testing: return
 	if event is InputEventMouseButton:
 		if event.button_index == 1:
 			if event.pressed:
@@ -126,9 +134,40 @@ func _on_drag_detector_gui_input(event: InputEvent) -> void:
 			if notes.position.x > get_parent().noteMoveSpeed:
 				notes.position.x = get_parent().noteMoveSpeed
 
-
 func _on_save_pressed() -> void:
 	save_map()
 
 func _on_load_pressed() -> void:
 	load_map()
+
+
+func _on_test_pressed() -> void:
+	testing = !testing
+	if testing:
+		$TimeHandler.play(-notes.position.x / get_tree().current_scene.noteMoveSpeed)
+		testingStartPosition = notes.position
+	else:
+		$TimeHandler.pause()
+		if testingEndTween:
+			testingEndTween.kill()
+		testingEndTween = create_tween()
+		testingEndTween.set_ease(Tween.EASE_OUT) # Don't know if this does anything...
+		testingEndTween.tween_property(notes, "position", testingStartPosition, .5)
+
+func _process(_delta: float) -> void:
+	if testing: # Move the notes along with the song
+		notes.position.x = -get_tree().current_scene.noteMoveSpeed * $TimeHandler.time
+	
+
+func _on_songs_select_about_to_popup() -> void:
+	print("popup")
+	# Load songs:
+	var dir = DirAccess.open("res://Assets/Songs/")
+	if dir:
+		dir.list_dir_begin()
+		var fileName = dir.get_next()
+		while
+		print(fileName)
+
+func on_song_select_popup_press(index):
+	pass

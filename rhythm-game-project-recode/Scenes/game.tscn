@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b03fx3wyaffq" path="res://Scenes/game.gd" id="1_ebmjs"]
 [ext_resource type="PackedScene" uid="uid://b1vxx62f7jti6" path="res://Scenes/Objects/note_handler.tscn" id="2_qxrlw"]
-[ext_resource type="Script" uid="uid://c72e7xhcoajpb" path="res://Scenes/Objects/time_handler.gd" id="3_wrm1d"]
-[ext_resource type="AudioStream" uid="uid://b6d42x7eia3u2" path="res://Assets/Songs/NEFFEX - Hate It or Love It.wav" id="4_3dryh"]
+[ext_resource type="PackedScene" uid="uid://bdmqx7otwye8k" path="res://Scenes/Objects/time_handler.tscn" id="3_wrm1d"]
 
 [node name="Game" type="Node2D" unique_id=1689311946]
 script = ExtResource("1_ebmjs")
@@ -24,11 +23,7 @@ text = "Score: 000"
 
 [node name="NoteHandler" parent="." unique_id=1555253545 instance=ExtResource("2_qxrlw")]
 
-[node name="TimeHandler" type="Node2D" parent="." unique_id=1812574150]
-script = ExtResource("3_wrm1d")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="TimeHandler" unique_id=724756293]
-stream = ExtResource("4_3dryh")
+[node name="TimeHandler" parent="." unique_id=1403582281 instance=ExtResource("3_wrm1d")]
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Button" to="." method="_on_button_pressed"]

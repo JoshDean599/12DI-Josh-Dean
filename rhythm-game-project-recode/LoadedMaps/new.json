@@ -1,0 +1,84 @@
+{
+	"Notes": [
+		{
+			"offset": 7,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 0
+		},
+		{
+			"offset": 7.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 1.0
+		},
+		{
+			"offset": 7.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 2.0
+		},
+		{
+			"offset": 7.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 3.0
+		},
+		{
+			"offset": 5,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 4
+		},
+		{
+			"offset": 5,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 5
+		},
+		{
+			"offset": 5.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 6.0
+		},
+		{
+			"offset": 5.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 7.0
+		},
+		{
+			"offset": 8.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 8.0
+		},
+		{
+			"offset": 8.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 9.0
+		},
+		{
+			"offset": 8.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 10.0
+		},
+		{
+			"offset": 8.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 11.0
+		},
+		{
+			"offset": 9.0,
+			"tailOffset": 0,
+			"tailTime": 2,
+			"time": 12.0
+		}
+	],
+	"Song": "new",
+	"bufferTime": 0
+}
