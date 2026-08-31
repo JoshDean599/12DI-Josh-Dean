@@ -1,0 +1,54 @@
+{
+	"Notes": [
+		{
+			"offset": 4.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 1.0
+		},
+		{
+			"offset": 7.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 1.0
+		},
+		{
+			"offset": 7.0,
+			"tailOffset": 1,
+			"tailTime": 1,
+			"time": 2.0
+		},
+		{
+			"offset": 4.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 2.0
+		},
+		{
+			"offset": 5.0,
+			"tailOffset": 0,
+			"tailTime": 1,
+			"time": 3.0
+		},
+		{
+			"offset": 3,
+			"tailOffset": 0,
+			"tailTime": 1,
+			"time": 5
+		},
+		{
+			"offset": 8.0,
+			"tailOffset": 0.0,
+			"tailTime": 0.0,
+			"time": 4.0
+		},
+		{
+			"offset": 6.0,
+			"tailOffset": 0,
+			"tailTime": 2,
+			"time": 6.0
+		}
+	],
+	"Song": "NEFFEX - Stand Up Copyright Free No232",
+	"bufferTime": 1.0
+}

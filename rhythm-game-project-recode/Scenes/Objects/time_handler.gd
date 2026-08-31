@@ -6,6 +6,12 @@ var time = 0.0
 var bufferTime = 0.0
 var active = false
 
+func set_music(song: String):
+	if ResourceLoader.exists("res://Assets/Songs/" + song + ".mp3"):
+			$AudioStreamPlayer.stream = load("res://Assets/Songs/" + song + ".mp3")
+	else:
+		print("ERROR in loading the music")
+
 func reset():
 	time = -get_tree().current_scene.map.bufferTime
 
@@ -32,7 +38,7 @@ func finish(finishTime):
 
 func on_tween_finished():
 	pause()
-	get_tree().current_scene.change_scene("SongSelectMenu") # Switch to end card instead of song select Menu
+	get_parent().get_node("CanvasLayer/GameEndCard").visible = true
 
 func _process(delta: float) -> void:
 	if not active:

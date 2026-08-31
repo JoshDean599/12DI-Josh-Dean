@@ -1,49 +1,60 @@
 extends Node2D
 
+#Import commonly used nodes
 @onready var notes = $CanvasLayer/Notes
 @onready var songName = $CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongName
 @onready var songSelectPopup = $CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongsSelect
 @onready var editorMenu = $CanvasLayer/OptionsMenu
+# Base Editor Variables
 var editorNote = preload("res://Scenes/Objects/editor_note.tscn")
 var dragging = false
 var clickPosition = Vector2.ZERO
 var clickTime: float = 0.0
 var timeFrame = 1
-
+# Testing Variables
 var testing = false
 var testingStartPosition: Vector2
 var testingEndTween: Tween
+# The base song to fall back on
+var currentSong = "NEFFEX - Hate It or Love It Copyright Free No82"
 
-# Add save warnings when exiting editor
+# Add save warnings when exiting editor --------------------------------------------------------------!!!!!!!
 
 func _ready() -> void:
+	# Make sure the menu is hidden
 	editorMenu.visible = false
+	# Connect the menu song popup so that the index's can get pressed
 	songSelectPopup.get_popup().connect("index_pressed", on_song_select_popup_press)
 
 func _on_back_pressed() -> void:
+	# Return to the main menu
 	get_parent().change_scene("MainMenu")
 
 func _on_options_pressed() -> void:
+	# Toggle the menu's visibility
 	editorMenu.visible = !editorMenu.visible
 
 func _input(_event: InputEvent) -> void:
+	# Save the map if the save keybind is pressed
 	if Input.is_action_pressed("save"):
 		save_map()
 
 func save_map() -> void:
+	# Check if the song name has a valid filepath
 	if songName.text.length() <= 0:
 		print("Unable to save map: undefind file path.")
 		return
-	
+	# The base save data
 	var saveData = {
 		Notes = [],
-		Song = songName.text,
+		Song = currentSong,
 		bufferTime = 5
 	}
+	# Add each note into the Notes[] within the save data
 	var firstNote = null
 	for i in notes.get_children(): # Insert each notes into the table
 		if i == $CanvasLayer/Notes/Deadzone: continue
-		if firstNote == null or firstNote.time > i.time:
+		if firstNote == null or firstNote.time > i.time: # Get the first note
 			firstNote = i
 		saveData.Notes.push_back(
 			{
@@ -53,16 +64,17 @@ func save_map() -> void:
 				tailOffset = i.tailOffset
 			}
 		)
-	saveData.bufferTime = firstNote.time
+	saveData.bufferTime = firstNote.time # Set the bufferTime based off the firstNote's time
 	
+	# Check if the file trying to be saved already exists:
 	if FileAccess.file_exists("res://LoadedMaps/" + songName.text + ".json"):
 		print("File Exists")
 	else:
 		print("File Doesn't exist, creating new")
-	
+	# Create or override the map
 	var file = FileAccess.open("res://LoadedMaps/" + songName.text + ".json", FileAccess.ModeFlags.WRITE)
 	if file:
-		var text = JSON.stringify(saveData, "\t")
+		var text = JSON.stringify(saveData, "\t") # Convert it into a string for the json to store
 		file.store_string(text)
 		print("Data written to file")
 	else:
@@ -72,17 +84,20 @@ func load_map() -> void:
 	if songName.text.length() <= 0:
 		# Clear all notes from the tree if loading no map
 		for i in notes.get_children():
+			if i == $CanvasLayer/Notes/Deadzone: continue
 			i.free()
 		return
 	
 	var loadedMap = get_parent().load_map(songName.text)
-	if loadedMap == {}:
+	if loadedMap == {}: # If the map could not be loaded, return
 		return
 	
-	# Clear all notes from the tree
+	# Clear all notes from the tree # Could be a seperate function, but oh well.
 	for i in notes.get_children():
+		if i == $CanvasLayer/Notes/Deadzone: continue
 		i.free()
 	
+	# Create each note
 	for i in loadedMap.Notes:
 		create_new_note(
 			i.time,
@@ -92,9 +107,10 @@ func load_map() -> void:
 		)
 
 func create_new_note(time: float, offset: float, tailTime: float, tailOffset: float) -> void:
-	var newNote = editorNote.instantiate()
+	var newNote = editorNote.instantiate() # Create a new instance of the editor note
 	notes.add_child(newNote)
 	
+	# Limit the height to the defined offset height
 	if offset > get_parent().YCollumnHeight:
 		offset = get_parent().YCollumnHeight
 	elif offset <= 0:
@@ -104,16 +120,19 @@ func create_new_note(time: float, offset: float, tailTime: float, tailOffset: fl
 	if time < 0:
 		time = 0
 	
+	# Set the notes variables
 	newNote.time = time
 	newNote.offset = offset
 	newNote.tailTime = tailTime
 	newNote.tailOffset = tailOffset
-	
+	# Update its position
 	newNote.update_position()
 
 func _on_drag_detector_gui_input(event: InputEvent) -> void:
+	# Don't drag if editing
 	if testing: return
 	if event is InputEventMouseButton:
+		# On left click
 		if event.button_index == 1:
 			if event.pressed:
 				dragging = true
@@ -121,6 +140,7 @@ func _on_drag_detector_gui_input(event: InputEvent) -> void:
 				clickTime = Time.get_ticks_msec() / 1000.0
 			else:
 				dragging = false
+				#Create a new note if the click time was short enough and the mouse didn't move too far
 				if clickPosition.distance_to(get_global_mouse_position() - notes.position) < 20.0 and Time.get_ticks_msec() / 1000.0 - clickTime < 0.25:
 					create_new_note(
 						snapped(clickPosition.x / get_parent().noteMoveSpeed, timeFrame), # Time
@@ -129,6 +149,7 @@ func _on_drag_detector_gui_input(event: InputEvent) -> void:
 						0  # tailOffset
 					)
 	elif event is InputEventMouseMotion:
+		# Update the position when the mouse moved
 		if dragging:
 			notes.position.x = snapped((get_global_mouse_position().x - clickPosition.x), get_parent().noteMoveSpeed)
 			if notes.position.x > get_parent().noteMoveSpeed:
@@ -142,32 +163,55 @@ func _on_load_pressed() -> void:
 
 
 func _on_test_pressed() -> void:
+	# Toggle testing
 	testing = !testing
 	if testing:
+		# Play the music
 		$TimeHandler.play(-notes.position.x / get_tree().current_scene.noteMoveSpeed)
+		# Set the position to return to when the testing ends
 		testingStartPosition = notes.position
 	else:
+		# Stop the music
 		$TimeHandler.pause()
+		# Tween to the posiiton where the testing started
 		if testingEndTween:
 			testingEndTween.kill()
 		testingEndTween = create_tween()
-		testingEndTween.set_ease(Tween.EASE_OUT) # Don't know if this does anything...
-		testingEndTween.tween_property(notes, "position", testingStartPosition, .5)
+		testingEndTween.tween_property(notes, "position", testingStartPosition, .2)
 
 func _process(_delta: float) -> void:
-	if testing: # Move the notes along with the song
+	if testing: # Move the notes along with the song when testing
 		notes.position.x = -get_tree().current_scene.noteMoveSpeed * $TimeHandler.time
-	
 
 func _on_songs_select_about_to_popup() -> void:
-	print("popup")
-	# Load songs:
+	# Clear all the songs in the popup menu
+	songSelectPopup.get_popup().clear()
+	# Load the songs into the menu:
 	var dir = DirAccess.open("res://Assets/Songs/")
 	if dir:
 		dir.list_dir_begin()
 		var fileName = dir.get_next()
-		while
-		print(fileName)
+		while fileName != "":
+			if dir.current_is_dir():
+				pass
+			else:
+				var newFileName = ""
+				var foundNewFileName = false
+				for i in fileName: # Get the proper song name
+					if i == ".":
+						foundNewFileName = true
+					if foundNewFileName:
+						continue
+					newFileName = newFileName + i
+				if fileName == newFileName + ".mp3.import": # If it's the import file, discard it
+					fileName = dir.get_next()
+					continue
+				songSelectPopup.get_popup().add_item(newFileName, songSelectPopup.item_count + 1)
+			fileName = dir.get_next()
+	else:
+		print("An error has occured when trying to access the requested path.")
 
 func on_song_select_popup_press(index):
-	pass
+	# Set the song on select
+	currentSong = songSelectPopup.get_popup().get_item_text(index)
+	$TimeHandler.set_music(currentSong)

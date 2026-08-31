@@ -1,24 +1,24 @@
 {
 	"Notes": [
 		{
-			"offset": 2,
+			"offset": 2.0,
 			"tailOffset": 0.0,
 			"tailTime": 0.0,
-			"time": 8
+			"time": 8.0
 		},
 		{
-			"offset": 8,
+			"offset": 8.0,
 			"tailOffset": 0.0,
 			"tailTime": 0.0,
-			"time": 7
+			"time": 7.0
 		},
 		{
-			"offset": 6,
+			"offset": 6.0,
 			"tailOffset": 0.0,
 			"tailTime": 0.0,
-			"time": 9
+			"time": 9.0
 		}
 	],
-	"Song": "newMap3",
-	"bufferTime": 7
+	"Song": "NEFFEX - Hate It or Love It Copyright Free No82",
+	"bufferTime": 7.0
 }

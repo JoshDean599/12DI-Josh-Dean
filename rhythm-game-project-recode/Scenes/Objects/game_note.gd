@@ -66,7 +66,7 @@ func on_success(distanceFromHit) -> void:
 			score = i
 			break
 	print(score)
-	game.incriment_score(noteHandler.scores[score].score)
+	game.get_node("ScoreHandler").incriment_score(noteHandler.scores[score].score)
 
 func on_fail() -> void:
 	print("fail")

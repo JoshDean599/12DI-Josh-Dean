@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://b03fx3wyaffq" path="res://Scenes/game.gd" id="1_ebmjs"]
 [ext_resource type="PackedScene" uid="uid://b1vxx62f7jti6" path="res://Scenes/Objects/note_handler.tscn" id="2_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://b1w0opvd3y61x" path="res://Scenes/Objects/game_end_card.tscn" id="2_wowpa"]
 [ext_resource type="PackedScene" uid="uid://bdmqx7otwye8k" path="res://Scenes/Objects/time_handler.tscn" id="3_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://jbhc0toqfu0" path="res://Scenes/Objects/score_handler.tscn" id="4_3dryh"]
 
 [node name="Game" type="Node2D" unique_id=1689311946]
 script = ExtResource("1_ebmjs")
@@ -17,13 +19,24 @@ offset_bottom = 40.0
 layout_mode = 2
 text = "Back"
 
-[node name="Label" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=1007351764]
+[node name="GameScoreLabel" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=1007351764]
 layout_mode = 2
 text = "Score: 000"
+
+[node name="GameEndCard" parent="CanvasLayer" unique_id=1243729270 instance=ExtResource("2_wowpa")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="NoteHandler" parent="." unique_id=1555253545 instance=ExtResource("2_qxrlw")]
 
 [node name="TimeHandler" parent="." unique_id=1403582281 instance=ExtResource("3_wrm1d")]
+
+[node name="ScoreHandler" parent="." unique_id=111220915 node_paths=PackedStringArray("gameScoreLabel", "endCardScoreLabel") instance=ExtResource("4_3dryh")]
+gameScoreLabel = NodePath("../CanvasLayer/HBoxContainer/GameScoreLabel")
+endCardScoreLabel = NodePath("../CanvasLayer/GameEndCard/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/EndCardScore")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Button" to="." method="_on_button_pressed"]

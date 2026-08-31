@@ -92,9 +92,12 @@ text = "Song:"
 [node name="SongsSelect" type="MenuButton" parent="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer" unique_id=389081484]
 layout_mode = 2
 text = "songs. :D"
-item_count = 1
+flat = false
+item_count = 2
 popup/item_0/text = ":D"
 popup/item_0/id = 0
+popup/item_1/text = "new"
+popup/item_1/id = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer" unique_id=24526070]
 layout_mode = 2
@@ -152,8 +155,6 @@ text = "Test"
 
 [connection signal="gui_input" from="CanvasLayer/DragDetector" to="." method="_on_drag_detector_gui_input"]
 [connection signal="about_to_popup" from="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongsSelect" to="." method="_on_songs_select_about_to_popup"]
-[connection signal="pressed" from="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongsSelect" to="." method="_on_songs_select_pressed"]
-[connection signal="toggled" from="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongsSelect" to="." method="_on_songs_select_toggled"]
 [connection signal="pressed" from="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer2/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer2/Load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]

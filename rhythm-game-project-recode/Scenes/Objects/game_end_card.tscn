@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://b1w0opvd3y61x"]
+
+[ext_resource type="Script" uid="uid://d061ppkkrun80" path="res://Scenes/Objects/game_end_card.gd" id="1_ag62b"]
+
+[node name="GameEndCard" type="Control" unique_id=1243729270]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ag62b")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1175877750]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=1967914039]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer" unique_id=928580177]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer" unique_id=499031967]
+layout_mode = 2
+
+[node name="EndCardScore" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1052848652]
+layout_mode = 2
+text = "Score: 000"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1888439803]
+layout_mode = 2
+
+[node name="Restart" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1168913417]
+layout_mode = 2
+text = "Restart"
+
+[node name="Back" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1735544102]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
