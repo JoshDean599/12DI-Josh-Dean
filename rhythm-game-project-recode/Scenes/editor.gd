@@ -186,30 +186,14 @@ func _process(_delta: float) -> void:
 func _on_songs_select_about_to_popup() -> void:
 	# Clear all the songs in the popup menu
 	songSelectPopup.get_popup().clear()
-	# Load the songs into the menu:
-	var dir = DirAccess.open("res://Assets/Songs/")
-	if dir:
-		dir.list_dir_begin()
-		var fileName = dir.get_next()
-		while fileName != "":
-			if dir.current_is_dir():
-				pass
-			else:
-				var newFileName = ""
-				var foundNewFileName = false
-				for i in fileName: # Get the proper song name
-					if i == ".":
-						foundNewFileName = true
-					if foundNewFileName:
-						continue
-					newFileName = newFileName + i
-				if fileName == newFileName + ".mp3.import": # If it's the import file, discard it
-					fileName = dir.get_next()
-					continue
-				songSelectPopup.get_popup().add_item(newFileName, songSelectPopup.item_count + 1)
-			fileName = dir.get_next()
-	else:
-		print("An error has occured when trying to access the requested path.")
+	
+	var songs = get_parent().get_file_list("res://Assets/Songs/")
+	for song in songs:
+		song = get_parent().remove_file_name_type(song, ".mp3")
+		if song == "": # If it wasn't an mp3 file, discard
+			continue
+		# Add it to the popup menu
+		songSelectPopup.get_popup().add_item(song, songSelectPopup.item_count + 1)
 
 func on_song_select_popup_press(index):
 	# Set the song on select

@@ -6,20 +6,27 @@
 [node name="SongSelectMenu" type="Node2D" unique_id=7160056]
 script = ExtResource("1_8ud5j")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1313871366]
-offset_right = 45.0
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1817884081]
+offset_right = 40.0
 offset_bottom = 40.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="Back" type="Button" parent="VBoxContainer" unique_id=212006133]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1313871366]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer" unique_id=212006133]
 layout_mode = 2
 text = "Back"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=110674608]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=110674608]
 layout_mode = 2
 
-[node name="SongSelectButton" parent="VBoxContainer/VBoxContainer" unique_id=313263511 instance=ExtResource("2_83smf")]
+[node name="SongSelectButton" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=313263511 instance=ExtResource("2_83smf")]
 layout_mode = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]
-[connection signal="visibility_changed" from="VBoxContainer/VBoxContainer/SongSelectButton" to="." method="_on_song_select_button_visibility_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="visibility_changed" from="MarginContainer/VBoxContainer/VBoxContainer/SongSelectButton" to="." method="_on_song_select_button_visibility_changed"]

@@ -1,5 +1,5 @@
 extends Node2D
-
+# Contains functions used by multiple scripts
 @onready var currentScene = $MainMenu
 const MapPath = "res://LoadedMaps/"
 
@@ -34,3 +34,28 @@ func load_map(MapName) -> Dictionary:
 		return {}
 	map = JSON.parse_string(FileAccess.get_file_as_string(mapLocation))
 	return map
+
+func get_file_list(FolderPath) -> Array:
+	var list = []
+	
+	var dir = DirAccess.open(FolderPath)
+	if dir:
+		dir.list_dir_begin()
+		var fileName = dir.get_next()
+		while fileName != "":
+			if not dir.current_is_dir():
+				list.push_back(fileName)
+			fileName = dir.get_next()
+	else:
+		print("An error has occured when trying to access the path")
+	
+	return list
+
+func remove_file_name_type(fileName: String, type: String) -> String:
+	var newName = ""
+	for character in fileName:
+		if newName.length() < fileName.length() - type.length():
+			newName = newName + character
+		elif newName + type != fileName:
+			return "" # Other type specified than what's within the fileName
+	return newName
