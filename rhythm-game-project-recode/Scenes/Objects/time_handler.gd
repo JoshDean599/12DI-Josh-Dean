@@ -38,7 +38,6 @@ func finish(finishTime):
 
 func on_tween_finished():
 	pause()
-	#get_tree().current_scene.change_scene("SongSelectMenu") # Left here for evidence later
 	get_parent().get_node("CanvasLayer/GameEndCard").visible = true
 
 func _process(delta: float) -> void:
