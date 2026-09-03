@@ -4,8 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="3_a7iym"]
 [ext_resource type="PackedScene" uid="uid://bdmqx7otwye8k" path="res://Scenes/Objects/time_handler.tscn" id="4_7wlcy"]
 
-[node name="Editor" type="Node2D" unique_id=1265935660]
+[node name="Editor" type="Node2D" unique_id=1265935660 node_paths=PackedStringArray("notes", "songName", "songSelectPopup", "editorMenu")]
 script = ExtResource("1_eyy8u")
+notes = NodePath("CanvasLayer/Notes")
+songName = NodePath("CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongName")
+songSelectPopup = NodePath("CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongsSelect")
+editorMenu = NodePath("CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=934516026]
 
@@ -48,7 +52,6 @@ mouse_filter = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/OptionsMenu" unique_id=1794822794]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
 mouse_filter = 2
 
 [node name="HSeparator" type="HSeparator" parent="CanvasLayer/OptionsMenu/VBoxContainer" unique_id=1196533130]
@@ -59,9 +62,7 @@ mouse_filter = 2
 
 [node name="SaveMenu" type="PanelContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer" unique_id=1426959074]
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 3.0
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu" unique_id=1320375693]
 layout_mode = 2

@@ -2,29 +2,22 @@ extends Node2D
 # Contains functions used by multiple scripts
 @onready var currentScene = $MainMenu
 const MapPath = "res://LoadedMaps/"
+const SongMapPathName = "SongMaps"
+var SongMapDirPath = OS.get_user_data_dir() + "/" + SongMapPathName
 
 var noteMoveSpeed = 250 # Pixels a second
 var YCollumnHeight = 10
 var map = null
 
 func _ready() -> void:
+	FileDialog.
+	#var dir = DirAccess.open("user://")
+	#if not dir.dir_exists(SongMapPathName):
+	#	dir.make_dir(SongMapPathName)
+	#	print("Created Path")
+	#OS.shell_open(SongMapDirPath)
+	
 	#AudioStreamMP3.load_from_file("")
-	#var folder_name = "SongMaps"
-	#var directory = DirAccess.open("user://") # C:\Users\user\AppData\Roaming\Godot\app_userdata\RhythmGameProject-Recode
-	#if directory:
-	#	var dir_path = "user://" + folder_name
-	#	if directory.dir_exists(dir_path):
-	#		print("Directory already exists!")
-	#		OS.shell_open(OS.get_user_data_dir() + "/" + folder_name)
-	#	else:
-	#		var error_code = directory.make_dir(folder_name)
-	#		if error_code == OK:
-	#			print("Directory created successfully!")
-	#			OS.shell_open(OS.get_user_data_dir() + "/" + folder_name)
-	#		else:
-	#			print("Failed to create directory. Error code: ", error_code)
-	#else:
-	#	print("Failed to open user directory.")
 	
 	# Make sure everything is hidden, apart from the starting scene
 	for i in get_children():

@@ -1,11 +1,12 @@
 extends Node2D
 
-#Import commonly used nodes
-@onready var notes = $CanvasLayer/Notes
-@onready var songName = $CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongName
-@onready var songSelectPopup = $CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongsSelect
-@onready var editorMenu = $CanvasLayer/OptionsMenu
+#Import nodes
+@export var notes : Node2D
+@export var songName : Control
+@export var songSelectPopup : Control
+@export var editorMenu : Control
 # Base Editor Variables
+var editingMap = ""
 var editorNote = preload("res://Scenes/Objects/editor_note.tscn")
 var dragging = false
 var clickPosition = Vector2.ZERO
