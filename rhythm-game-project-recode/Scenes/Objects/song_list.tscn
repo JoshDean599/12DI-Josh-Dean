@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://b8b03f771m7kj"]
+
+[ext_resource type="Script" uid="uid://dh45gvthbeije" path="res://Scenes/Objects/song_list.gd" id="1_wjn0d"]
+[ext_resource type="PackedScene" uid="uid://dtnu74u0su65o" path="res://Scenes/Objects/song_button.tscn" id="2_uakot"]
+
+[node name="SongList" type="VBoxContainer" unique_id=1228900917]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_wjn0d")
+
+[node name="SongButton" parent="." unique_id=676938241 instance=ExtResource("2_uakot")]
+layout_mode = 2

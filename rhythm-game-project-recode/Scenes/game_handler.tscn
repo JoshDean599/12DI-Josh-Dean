@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bp25e03odl5q" path="res://Scenes/Menus/song_select_menu.tscn" id="3_nwul3"]
 [ext_resource type="PackedScene" uid="uid://8w0ps6ic53jc" path="res://Scenes/editor.tscn" id="4_aqcph"]
 [ext_resource type="PackedScene" uid="uid://cchg3l8kejua6" path="res://Scenes/game.tscn" id="5_plgud"]
+[ext_resource type="PackedScene" uid="uid://y7b2oc6xk2r5" path="res://Scenes/ui_handler.tscn" id="6_jvujs"]
 
 [node name="GameHandler" type="Node2D" unique_id=987273405]
 script = ExtResource("1_jqstq")
@@ -19,3 +20,9 @@ visible = false
 
 [node name="Game" parent="." unique_id=1689311946 instance=ExtResource("5_plgud")]
 visible = false
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=212566408]
+oversampling_override = 1.0
+position = Vector2i(0, 36)
+
+[node name="UIHandler" parent="." unique_id=809693594 instance=ExtResource("6_jvujs")]

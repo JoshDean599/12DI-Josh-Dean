@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://y7b2oc6xk2r5"]
+
+[ext_resource type="Script" uid="uid://bwm3rm28yrma3" path="res://Scenes/Scripts/load_map.gd" id="1_cd1te"]
+
+[node name="UIHandler" type="CanvasLayer" unique_id=809693594]
+
+[node name="Global" type="Node" parent="." unique_id=1599240180]
+
+[node name="DeleteSongWarning" type="PanelContainer" parent="Global" unique_id=1374495182]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Global/DeleteSongWarning" unique_id=1630519425]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Global/DeleteSongWarning/CenterContainer" unique_id=255296514]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Global/DeleteSongWarning/CenterContainer/PanelContainer" unique_id=1177993610]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Global/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer" unique_id=2076551730]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Global/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1329657019]
+layout_mode = 2
+text = "Are you sure you want to delete this song?
+(This action can not be undone)"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Global/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=363248476]
+layout_mode = 2
+
+[node name="No" type="Button" parent="Global/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1636798202]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No"
+
+[node name="Yes" type="Button" parent="Global/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=187168109]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Yes"
+
+[node name="MainMenu" type="Node" parent="." unique_id=902776020]
+
+[node name="SongSelectMenu" type="Node" parent="." unique_id=2132405106]
+
+[node name="Editor" type="Node" parent="." unique_id=1804833358]
+
+[node name="SaveWarning" type="PanelContainer" parent="Editor" unique_id=1496524978]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Editor/SaveWarning" unique_id=582368019]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Editor/SaveWarning/CenterContainer" unique_id=642142966]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Editor/SaveWarning/CenterContainer/PanelContainer" unique_id=1432612735]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Editor/SaveWarning/CenterContainer/PanelContainer/MarginContainer" unique_id=1486803118]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Editor/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=49023296]
+layout_mode = 2
+text = "The current map is not saved.
+Are you sure you want to exit without saving?"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Editor/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1695334809]
+layout_mode = 2
+
+[node name="Save" type="Button" parent="Editor/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=877918599]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Save"
+
+[node name="Exit" type="Button" parent="Editor/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=831427092]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Exit"
+
+[node name="LoadMap" type="PanelContainer" parent="Editor" unique_id=363716081]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cd1te")
+
+[node name="PanelContainer" type="PanelContainer" parent="Editor/LoadMap" unique_id=2120833222]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Editor/LoadMap/PanelContainer" unique_id=1451972134]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Editor/LoadMap/PanelContainer/MarginContainer" unique_id=1923376631]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Editor/LoadMap/PanelContainer/MarginContainer/VBoxContainer" unique_id=654494280]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Editor/LoadMap/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1489523222]
+layout_mode = 2
+text = "Load Map:"
+
+[node name="Button" type="Button" parent="Editor/LoadMap/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1049489925]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Open Folder"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Editor/LoadMap/PanelContainer/MarginContainer/VBoxContainer" unique_id=11422951]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Editor/LoadMap/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=221353001]
+layout_mode = 2
+
+[node name="Game" type="Node" parent="." unique_id=1767360929]
+
+[connection signal="visibility_changed" from="Editor/LoadMap" to="Editor/LoadMap" method="_on_visibility_changed"]

@@ -6,7 +6,6 @@ extends Node2D
 @export var songSelectPopup : Control
 @export var editorMenu : Control
 # Base Editor Variables
-var editingMap = ""
 var editorNote = preload("res://Scenes/Objects/editor_note.tscn")
 var dragging = false
 var clickPosition = Vector2.ZERO
@@ -19,13 +18,27 @@ var testingEndTween: Tween
 # The base song to fall back on
 var currentSong = "NEFFEX - Hate It or Love It Copyright Free No82"
 
+# Extra variables: (Put into proper catagorys)
+var editingMap: String = ""
+
 # Add save warnings when exiting editor --------------------------------------------------------------!!!!!!!
 
 func _ready() -> void:
+	# Make the DragDetector fit to any screen size
+	$DragDetector.set_deferred("size", DisplayServer.screen_get_size())
+	$DragDetector.set_deferred("position", DisplayServer.screen_get_position(DisplayServer.SCREEN_OF_MAIN_WINDOW))
+	
 	# Make sure the menu is hidden
 	editorMenu.visible = false
 	# Connect the menu song popup so that the index's can get pressed
 	songSelectPopup.get_popup().connect("index_pressed", on_song_select_popup_press)
+
+func _on_visibility_changed() -> void:
+	if not visible:
+		return
+	# When the editor scene gets entered
+	if not editingMap or editingMap == "":
+		pass
 
 func _on_back_pressed() -> void:
 	# Return to the main menu

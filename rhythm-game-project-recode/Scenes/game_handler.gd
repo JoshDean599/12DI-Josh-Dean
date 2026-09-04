@@ -10,7 +10,6 @@ var YCollumnHeight = 10
 var map = null
 
 func _ready() -> void:
-	FileDialog.
 	#var dir = DirAccess.open("user://")
 	#if not dir.dir_exists(SongMapPathName):
 	#	dir.make_dir(SongMapPathName)
@@ -25,6 +24,8 @@ func _ready() -> void:
 			set_scene_visible(i, true)
 			continue
 		set_scene_visible(i, false)
+	
+	#$FileDialog.popup_file_dialog()
 
 func change_scene(scene: String):
 	set_scene_visible(currentScene, false)
