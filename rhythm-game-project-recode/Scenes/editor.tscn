@@ -9,7 +9,7 @@ script = ExtResource("1_eyy8u")
 notes = NodePath("Notes")
 songName = NodePath("CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongName")
 songSelectPopup = NodePath("CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongsSelect")
-editorMenu = NodePath("CanvasLayer/OptionsMenu/VBoxContainer/SaveMenu")
+editorMenu = NodePath("CanvasLayer/OptionsMenu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=934516026]
 

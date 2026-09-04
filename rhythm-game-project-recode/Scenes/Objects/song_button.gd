@@ -1,4 +1,4 @@
-extends MarginContainer
+extends PanelContainer
 
 @export var inEditor: bool = false
 @export var song: Control

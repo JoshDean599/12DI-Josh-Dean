@@ -8,13 +8,14 @@ var SongMapDirPath = OS.get_user_data_dir() + "/" + SongMapPathName
 var noteMoveSpeed = 250 # Pixels a second
 var YCollumnHeight = 10
 var map = null
+var map2 = null
 
 func _ready() -> void:
-	#var dir = DirAccess.open("user://")
-	#if not dir.dir_exists(SongMapPathName):
-	#	dir.make_dir(SongMapPathName)
-	#	print("Created Path")
-	#OS.shell_open(SongMapDirPath)
+	var dir = DirAccess.open("user://")
+	if not dir.dir_exists(SongMapPathName):
+		dir.make_dir(SongMapPathName)
+		print("Created Path")
+	OS.shell_open(SongMapDirPath)
 	
 	#AudioStreamMP3.load_from_file("")
 	
@@ -39,10 +40,9 @@ func set_scene_visible(scene, type: bool) -> void:
 		scene.get_node("CanvasLayer").visible = type
 	scene.set_process(type)
 
-func load_map(MapName) -> Dictionary:
-	var mapLocation = MapPath + MapName + ".json"
-	if not FileAccess.open(mapLocation, FileAccess.READ): # If map can't be loaded: Return
-		push_error("Map can't be found, Returning")
+func load_map(MapName, Difficulty) -> Dictionary:
+	var mapLocation = "user://SongMaps/" + MapName + "/" + Difficulty + ".json"
+	if not FileAccess.open(mapLocation, FileAccess.READ):
 		return {}
 	map = JSON.parse_string(FileAccess.get_file_as_string(mapLocation))
 	return map

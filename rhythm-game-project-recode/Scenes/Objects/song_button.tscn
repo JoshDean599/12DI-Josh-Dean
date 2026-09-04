@@ -2,35 +2,30 @@
 
 [ext_resource type="Script" uid="uid://13kgdkisad6x" path="res://Scenes/Objects/song_button.gd" id="1_7j5bf"]
 
-[node name="SongButton" type="MarginContainer" unique_id=676938241 node_paths=PackedStringArray("song", "options")]
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+[node name="SongButton" type="PanelContainer" unique_id=1990273302 node_paths=PackedStringArray("song", "options")]
+offset_right = 225.0
+offset_bottom = 41.0
 script = ExtResource("1_7j5bf")
-song = NodePath("PanelContainer/MarginContainer/HBoxContainer/Song")
-options = NodePath("PanelContainer/MarginContainer/HBoxContainer/Options")
+song = NodePath("MarginContainer/HBoxContainer/Song")
+options = NodePath("MarginContainer/HBoxContainer/Options")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=980738689]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1926321379]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1926321379]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer" unique_id=346677414]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=346677414]
 layout_mode = 2
 
-[node name="Song" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1078592105]
+[node name="Song" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1078592105]
 layout_mode = 2
 text = "PlaceholderSongName"
 
-[node name="Options" type="MenuButton" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=159406483]
+[node name="Options" type="MenuButton" parent="MarginContainer/HBoxContainer" unique_id=159406483]
 layout_mode = 2
 text = "•••"
 flat = false
 
-[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/Song" to="." method="_on_song_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Song" to="." method="_on_song_pressed"]

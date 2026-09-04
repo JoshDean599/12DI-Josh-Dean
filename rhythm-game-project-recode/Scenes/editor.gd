@@ -20,6 +20,7 @@ var currentSong = "NEFFEX - Hate It or Love It Copyright Free No82"
 
 # Extra variables: (Put into proper catagorys)
 var editingMap: String = ""
+var difficulty: String = "Normal"
 
 # Add save warnings when exiting editor --------------------------------------------------------------!!!!!!!
 
@@ -67,7 +68,7 @@ func save_map() -> void:
 	# Add each note into the Notes[] within the save data
 	var firstNote = null
 	for i in notes.get_children(): # Insert each notes into the table
-		if i == $CanvasLayer/Notes/Deadzone: continue
+		if i.name == "Deadzone": continue
 		if firstNote == null or firstNote.time > i.time: # Get the first note
 			firstNote = i
 		saveData.Notes.push_back(
@@ -78,15 +79,29 @@ func save_map() -> void:
 				tailOffset = i.tailOffset
 			}
 		)
+	if not firstNote: # If there isn't any notes within the scene, return
+		return
 	saveData.bufferTime = firstNote.time # Set the bufferTime based off the firstNote's time
 	
+	var dir = DirAccess.open("user://SongMaps")
+	if dir:
+		if dir.dir_exists(songName.text):
+			dir.change_dir(dir.get_current_dir() + "/" + songName.text)
+		else:
+			print("Created new song folder")
+			dir.make_dir(songName.text)
+			dir.change_dir(dir.get_current_dir() + "/" + songName.text)
+		pass
+	
+	print(dir.get_current_dir())
+	
 	# Check if the file trying to be saved already exists:
-	if FileAccess.file_exists("res://LoadedMaps/" + songName.text + ".json"):
+	if FileAccess.file_exists(dir.get_current_dir() + "/" + difficulty + ".json"):
 		print("File Exists")
 	else:
 		print("File Doesn't exist, creating new")
 	# Create or override the map
-	var file = FileAccess.open("res://LoadedMaps/" + songName.text + ".json", FileAccess.ModeFlags.WRITE)
+	var file = FileAccess.open(dir.get_current_dir() + "/" + difficulty + ".json", FileAccess.ModeFlags.WRITE)
 	if file:
 		var text = JSON.stringify(saveData, "\t") # Convert it into a string for the json to store
 		file.store_string(text)
@@ -95,21 +110,14 @@ func save_map() -> void:
 		print("Failed to create new file or write to current")
 
 func load_map() -> void:
-	if songName.text.length() <= 0:
-		# Clear all notes from the tree if loading no map
-		for i in notes.get_children():
-			if i == $CanvasLayer/Notes/Deadzone: continue
-			i.free()
-		return
+	# Clear all notes from the tree
+	for i in notes.get_children():
+		if i.name == "Deadzone": continue
+		i.free()
 	
-	var loadedMap = get_parent().load_map(songName.text)
+	var loadedMap = get_parent().load_map(songName.text, difficulty)
 	if loadedMap == {}: # If the map could not be loaded, return
 		return
-	
-	# Clear all notes from the tree # Could be a seperate function, but oh well.
-	for i in notes.get_children():
-		if i == $CanvasLayer/Notes/Deadzone: continue
-		i.free()
 	
 	# Create each note
 	for i in loadedMap.Notes:
