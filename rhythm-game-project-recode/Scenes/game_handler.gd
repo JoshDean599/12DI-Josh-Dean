@@ -15,7 +15,7 @@ func _ready() -> void:
 	if not dir.dir_exists(SongMapPathName):
 		dir.make_dir(SongMapPathName)
 		print("Created Path")
-	OS.shell_open(SongMapDirPath)
+	#OS.shell_open(SongMapDirPath)
 	
 	#AudioStreamMP3.load_from_file("")
 	
@@ -35,9 +35,10 @@ func change_scene(scene: String):
 	currentScene = newScene
 
 func set_scene_visible(scene, type: bool) -> void:
-	scene.visible = type
 	if scene.find_child("CanvasLayer"):
 		scene.get_node("CanvasLayer").visible = type
+		scene.get_node("CanvasLayer").set_process(type)
+	scene.visible = type
 	scene.set_process(type)
 
 func load_map(MapName, Difficulty) -> Dictionary:

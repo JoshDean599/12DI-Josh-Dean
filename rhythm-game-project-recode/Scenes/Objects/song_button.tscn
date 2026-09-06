@@ -5,6 +5,7 @@
 [node name="SongButton" type="PanelContainer" unique_id=1990273302 node_paths=PackedStringArray("song", "options")]
 offset_right = 225.0
 offset_bottom = 41.0
+size_flags_horizontal = 3
 script = ExtResource("1_7j5bf")
 song = NodePath("MarginContainer/HBoxContainer/Song")
 options = NodePath("MarginContainer/HBoxContainer/Options")
@@ -21,11 +22,15 @@ layout_mode = 2
 
 [node name="Song" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1078592105]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "PlaceholderSongName"
 
 [node name="Options" type="MenuButton" parent="MarginContainer/HBoxContainer" unique_id=159406483]
 layout_mode = 2
 text = "•••"
 flat = false
+item_count = 1
+popup/item_0/text = "Delete"
+popup/item_0/id = 0
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Song" to="." method="_on_song_pressed"]

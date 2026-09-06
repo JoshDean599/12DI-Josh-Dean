@@ -11,7 +11,6 @@ func _on_button_pressed() -> void:
 func _on_visibility_changed() -> void:
 	if visible:
 		await get_tree().create_timer(0).timeout
-		get_tree().current_scene.load_map(currentSong)
 		$CanvasLayer/GameEndCard.visible = false
 		$ScoreHandler.score = 0
 		$ScoreHandler.incriment_score(0) # Update the score visual to correctly show the score
