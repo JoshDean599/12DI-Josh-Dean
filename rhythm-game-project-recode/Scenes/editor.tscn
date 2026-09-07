@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://8w0ps6ic53jc"]
 
 [ext_resource type="Script" uid="uid://bssh4f7tpqr6f" path="res://Scenes/editor.gd" id="1_eyy8u"]
+[ext_resource type="Script" uid="uid://bwm3rm28yrma3" path="res://Scenes/Scripts/load_map.gd" id="2_7wlcy"]
 [ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="3_a7iym"]
 [ext_resource type="PackedScene" uid="uid://bdmqx7otwye8k" path="res://Scenes/Objects/time_handler.tscn" id="4_7wlcy"]
 
@@ -140,6 +141,136 @@ text = "Options"
 layout_mode = 2
 text = "Test"
 
+[node name="SaveWarning" type="PanelContainer" parent="CanvasLayer" unique_id=1997277172]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/SaveWarning" unique_id=109523203]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/SaveWarning/CenterContainer" unique_id=997151408]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SaveWarning/CenterContainer/PanelContainer" unique_id=486467094]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SaveWarning/CenterContainer/PanelContainer/MarginContainer" unique_id=80425425]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1509648833]
+layout_mode = 2
+text = "The current map is not saved.
+Are you sure you want to exit without saving?"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1150097965]
+layout_mode = 2
+
+[node name="Save" type="Button" parent="CanvasLayer/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2097842705]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Save"
+
+[node name="Exit" type="Button" parent="CanvasLayer/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=879057805]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Exit"
+
+[node name="LoadMap" type="PanelContainer" parent="CanvasLayer" unique_id=956047524]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_7wlcy")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/LoadMap" unique_id=1533088834]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/LoadMap/PanelContainer" unique_id=37064321]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LoadMap/PanelContainer/MarginContainer" unique_id=1874397213]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/LoadMap/PanelContainer/MarginContainer/VBoxContainer" unique_id=465030034]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/LoadMap/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1884097807]
+layout_mode = 2
+text = "Load Map:"
+
+[node name="Button" type="Button" parent="CanvasLayer/LoadMap/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=708202614]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Open Folder"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/LoadMap/PanelContainer/MarginContainer/VBoxContainer" unique_id=1725968543]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LoadMap/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=382962240]
+layout_mode = 2
+
+[node name="DeleteSongWarning" type="PanelContainer" parent="CanvasLayer" unique_id=1775664466]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/DeleteSongWarning" unique_id=1966057123]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/DeleteSongWarning/CenterContainer" unique_id=1844804749]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/DeleteSongWarning/CenterContainer/PanelContainer" unique_id=425303867]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer" unique_id=1034556875]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1927370547]
+layout_mode = 2
+text = "Are you sure you want to delete this song?
+(This action can not be undone)"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2130800563]
+layout_mode = 2
+
+[node name="No" type="Button" parent="CanvasLayer/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=453450921]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No"
+
+[node name="Yes" type="Button" parent="CanvasLayer/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1689187524]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Yes"
+
 [node name="TimeHandler" parent="." unique_id=1403582281 instance=ExtResource("4_7wlcy")]
 
 [node name="DragDetector" type="Button" parent="." unique_id=350895989]
@@ -164,4 +295,5 @@ texture = ExtResource("3_a7iym")
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Test" to="." method="_on_test_pressed"]
+[connection signal="visibility_changed" from="CanvasLayer/LoadMap" to="CanvasLayer/LoadMap" method="_on_visibility_changed"]
 [connection signal="gui_input" from="DragDetector" to="." method="_on_drag_detector_gui_input"]

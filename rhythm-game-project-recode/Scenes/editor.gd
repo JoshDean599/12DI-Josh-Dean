@@ -15,17 +15,15 @@ var timeFrame = 1
 var testing = false
 var testingStartPosition: Vector2
 var testingEndTween: Tween
-# The base song to fall back on
-var currentSong = "NEFFEX - Hate It or Love It Copyright Free No82"
-
-# Extra variables: (Put into proper catagorys)
-var editingMap: String = ""
+# Song information
+var selectedSong = "NEFFEX - Hate It or Love It Copyright Free No82"
 var difficulty: String = "Normal"
+var difficultyLevel: int = 1
 
 # Add save warnings when exiting editor --------------------------------------------------------------!!!!!!!
 
 func _ready() -> void:
-	# Make the DragDetector fit to any screen size
+	# Make the DragDetector fit to any screens size
 	$DragDetector.set_deferred("size", DisplayServer.screen_get_size())
 	$DragDetector.set_deferred("position", DisplayServer.screen_get_position(DisplayServer.SCREEN_OF_MAIN_WINDOW))
 	
@@ -37,9 +35,6 @@ func _ready() -> void:
 func _on_visibility_changed() -> void:
 	if not visible:
 		return
-	# When the editor scene gets entered
-	if not editingMap or editingMap == "":
-		pass
 
 func _on_back_pressed() -> void:
 	# Return to the main menu
@@ -49,11 +44,6 @@ func _on_options_pressed() -> void:
 	# Toggle the menu's visibility
 	editorMenu.visible = !editorMenu.visible
 
-func _input(_event: InputEvent) -> void:
-	# Save the map if the save keybind is pressed
-	if Input.is_action_pressed("save"):
-		save_map()
-
 func save_map() -> void:
 	# Check if the song name has a valid filepath
 	if songName.text.length() <= 0:
@@ -62,8 +52,8 @@ func save_map() -> void:
 	# The base save data
 	var saveData = {
 		Notes = [],
-		Song = currentSong,
-		bufferTime = 5
+		DifficultyLevel = difficultyLevel,
+		Song = selectedSong,
 	}
 	# Add each note into the Notes[] within the save data
 	var firstNote = null
@@ -91,9 +81,6 @@ func save_map() -> void:
 			print("Created new song folder")
 			dir.make_dir(songName.text)
 			dir.change_dir(dir.get_current_dir() + "/" + songName.text)
-		pass
-	
-	print(dir.get_current_dir())
 	
 	# Check if the file trying to be saved already exists:
 	if FileAccess.file_exists(dir.get_current_dir() + "/" + difficulty + ".json"):
@@ -219,5 +206,5 @@ func _on_songs_select_about_to_popup() -> void:
 
 func on_song_select_popup_press(index):
 	# Set the song on select
-	currentSong = songSelectPopup.get_popup().get_item_text(index)
-	$TimeHandler.set_music(currentSong)
+	selectedSong = songSelectPopup.get_popup().get_item_text(index)
+	$TimeHandler.set_music(selectedSong)

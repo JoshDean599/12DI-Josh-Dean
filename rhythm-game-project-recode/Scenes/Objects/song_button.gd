@@ -1,4 +1,4 @@
-extends PanelContainer
+extends HBoxContainer
 
 @export var inEditor: bool = false
 @export var song: Control

@@ -8,7 +8,6 @@ var SongMapDirPath = OS.get_user_data_dir() + "/" + SongMapPathName
 var noteMoveSpeed = 250 # Pixels a second
 var YCollumnHeight = 10
 var map = null
-var map2 = null
 
 func _ready() -> void:
 	var dir = DirAccess.open("user://")
