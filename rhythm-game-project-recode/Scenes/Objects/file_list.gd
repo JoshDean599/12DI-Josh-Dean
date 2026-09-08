@@ -2,10 +2,12 @@ extends PanelContainer
 
 var songButton = preload("res://Scenes/Objects/song_button.tscn")
 @onready var list = $PanelContainer/MarginContainer/VBoxContainer
+@export var inEditor: bool = false
 
 func add_song(Name: String):
 	var newButton = songButton.instantiate()
 	newButton.song.text = Name
+	newButton.inEditor = inEditor
 	list.add_child.call_deferred(newButton)
 
 func clear_list():

@@ -13,9 +13,6 @@ func _ready() -> void:
 	var dir = DirAccess.open("user://")
 	if not dir.dir_exists(SongMapPathName):
 		dir.make_dir(SongMapPathName)
-		print("Created Path")
-	#OS.shell_open(SongMapDirPath)
-	
 	#AudioStreamMP3.load_from_file("")
 	
 	# Make sure everything is hidden, apart from the starting scene
@@ -24,12 +21,13 @@ func _ready() -> void:
 			set_scene_visible(i, true)
 			continue
 		set_scene_visible(i, false)
-	
-	#$FileDialog.popup_file_dialog()
 
 func change_scene(scene: String):
-	set_scene_visible(currentScene, false)
 	var newScene = get_node(scene)
+	if not newScene:
+		print("Failed to changeScene, scene not found")
+		return
+	set_scene_visible(currentScene, false)
 	set_scene_visible(newScene, true)
 	currentScene = newScene
 

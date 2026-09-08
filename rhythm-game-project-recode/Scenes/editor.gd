@@ -26,7 +26,7 @@ func _ready() -> void:
 	# Make the DragDetector fit to any screens size
 	$DragDetector.set_deferred("size", DisplayServer.screen_get_size())
 	$DragDetector.set_deferred("position", DisplayServer.screen_get_position(DisplayServer.SCREEN_OF_MAIN_WINDOW))
-	
+	$CanvasLayer/MarginContainer/LoadMap/PanelContainer/MarginContainer/VBoxContainer/FileList.refresh_list()
 	# Make sure the menu is hidden
 	editorMenu.visible = false
 	# Connect the menu song popup so that the index's can get pressed
@@ -35,10 +35,6 @@ func _ready() -> void:
 func _on_visibility_changed() -> void:
 	if not visible:
 		return
-
-func _on_back_pressed() -> void:
-	# Return to the main menu
-	get_parent().change_scene("MainMenu")
 
 func _on_options_pressed() -> void:
 	# Toggle the menu's visibility
@@ -73,7 +69,7 @@ func save_map() -> void:
 		return
 	saveData.bufferTime = firstNote.time # Set the bufferTime based off the firstNote's time
 	
-	var dir = DirAccess.open("user://SongMaps")
+	var dir = DirAccess.open(get_parent().SongMapDirPath)
 	if dir:
 		if dir.dir_exists(songName.text):
 			dir.change_dir(dir.get_current_dir() + "/" + songName.text)
@@ -196,7 +192,7 @@ func _on_songs_select_about_to_popup() -> void:
 	# Clear all the songs in the popup menu
 	songSelectPopup.get_popup().clear()
 	
-	var songs = get_parent().get_file_list("res://Assets/Songs/")
+	var songs = get_parent().get_file_list("res://Assets/Songs/") # !!!!!!!!--------------!!!!------------------------!!!!!----------!!!!!!---------------------------------------------------------------------------------------------------------------
 	for song in songs:
 		song = get_parent().remove_file_name_type(song, ".mp3")
 		if song == "": # If it wasn't an mp3 file, discard
@@ -208,3 +204,8 @@ func on_song_select_popup_press(index):
 	# Set the song on select
 	selectedSong = songSelectPopup.get_popup().get_item_text(index)
 	$TimeHandler.set_music(selectedSong)
+
+
+func _on_open_map_folder_pressed() -> void:
+	# Open the map folder location in the device's file manager
+	OS.shell_open(get_parent().SongMapDirPath)

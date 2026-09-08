@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cchg3l8kejua6"]
 
 [ext_resource type="Script" uid="uid://b03fx3wyaffq" path="res://Scenes/game.gd" id="1_ebmjs"]
+[ext_resource type="PackedScene" uid="uid://bqsmg5a7x3ftu" path="res://Scenes/Objects/change_scene_button.tscn" id="2_i6g32"]
 [ext_resource type="PackedScene" uid="uid://b1vxx62f7jti6" path="res://Scenes/Objects/note_handler.tscn" id="2_qxrlw"]
 [ext_resource type="PackedScene" uid="uid://b1w0opvd3y61x" path="res://Scenes/Objects/game_end_card.tscn" id="2_wowpa"]
 [ext_resource type="PackedScene" uid="uid://bdmqx7otwye8k" path="res://Scenes/Objects/time_handler.tscn" id="3_wrm1d"]
@@ -15,9 +16,10 @@ script = ExtResource("1_ebmjs")
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Button" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=1160473181]
+[node name="ChangeSceneButton" parent="CanvasLayer/HBoxContainer" unique_id=78395926 instance=ExtResource("2_i6g32")]
 layout_mode = 2
 text = "Back"
+target = "SongSelectMenu"
 
 [node name="GameScoreLabel" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=1007351764]
 layout_mode = 2
@@ -39,4 +41,3 @@ gameScoreLabel = NodePath("../CanvasLayer/HBoxContainer/GameScoreLabel")
 endCardScoreLabel = NodePath("../CanvasLayer/GameEndCard/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/EndCardScore")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="pressed" from="CanvasLayer/HBoxContainer/Button" to="." method="_on_button_pressed"]

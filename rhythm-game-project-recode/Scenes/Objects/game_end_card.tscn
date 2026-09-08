@@ -1,11 +1,10 @@
 [gd_scene format=3 uid="uid://b1w0opvd3y61x"]
 
-[ext_resource type="Script" uid="uid://d061ppkkrun80" path="res://Scenes/Objects/game_end_card.gd" id="1_ag62b"]
+[ext_resource type="PackedScene" uid="uid://bqsmg5a7x3ftu" path="res://Scenes/Objects/change_scene_button.tscn" id="1_ag62b"]
 
 [node name="GameEndCard" type="Control" unique_id=1243729270]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_ag62b")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1175877750]
 layout_mode = 1
@@ -35,13 +34,12 @@ text = "Score: 000"
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1888439803]
 layout_mode = 2
 
-[node name="Restart" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1168913417]
+[node name="ChangeSceneButton" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=78395926 instance=ExtResource("1_ag62b")]
 layout_mode = 2
 text = "Restart"
+target = "Game"
 
-[node name="Back" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1735544102]
+[node name="ChangeSceneButton2" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1520057621 instance=ExtResource("1_ag62b")]
 layout_mode = 2
 text = "Back"
-
-[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
+target = "SongSelectMenu"

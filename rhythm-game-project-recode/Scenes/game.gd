@@ -4,10 +4,6 @@ extends Node2D
 var currentSong := ""
 var active = false
 
-func _on_button_pressed() -> void:
-	pause()
-	get_parent().change_scene("SongSelectMenu")
-
 func _on_visibility_changed() -> void:
 	if visible:
 		await get_tree().create_timer(0).timeout

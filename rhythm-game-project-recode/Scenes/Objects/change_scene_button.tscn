@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bqsmg5a7x3ftu"]
+
+[ext_resource type="Script" uid="uid://ufvb74qwp7kc" path="res://Scenes/Objects/change_scene_button.gd" id="1_a61ud"]
+
+[node name="ChangeSceneButton" type="Button" unique_id=78395926]
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("1_a61ud")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

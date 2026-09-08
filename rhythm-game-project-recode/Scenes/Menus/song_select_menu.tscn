@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://fgnbohxmsb5y" path="res://Scenes/Menus/song_select_menu.gd" id="1_8ud5j"]
 [ext_resource type="PackedScene" uid="uid://dyiheykvdq40f" path="res://Scenes/Objects/file_list.tscn" id="2_83smf"]
+[ext_resource type="PackedScene" uid="uid://bqsmg5a7x3ftu" path="res://Scenes/Objects/change_scene_button.tscn" id="2_m65lg"]
 
 [node name="SongSelectMenu" type="Node2D" unique_id=7160056]
 script = ExtResource("1_8ud5j")
@@ -17,12 +18,12 @@ theme_override_constants/margin_bottom = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1313871366]
 layout_mode = 2
 
-[node name="Back" type="Button" parent="MarginContainer/VBoxContainer" unique_id=212006133]
+[node name="ChangeSceneButton" parent="MarginContainer/VBoxContainer" unique_id=78395926 instance=ExtResource("2_m65lg")]
 layout_mode = 2
 text = "Back"
+target = "MainMenu"
 
 [node name="FileList" parent="MarginContainer/VBoxContainer" unique_id=1665015180 instance=ExtResource("2_83smf")]
 layout_mode = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
