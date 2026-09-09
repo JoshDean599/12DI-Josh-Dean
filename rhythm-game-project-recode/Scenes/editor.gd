@@ -4,7 +4,10 @@ extends Node2D
 @export var notes : Node2D
 @export var songName : Control
 @export var songSelectPopup : Control
-@export var editorMenu : Control
+@onready var editorMenu = $CanvasLayer/PanelContainer/MarginContainer/OptionsMenu
+@onready var optionsMenu = $CanvasLayer/OptionsMenu
+@onready var editorButtons = $CanvasLayer/ControlButtons
+@onready var fileList = $CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/LoadOptions/FileList
 # Base Editor Variables
 var editorNote = preload("res://Scenes/Objects/editor_note.tscn")
 var dragging = false
@@ -26,14 +29,16 @@ func _ready() -> void:
 	# Make the DragDetector fit to any screens size
 	$DragDetector.set_deferred("size", DisplayServer.screen_get_size())
 	$DragDetector.set_deferred("position", DisplayServer.screen_get_position(DisplayServer.SCREEN_OF_MAIN_WINDOW))
-	$CanvasLayer/MarginContainer/LoadMap/PanelContainer/MarginContainer/VBoxContainer/FileList.refresh_list()
 	# Make sure the menu is hidden
 	editorMenu.visible = false
 	# Connect the menu song popup so that the index's can get pressed
 	songSelectPopup.get_popup().connect("index_pressed", on_song_select_popup_press)
 
 func _on_visibility_changed() -> void:
-	if not visible:
+	if visible:
+		fileList.refresh_list()
+		editorButtons.visible = false
+		optionsMenu.visible = true
 		return
 
 func _on_options_pressed() -> void:
@@ -92,13 +97,13 @@ func save_map() -> void:
 	else:
 		print("Failed to create new file or write to current")
 
-func load_map() -> void:
+func load_map(mapName, mapDifficulty) -> void:
 	# Clear all notes from the tree
 	for i in notes.get_children():
 		if i.name == "Deadzone": continue
 		i.free()
 	
-	var loadedMap = get_parent().load_map(songName.text, difficulty)
+	var loadedMap = get_parent().load_map(mapName, mapDifficulty)
 	if loadedMap == {}: # If the map could not be loaded, return
 		return
 	
@@ -110,6 +115,9 @@ func load_map() -> void:
 			i.tailTime,
 			i.tailOffset
 		)
+	
+	optionsMenu.visible = false
+	editorButtons.visible = true
 
 func create_new_note(time: float, offset: float, tailTime: float, tailOffset: float) -> void:
 	var newNote = editorNote.instantiate() # Create a new instance of the editor note
@@ -164,7 +172,7 @@ func _on_save_pressed() -> void:
 	save_map()
 
 func _on_load_pressed() -> void:
-	load_map()
+	load_map(songName.text, difficulty)
 
 
 func _on_test_pressed() -> void:
@@ -209,3 +217,15 @@ func on_song_select_popup_press(index):
 func _on_open_map_folder_pressed() -> void:
 	# Open the map folder location in the device's file manager
 	OS.shell_open(get_parent().SongMapDirPath)
+
+
+func _on_load_create_map_button_pressed() -> void:
+	if $CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/LoadOptions.visible:
+		$CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/LoadOptions.visible = false
+		$CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CreateOptions.visible = true
+		$CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Load_CreateMapButton.text = "Load Map"
+	else:
+		$CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/LoadOptions.visible = true
+		$CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CreateOptions.visible = false
+		$CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Load_CreateMapButton.text = "Create Map"
+	pass # Replace with function body.

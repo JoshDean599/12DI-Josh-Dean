@@ -6,197 +6,112 @@
 [ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="3_a7iym"]
 [ext_resource type="PackedScene" uid="uid://bdmqx7otwye8k" path="res://Scenes/Objects/time_handler.tscn" id="4_7wlcy"]
 
-[node name="Editor" type="Node2D" unique_id=1265935660 node_paths=PackedStringArray("notes", "songName", "songSelectPopup", "editorMenu")]
+[node name="Editor" type="Node2D" unique_id=1265935660 node_paths=PackedStringArray("notes", "songName", "songSelectPopup")]
 script = ExtResource("1_eyy8u")
 notes = NodePath("Notes")
-songName = NodePath("CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongName")
-songSelectPopup = NodePath("CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongsSelect")
-editorMenu = NodePath("CanvasLayer/MarginContainer/OptionsMenu")
+songName = NodePath("CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongName")
+songSelectPopup = NodePath("CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CreateOptions/SongsSelect")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=934516026]
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=232121667]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=1976052247]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer" unique_id=232121667]
+layout_mode = 2
+mouse_behavior_recursive = 1
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="OptionsMenu" type="HBoxContainer" parent="CanvasLayer/MarginContainer" unique_id=2035302677]
-visible = false
+[node name="OptionsMenu" type="HBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer" unique_id=2035302677]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
+mouse_filter = 0
+mouse_behavior_recursive = 2
 
-[node name="VSeparator" type="VSeparator" parent="CanvasLayer/MarginContainer/OptionsMenu" unique_id=1570809696]
+[node name="VSeparator" type="VSeparator" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu" unique_id=1570809696]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/OptionsMenu" unique_id=1794822794]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu" unique_id=1794822794]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="HSeparator" type="HSeparator" parent="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer" unique_id=1196533130]
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer" unique_id=1196533130]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="SaveMenu" type="PanelContainer" parent="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer" unique_id=1426959074]
+[node name="SaveMenu" type="PanelContainer" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer" unique_id=1426959074]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu" unique_id=1320375693]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu" unique_id=1320375693]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer" unique_id=712293140]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer" unique_id=712293140]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer" unique_id=2067634347]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer" unique_id=2067634347]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1870777882]
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1870777882]
 layout_mode = 2
 text = "Map name:"
 
-[node name="SongName" type="LineEdit" parent="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1476332473]
+[node name="SongName" type="LineEdit" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1476332473]
 layout_mode = 2
 placeholder_text = "Eg. newMap"
 
-[node name="Label2" type="Label" parent="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer" unique_id=30166891]
+[node name="Label2" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer" unique_id=30166891]
 layout_mode = 2
 text = "Song:"
 
-[node name="SongsSelect" type="MenuButton" parent="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer" unique_id=389081484]
-layout_mode = 2
-text = "songs. :D"
-flat = false
-item_count = 2
-popup/item_0/text = ":D"
-popup/item_0/id = 0
-popup/item_1/text = "new"
-popup/item_1/id = 1
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer" unique_id=24526070]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer" unique_id=24526070]
 layout_mode = 2
 
-[node name="Save" type="Button" parent="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=2010682594]
+[node name="Save" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=2010682594]
 layout_mode = 2
 text = "Save"
 
-[node name="Load" type="Button" parent="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1837486610]
+[node name="Load" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1837486610]
 layout_mode = 2
 text = "Load"
 
-[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer" unique_id=913368011]
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer" unique_id=913368011]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="VSeparator2" type="VSeparator" parent="CanvasLayer/MarginContainer/OptionsMenu" unique_id=221482659]
+[node name="VSeparator2" type="VSeparator" parent="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu" unique_id=221482659]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="EditorButtons" type="MarginContainer" parent="CanvasLayer/MarginContainer" unique_id=400809824]
-visible = false
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer/EditorButtons" unique_id=555935797]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/EditorButtons/PanelContainer" unique_id=1889755907]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/EditorButtons/PanelContainer/MarginContainer" unique_id=1168934915]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/EditorButtons/PanelContainer/MarginContainer/VBoxContainer" unique_id=290561333]
-layout_mode = 2
-
-[node name="ChangeSceneButton" parent="CanvasLayer/MarginContainer/EditorButtons/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=78395926 instance=ExtResource("2_wkuwf")]
-layout_mode = 2
-text = "Back"
-target = "MainMenu"
-
-[node name="Options" type="Button" parent="CanvasLayer/MarginContainer/EditorButtons/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=167484592]
-layout_mode = 2
-text = "Options"
-
-[node name="Test" type="Button" parent="CanvasLayer/MarginContainer/EditorButtons/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2055806561]
-layout_mode = 2
-text = "Test"
-
-[node name="LoadMap" type="PanelContainer" parent="CanvasLayer/MarginContainer" unique_id=956047524]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer/LoadMap" unique_id=1533088834]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/LoadMap/PanelContainer" unique_id=37064321]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/LoadMap/PanelContainer/MarginContainer" unique_id=1874397213]
-layout_mode = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/MarginContainer/LoadMap/PanelContainer/MarginContainer/VBoxContainer" unique_id=316821236]
-layout_mode = 2
-
-[node name="ChangeSceneButton" parent="CanvasLayer/MarginContainer/LoadMap/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1996478932 instance=ExtResource("2_wkuwf")]
-layout_mode = 2
-text = "Back"
-target = "MainMenu"
-
-[node name="OpenMapFolder" type="Button" parent="CanvasLayer/MarginContainer/LoadMap/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=708202614]
-layout_mode = 2
-size_flags_horizontal = 10
-text = "Open Folder"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/LoadMap/PanelContainer/MarginContainer/VBoxContainer" unique_id=465030034]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/LoadMap/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1884097807]
-layout_mode = 2
-text = "Load Map:"
-
-[node name="FileList" parent="CanvasLayer/MarginContainer/LoadMap/PanelContainer/MarginContainer/VBoxContainer" unique_id=1665015180 instance=ExtResource("2_7wlcy")]
-layout_mode = 2
-inEditor = true
-
-[node name="Warnings" type="Control" parent="CanvasLayer/MarginContainer" unique_id=1457375672]
+[node name="Warnings" type="Control" parent="CanvasLayer/PanelContainer/MarginContainer" unique_id=1457375672]
 visible = false
 layout_mode = 2
 
-[node name="SaveWarning" type="PanelContainer" parent="CanvasLayer/MarginContainer/Warnings" unique_id=1997277172]
+[node name="SaveWarning" type="PanelContainer" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings" unique_id=1997277172]
 visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -208,41 +123,41 @@ offset_bottom = 54.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/MarginContainer/Warnings/SaveWarning" unique_id=109523203]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/SaveWarning" unique_id=109523203]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer/Warnings/SaveWarning/CenterContainer" unique_id=997151408]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/SaveWarning/CenterContainer" unique_id=997151408]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/Warnings/SaveWarning/CenterContainer/PanelContainer" unique_id=486467094]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/SaveWarning/CenterContainer/PanelContainer" unique_id=486467094]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/Warnings/SaveWarning/CenterContainer/PanelContainer/MarginContainer" unique_id=80425425]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/SaveWarning/CenterContainer/PanelContainer/MarginContainer" unique_id=80425425]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Warnings/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1509648833]
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1509648833]
 layout_mode = 2
 text = "The current map is not saved.
 Are you sure you want to exit without saving?"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/Warnings/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1150097965]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1150097965]
 layout_mode = 2
 
-[node name="Save" type="Button" parent="CanvasLayer/MarginContainer/Warnings/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2097842705]
+[node name="Save" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2097842705]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Save"
 
-[node name="Exit" type="Button" parent="CanvasLayer/MarginContainer/Warnings/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=879057805]
+[node name="Exit" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=879057805]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Exit"
 
-[node name="DeleteSongWarning" type="PanelContainer" parent="CanvasLayer/MarginContainer/Warnings" unique_id=1775664466]
+[node name="DeleteSongWarning" type="PanelContainer" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings" unique_id=1775664466]
 visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -254,39 +169,159 @@ offset_bottom = 54.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/MarginContainer/Warnings/DeleteSongWarning" unique_id=1966057123]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/DeleteSongWarning" unique_id=1966057123]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer/Warnings/DeleteSongWarning/CenterContainer" unique_id=1844804749]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/DeleteSongWarning/CenterContainer" unique_id=1844804749]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/Warnings/DeleteSongWarning/CenterContainer/PanelContainer" unique_id=425303867]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/DeleteSongWarning/CenterContainer/PanelContainer" unique_id=425303867]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/Warnings/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer" unique_id=1034556875]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer" unique_id=1034556875]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/Warnings/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1927370547]
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1927370547]
 layout_mode = 2
 text = "Are you sure you want to delete this song?
 (This action can not be undone)"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/Warnings/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2130800563]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2130800563]
 layout_mode = 2
 
-[node name="No" type="Button" parent="CanvasLayer/MarginContainer/Warnings/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=453450921]
+[node name="No" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=453450921]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "No"
 
-[node name="Yes" type="Button" parent="CanvasLayer/MarginContainer/Warnings/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1689187524]
+[node name="Yes" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/Warnings/DeleteSongWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1689187524]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Yes"
+
+[node name="ControlButtons" type="MarginContainer" parent="CanvasLayer" unique_id=838823659]
+offset_right = 60.0
+offset_bottom = 40.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HboxContainer" type="HBoxContainer" parent="CanvasLayer/ControlButtons" unique_id=780867259]
+layout_mode = 2
+
+[node name="ChangeSceneButton" parent="CanvasLayer/ControlButtons/HboxContainer" unique_id=78395926 instance=ExtResource("2_wkuwf")]
+layout_mode = 2
+mouse_behavior_recursive = 2
+text = "Back"
+target = "MainMenu"
+
+[node name="Options" type="Button" parent="CanvasLayer/ControlButtons/HboxContainer" unique_id=167484592]
+layout_mode = 2
+mouse_behavior_recursive = 2
+text = "Options"
+
+[node name="Test" type="Button" parent="CanvasLayer/ControlButtons/HboxContainer" unique_id=2055806561]
+layout_mode = 2
+mouse_behavior_recursive = 2
+text = "Test"
+
+[node name="OptionsMenu" type="PanelContainer" parent="CanvasLayer" unique_id=420896040]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/OptionsMenu" unique_id=125921749]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/OptionsMenu/MarginContainer" unique_id=651754341]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer" unique_id=2078313397]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer" unique_id=912097727]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1295034889]
+layout_mode = 2
+
+[node name="ChangeSceneButton" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1996478932 instance=ExtResource("2_wkuwf")]
+layout_mode = 2
+text = "Back"
+target = "MainMenu"
+
+[node name="OpenMapFolder" type="Button" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=708202614]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Open Folder"
+
+[node name="Load_CreateMapButton" type="Button" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=793888271]
+layout_mode = 2
+text = "Load Map"
+
+[node name="LoadOptions" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1164434633]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/LoadOptions" unique_id=1884097807]
+layout_mode = 2
+text = "Load Map:"
+
+[node name="FileList" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/LoadOptions" unique_id=1665015180 instance=ExtResource("2_7wlcy")]
+layout_mode = 2
+
+[node name="CreateOptions" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1307846900]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CreateOptions" unique_id=983696773]
+layout_mode = 2
+text = "Create Map:"
+
+[node name="MapName" type="TextEdit" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CreateOptions" unique_id=234879424]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "MapName:"
+
+[node name="SongsSelect" type="MenuButton" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CreateOptions" unique_id=389081484]
+layout_mode = 2
+text = "songs"
+flat = false
+item_count = 2
+popup/item_0/text = ":D"
+popup/item_0/id = 0
+popup/item_1/text = "new"
+popup/item_1/id = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CreateOptions" unique_id=1901295350]
+layout_mode = 2
+text = "Create New Map *"
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CreateOptions" unique_id=224501168]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 9.0
 
 [node name="TimeHandler" parent="." unique_id=1403582281 instance=ExtResource("4_7wlcy")]
 
@@ -306,10 +341,11 @@ scale = Vector2(3.6640625, 12.796876)
 texture = ExtResource("3_a7iym")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="about_to_popup" from="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer/SongsSelect" to="." method="_on_songs_select_about_to_popup"]
-[connection signal="pressed" from="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer2/Save" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="CanvasLayer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer2/Load" to="." method="_on_load_pressed"]
-[connection signal="pressed" from="CanvasLayer/MarginContainer/EditorButtons/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="CanvasLayer/MarginContainer/EditorButtons/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Test" to="." method="_on_test_pressed"]
-[connection signal="pressed" from="CanvasLayer/MarginContainer/LoadMap/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/OpenMapFolder" to="." method="_on_open_map_folder_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer2/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/OptionsMenu/VBoxContainer/SaveMenu/MarginContainer/HBoxContainer/VBoxContainer2/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="CanvasLayer/ControlButtons/HboxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="CanvasLayer/ControlButtons/HboxContainer/Test" to="." method="_on_test_pressed"]
+[connection signal="pressed" from="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/OpenMapFolder" to="." method="_on_open_map_folder_pressed"]
+[connection signal="pressed" from="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Load_CreateMapButton" to="." method="_on_load_create_map_button_pressed"]
+[connection signal="about_to_popup" from="CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CreateOptions/SongsSelect" to="." method="_on_songs_select_about_to_popup"]
 [connection signal="gui_input" from="DragDetector" to="." method="_on_drag_detector_gui_input"]

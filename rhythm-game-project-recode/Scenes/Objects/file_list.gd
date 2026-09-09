@@ -26,4 +26,4 @@ func load_list(listPath):
 
 func refresh_list():
 	clear_list()
-	load_list("user://" + get_tree().current_scene.SongMapPathName)
+	load_list(get_tree().current_scene.SongMapDirPath)

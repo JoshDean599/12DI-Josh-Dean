@@ -3,13 +3,15 @@
 [ext_resource type="Script" uid="uid://13kgdkisad6x" path="res://Scenes/Objects/song_button.gd" id="1_7j5bf"]
 [ext_resource type="PackedScene" uid="uid://bqsmg5a7x3ftu" path="res://Scenes/Objects/change_scene_button.tscn" id="2_qkcfv"]
 
-[node name="SongButton" type="HBoxContainer" unique_id=1301262159]
+[node name="SongButton" type="HBoxContainer" unique_id=1301262159 node_paths=PackedStringArray("song", "options")]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 31.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_7j5bf")
+song = NodePath("ChangeSceneButton")
+options = NodePath("Options")
 
 [node name="ChangeSceneButton" parent="." unique_id=78395926 instance=ExtResource("2_qkcfv")]
 layout_mode = 2
