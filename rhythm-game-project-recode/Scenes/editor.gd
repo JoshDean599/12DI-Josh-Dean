@@ -2,12 +2,10 @@ extends Node2D
 
 #Import nodes
 @export var notes : Node2D
-@export var songName : Control
 @export var songSelectPopup : Control
-@onready var editorMenu = $CanvasLayer/PanelContainer/MarginContainer/OptionsMenu
 @onready var optionsMenu = $CanvasLayer/OptionsMenu
 @onready var editorButtons = $CanvasLayer/ControlButtons
-@onready var fileList = $CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/LoadOptions/FileList
+@onready var fileList = $CanvasLayer/OptionsMenu/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/LoadOptions/FileList
 # Base Editor Variables
 var editorNote = preload("res://Scenes/Objects/editor_note.tscn")
 var dragging = false
@@ -20,6 +18,7 @@ var testingStartPosition: Vector2
 var testingEndTween: Tween
 # Song information
 var selectedSong = "NEFFEX - Hate It or Love It Copyright Free No82"
+var loadedMap: String = ""
 var difficulty: String = "Normal"
 var difficultyLevel: int = 1
 
@@ -29,27 +28,19 @@ func _ready() -> void:
 	# Make the DragDetector fit to any screens size
 	$DragDetector.set_deferred("size", DisplayServer.screen_get_size())
 	$DragDetector.set_deferred("position", DisplayServer.screen_get_position(DisplayServer.SCREEN_OF_MAIN_WINDOW))
-	# Make sure the menu is hidden
-	editorMenu.visible = false
 	# Connect the menu song popup so that the index's can get pressed
 	songSelectPopup.get_popup().connect("index_pressed", on_song_select_popup_press)
 
 func _on_visibility_changed() -> void:
 	if visible:
-		fileList.refresh_list()
 		editorButtons.visible = false
 		optionsMenu.visible = true
+		set_load_map(false)
+		if testing:
+			toggle_testing()
 		return
-
-func _on_options_pressed() -> void:
-	# Toggle the menu's visibility
-	editorMenu.visible = !editorMenu.visible
 
 func save_map() -> void:
-	# Check if the song name has a valid filepath
-	if songName.text.length() <= 0:
-		print("Unable to save map: undefind file path.")
-		return
 	# The base save data
 	var saveData = {
 		Notes = [],
@@ -74,22 +65,13 @@ func save_map() -> void:
 		return
 	saveData.bufferTime = firstNote.time # Set the bufferTime based off the firstNote's time
 	
-	var dir = DirAccess.open(get_parent().SongMapDirPath)
-	if dir:
-		if dir.dir_exists(songName.text):
-			dir.change_dir(dir.get_current_dir() + "/" + songName.text)
-		else:
-			print("Created new song folder")
-			dir.make_dir(songName.text)
-			dir.change_dir(dir.get_current_dir() + "/" + songName.text)
-	
 	# Check if the file trying to be saved already exists:
-	if FileAccess.file_exists(dir.get_current_dir() + "/" + difficulty + ".json"):
+	if FileAccess.file_exists(get_parent().SongMapDirPath + "/" + loadedMap + "/" + difficulty + ".json"):
 		print("File Exists")
 	else:
 		print("File Doesn't exist, creating new")
 	# Create or override the map
-	var file = FileAccess.open(dir.get_current_dir() + "/" + difficulty + ".json", FileAccess.ModeFlags.WRITE)
+	var file = FileAccess.open(get_parent().SongMapDirPath + "/" + loadedMap + "/" + difficulty + ".json", FileAccess.ModeFlags.WRITE)
 	if file:
 		var text = JSON.stringify(saveData, "\t") # Convert it into a string for the json to store
 		file.store_string(text)
@@ -103,12 +85,12 @@ func load_map(mapName, mapDifficulty) -> void:
 		if i.name == "Deadzone": continue
 		i.free()
 	
-	var loadedMap = get_parent().load_map(mapName, mapDifficulty)
-	if loadedMap == {}: # If the map could not be loaded, return
+	var LoadedMap = get_parent().load_map(mapName, mapDifficulty)
+	if LoadedMap == {}: # If the map could not be loaded, return
 		return
 	
 	# Create each note
-	for i in loadedMap.Notes:
+	for i in LoadedMap.Notes:
 		create_new_note(
 			i.time,
 			i.offset,
@@ -118,6 +100,8 @@ func load_map(mapName, mapDifficulty) -> void:
 	
 	optionsMenu.visible = false
 	editorButtons.visible = true
+	
+	loadedMap = mapName
 
 func create_new_note(time: float, offset: float, tailTime: float, tailOffset: float) -> void:
 	var newNote = editorNote.instantiate() # Create a new instance of the editor note
@@ -168,14 +152,10 @@ func _on_drag_detector_gui_input(event: InputEvent) -> void:
 			if notes.position.x > get_parent().noteMoveSpeed:
 				notes.position.x = get_parent().noteMoveSpeed
 
-func _on_save_pressed() -> void:
-	save_map()
-
-func _on_load_pressed() -> void:
-	load_map(songName.text, difficulty)
-
-
 func _on_test_pressed() -> void:
+	toggle_testing()
+
+func toggle_testing() -> void:
 	# Toggle testing
 	testing = !testing
 	if testing:
@@ -220,12 +200,31 @@ func _on_open_map_folder_pressed() -> void:
 
 
 func _on_load_create_map_button_pressed() -> void:
-	if $CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/LoadOptions.visible:
-		$CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/LoadOptions.visible = false
-		$CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CreateOptions.visible = true
-		$CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Load_CreateMapButton.text = "Load Map"
+	# Change the option shown on press
+	if $CanvasLayer/OptionsMenu/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/LoadOptions.visible:
+		set_load_map(true)
 	else:
-		$CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/LoadOptions.visible = true
-		$CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CreateOptions.visible = false
-		$CanvasLayer/OptionsMenu/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Load_CreateMapButton.text = "Create Map"
-	pass # Replace with function body.
+		set_load_map(false)
+
+func set_load_map(type: bool) -> void:
+	# Logic to invert the selected option, based on a bool
+	var vbox = $CanvasLayer/OptionsMenu/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer
+	vbox.get_node("LoadOptions").visible = not type
+	vbox.get_node("CreateOptions").visible = type
+	if type:
+		vbox.get_node("Load_CreateMapButton").text = "Load Map"
+	else:
+		fileList.refresh_list()
+		vbox.get_node("Load_CreateMapButton").text = "Create Map"
+
+
+func _on_create_new_map_button_pressed() -> void:
+	var mapName = $CanvasLayer/OptionsMenu/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/CreateOptions/MapName
+	var dir = DirAccess.open(get_parent().SongMapDirPath)
+	if dir:
+		if dir.dir_exists(mapName.text):
+			dir.change_dir(dir.get_current_dir() + "/" + mapName.text)
+		else:
+			print("Created new song folder")
+			dir.make_dir(mapName.text)
+			dir.change_dir(dir.get_current_dir() + "/" + mapName.text)
