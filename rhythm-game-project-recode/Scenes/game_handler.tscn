@@ -19,7 +19,3 @@ visible = false
 
 [node name="Game" parent="." unique_id=1689311946 instance=ExtResource("5_plgud")]
 visible = false
-
-[node name="FileDialog" type="FileDialog" parent="." unique_id=212566408]
-oversampling_override = 1.0
-position = Vector2i(0, 36)
