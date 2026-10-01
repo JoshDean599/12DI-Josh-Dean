@@ -11,3 +11,6 @@ func _ready() -> void:
 func _on_visibility_changed() -> void:
 	if not SceneReady: return
 	FileList.refresh_list()
+
+func _on_open_map_folder_pressed() -> void:
+	OS.shell_open(get_tree().current_scene.SongMapDirPath)

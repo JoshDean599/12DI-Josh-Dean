@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://00hgn2ri3b6v"]
+
+[node name="SongSelectMenuSongButton" type="Button" unique_id=615838797]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "PlaceHolderText"

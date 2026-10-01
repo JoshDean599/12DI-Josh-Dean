@@ -140,7 +140,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2" unique_id=2081057312]
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2" unique_id=1026740011]
 layout_mode = 2
 
 [node name="PlayButton" type="Button" parent="MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer" unique_id=592437749]
@@ -151,7 +151,8 @@ text = "Play"
 
 [node name="EditButton" type="Button" parent="MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer" unique_id=1034758879]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 10
 text = "Edit"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/OpenMapFolder" to="." method="_on_open_map_folder_pressed"]
