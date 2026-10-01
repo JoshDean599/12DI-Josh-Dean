@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://fgnbohxmsb5y" path="res://Scenes/Menus/song_select_menu.gd" id="1_35lte"]
 [ext_resource type="PackedScene" uid="uid://bqsmg5a7x3ftu" path="res://Scenes/Objects/change_scene_button.tscn" id="1_83smf"]
 [ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="3_35lte"]
+[ext_resource type="PackedScene" uid="uid://00hgn2ri3b6v" path="res://Scenes/Objects/song_button.tscn" id="3_nh4vv"]
 
 [node name="SongSelectMenu" type="Node2D" unique_id=7160056 node_paths=PackedStringArray("SongList")]
 script = ExtResource("1_35lte")
@@ -70,6 +71,7 @@ vertical_scroll_mode = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer" unique_id=1573636017]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -79,9 +81,8 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Button" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1570490556]
+[node name="SongButton" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer" unique_id=615838797 instance=ExtResource("3_nh4vv")]
 layout_mode = 2
-text = "PlaceHolderText"
 
 [node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer" unique_id=1716032864]
 layout_mode = 2

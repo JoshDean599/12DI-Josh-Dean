@@ -5,6 +5,7 @@
 [node name="ChangeSceneButton" type="Button" unique_id=78395926]
 offset_right = 8.0
 offset_bottom = 8.0
+text = "PlaceHolderText"
 script = ExtResource("1_a61ud")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -2,12 +2,9 @@ extends Node2D
 
 #Import nodes
 @export var notes : Node2D
-@export var songSelectPopup : Control
-@onready var optionsMenu = $CanvasLayer/OptionsMenu
 @onready var editorButtons = $CanvasLayer/ControlButtons
-@onready var fileList = $CanvasLayer/OptionsMenu/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/LoadOptions/FileList
 # Base Editor Variables
-var editorNote = preload("res://Scenes/Objects/editor_note.tscn")
+var editorNote = preload("res://Scenes/Objects/EditorObjects/editor_note.tscn")
 var dragging = false
 var clickPosition = Vector2.ZERO
 var clickTime: float = 0.0
@@ -28,14 +25,10 @@ func _ready() -> void:
 	# Make the DragDetector fit to any screens size
 	$DragDetector.set_deferred("size", DisplayServer.screen_get_size())
 	$DragDetector.set_deferred("position", DisplayServer.screen_get_position(DisplayServer.SCREEN_OF_MAIN_WINDOW))
-	# Connect the menu song popup so that the index's can get pressed
-	songSelectPopup.get_popup().connect("index_pressed", on_song_select_popup_press)
 
 func _on_visibility_changed() -> void:
 	if visible:
 		editorButtons.visible = false
-		optionsMenu.visible = true
-		set_load_map(false)
 		if testing:
 			toggle_testing()
 		return
@@ -98,7 +91,6 @@ func load_map(mapName, mapDifficulty) -> void:
 			i.tailOffset
 		)
 	
-	optionsMenu.visible = false
 	editorButtons.visible = true
 	
 	loadedMap = mapName
@@ -175,56 +167,10 @@ func toggle_testing() -> void:
 func _process(_delta: float) -> void:
 	if testing: # Move the notes along with the song when testing
 		notes.position.x = -get_tree().current_scene.noteMoveSpeed * $TimeHandler.time
-
-func _on_songs_select_about_to_popup() -> void:
-	# Clear all the songs in the popup menu
-	songSelectPopup.get_popup().clear()
 	
-	var songs = get_parent().get_file_list("res://Assets/Songs/") # !!!!!!!!--------------!!!!------------------------!!!!!----------!!!!!!---------------------------------------------------------------------------------------------------------------
-	for song in songs:
-		song = get_parent().remove_file_name_type(song, ".mp3")
-		if song == "": # If it wasn't an mp3 file, discard
-			continue
-		# Add it to the popup menu
-		songSelectPopup.get_popup().add_item(song, songSelectPopup.item_count + 1)
-
-func on_song_select_popup_press(index):
-	# Set the song on select
-	selectedSong = songSelectPopup.get_popup().get_item_text(index)
-	$TimeHandler.set_music(selectedSong)
-
-
-func _on_open_map_folder_pressed() -> void:
-	# Open the map folder location in the device's file manager
-	OS.shell_open(get_parent().SongMapDirPath)
-
-
-func _on_load_create_map_button_pressed() -> void:
-	# Change the option shown on press
-	if $CanvasLayer/OptionsMenu/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/LoadOptions.visible:
-		set_load_map(true)
-	else:
-		set_load_map(false)
-
-func set_load_map(type: bool) -> void:
-	# Logic to invert the selected option, based on a bool
-	var vbox = $CanvasLayer/OptionsMenu/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer
-	vbox.get_node("LoadOptions").visible = not type
-	vbox.get_node("CreateOptions").visible = type
-	if type:
-		vbox.get_node("Load_CreateMapButton").text = "Load Map"
-	else:
-		fileList.refresh_list()
-		vbox.get_node("Load_CreateMapButton").text = "Create Map"
-
-
-func _on_create_new_map_button_pressed() -> void:
-	var mapName = $CanvasLayer/OptionsMenu/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/CreateOptions/MapName
-	var dir = DirAccess.open(get_parent().SongMapDirPath)
-	if dir:
-		if dir.dir_exists(mapName.text):
-			dir.change_dir(dir.get_current_dir() + "/" + mapName.text)
-		else:
-			print("Created new song folder")
-			dir.make_dir(mapName.text)
-			dir.change_dir(dir.get_current_dir() + "/" + mapName.text)
+	# Not sure what I was trying to do here
+	#var songs = get_parent().get_file_list("res://Assets/Songs/") # !!!!!!!!--------------!!!!------------------------!!!!!----------!!!!!!---------------------------------------------------------------------------------------------------------------
+	#for song in songs:
+	#	song = get_parent().remove_file_name_type(song, ".mp3")
+	#	if song == "": # If it wasn't an mp3 file, discard
+	#		continue

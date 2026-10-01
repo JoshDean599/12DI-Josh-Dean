@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bai0r7xv20irl"]
+
+[ext_resource type="Script" uid="uid://2g7d2me24bt7" path="res://Scenes/Objects/callback_button.gd" id="1_bhmqg"]
+
+[node name="CallbackButton" type="Button" unique_id=2081698467]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "PlaceHolder"
+script = ExtResource("1_bhmqg")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

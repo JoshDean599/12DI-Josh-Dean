@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://b03fx3wyaffq" path="res://Scenes/game.gd" id="1_ebmjs"]
 [ext_resource type="PackedScene" uid="uid://bqsmg5a7x3ftu" path="res://Scenes/Objects/change_scene_button.tscn" id="2_i6g32"]
-[ext_resource type="PackedScene" uid="uid://b1vxx62f7jti6" path="res://Scenes/Objects/note_handler.tscn" id="2_qxrlw"]
-[ext_resource type="PackedScene" uid="uid://b1w0opvd3y61x" path="res://Scenes/Objects/game_end_card.tscn" id="2_wowpa"]
-[ext_resource type="PackedScene" uid="uid://bdmqx7otwye8k" path="res://Scenes/Objects/time_handler.tscn" id="3_wrm1d"]
-[ext_resource type="PackedScene" uid="uid://jbhc0toqfu0" path="res://Scenes/Objects/score_handler.tscn" id="4_3dryh"]
+[ext_resource type="PackedScene" uid="uid://b1vxx62f7jti6" path="res://Scenes/Objects/GameObjects/note_handler.tscn" id="2_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://b1w0opvd3y61x" path="res://Scenes/Objects/GameObjects/game_end_card.tscn" id="2_wowpa"]
+[ext_resource type="PackedScene" uid="uid://bdmqx7otwye8k" path="res://Scenes/Objects/GameObjects/time_handler.tscn" id="3_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://jbhc0toqfu0" path="res://Scenes/Objects/GameObjects/score_handler.tscn" id="4_3dryh"]
 
 [node name="Game" type="Node2D" unique_id=1689311946]
 script = ExtResource("1_ebmjs")

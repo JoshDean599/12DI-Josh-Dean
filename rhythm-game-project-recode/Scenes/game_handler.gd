@@ -53,8 +53,7 @@ func get_file_list(FolderPath) -> Array:
 		dir.list_dir_begin()
 		var fileName = dir.get_next()
 		while fileName != "":
-			if not dir.current_is_dir():
-				list.push_back(fileName)
+			list.push_back(fileName)
 			fileName = dir.get_next()
 	else:
 		print("An error has occured when trying to access the path")

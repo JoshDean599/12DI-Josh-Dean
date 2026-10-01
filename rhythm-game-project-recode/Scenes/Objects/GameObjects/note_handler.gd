@@ -1,6 +1,6 @@
 extends Node2D
 
-var gameNote = preload("res://Scenes/Objects/game_note.tscn")
+var gameNote = preload("res://Scenes/Objects/GameObjects/game_note.tscn")
 
 var loadedSong = null
 var active = false

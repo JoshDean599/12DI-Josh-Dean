@@ -1,29 +1,12 @@
-[gd_scene format=3 uid="uid://dtnu74u0su65o"]
+[gd_scene format=3 uid="uid://00hgn2ri3b6v"]
 
-[ext_resource type="Script" uid="uid://13kgdkisad6x" path="res://Scenes/Objects/song_button.gd" id="1_7j5bf"]
-[ext_resource type="PackedScene" uid="uid://bqsmg5a7x3ftu" path="res://Scenes/Objects/change_scene_button.tscn" id="2_qkcfv"]
+[ext_resource type="Script" uid="uid://dtxekoqbphepc" path="res://Scenes/Objects/song_button.gd" id="1_7j5bf"]
 
-[node name="SongButton" type="HBoxContainer" unique_id=1301262159 node_paths=PackedStringArray("song", "options")]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 31.0
-grow_horizontal = 2
+[node name="SongButton" type="Button" unique_id=615838797]
+offset_right = 8.0
+offset_bottom = 8.0
 size_flags_horizontal = 3
+text = "PlaceHolderText"
 script = ExtResource("1_7j5bf")
-song = NodePath("ChangeSceneButton")
-options = NodePath("Options")
 
-[node name="ChangeSceneButton" parent="." unique_id=78395926 instance=ExtResource("2_qkcfv")]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PlaceHolderSongName"
-target = "Game"
-songButton = true
-
-[node name="Options" type="MenuButton" parent="." unique_id=159406483]
-layout_mode = 2
-text = "•••"
-flat = false
-item_count = 1
-popup/item_0/text = "Delete"
-popup/item_0/id = 0
+[connection signal="pressed" from="." to="." method="_on_pressed"]
