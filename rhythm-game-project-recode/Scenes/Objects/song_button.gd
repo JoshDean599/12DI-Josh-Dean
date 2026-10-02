@@ -1,7 +1,25 @@
 extends Button
 
 @onready var SongSelectMenu = get_tree().current_scene.get_node("SongSelectMenu")
+var isSongButton := true
 
 func _on_pressed() -> void:
-	SongSelectMenu.SongButtonSelected(self.text)
-	pass # Replace with function body.
+	if isSongButton:
+		SongSelectMenu.SongSelected(self.text)
+		if SongSelectMenu.SelectedSongButton != null:
+			SongSelectMenu.SelectedSongButton.deselect()
+		SongSelectMenu.SelectedSongButton = self
+	else:
+		SongSelectMenu.SelectedDifficulty = self.text
+		if SongSelectMenu.SelectedDifficultyButton != null:
+			SongSelectMenu.SelectedDifficultyButton.deselect()
+		SongSelectMenu.SelectedDifficultyButton = self
+	select()
+
+func select() -> void:
+	self.modulate = Color.BLUE_VIOLET
+	pass
+
+func deselect() -> void:
+	self.modulate = Color.WHITE
+	pass

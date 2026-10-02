@@ -28,7 +28,6 @@ func _ready() -> void:
 
 func _on_visibility_changed() -> void:
 	if visible:
-		editorButtons.visible = false
 		if testing:
 			toggle_testing()
 		return

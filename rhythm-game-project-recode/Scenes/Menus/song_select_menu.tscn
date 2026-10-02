@@ -5,9 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="3_35lte"]
 [ext_resource type="PackedScene" uid="uid://00hgn2ri3b6v" path="res://Scenes/Objects/song_button.tscn" id="3_nh4vv"]
 
-[node name="SongSelectMenu" type="Node2D" unique_id=7160056 node_paths=PackedStringArray("SongList")]
+[node name="SongSelectMenu" type="Node2D" unique_id=7160056 node_paths=PackedStringArray("SongList", "DifficultyList")]
 script = ExtResource("1_35lte")
 SongList = NodePath("CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer")
+DifficultyList = NodePath("CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/HBoxContainer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1837589001]
 
@@ -181,16 +182,16 @@ theme_override_constants/margin_bottom = 5
 [node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2" unique_id=394058845]
 layout_mode = 2
 
-[node name="PlayButton" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer" unique_id=1007897287]
+[node name="ChangeSceneButton" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer" unique_id=890186976 instance=ExtResource("1_83smf")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
 text = "Play"
+target = "Game"
 
-[node name="EditButton" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer" unique_id=1426547085]
+[node name="ChangeSceneButton2" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer" unique_id=1756033430 instance=ExtResource("1_83smf")]
 layout_mode = 2
 size_flags_vertical = 10
 text = "Edit"
+target = "Editor"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/OpenMapFolder" to="." method="_on_open_map_folder_pressed"]

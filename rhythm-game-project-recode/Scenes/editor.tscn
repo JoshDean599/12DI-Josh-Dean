@@ -5,10 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="3_a7iym"]
 [ext_resource type="PackedScene" uid="uid://bdmqx7otwye8k" path="res://Scenes/Objects/GameObjects/time_handler.tscn" id="4_7wlcy"]
 
-[node name="Editor" type="Node2D" unique_id=1265935660 node_paths=PackedStringArray("notes", "songSelectPopup")]
+[node name="Editor" type="Node2D" unique_id=1265935660 node_paths=PackedStringArray("notes")]
 script = ExtResource("1_eyy8u")
 notes = NodePath("Notes")
-songSelectPopup = NodePath("")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=934516026]
 
@@ -29,7 +28,7 @@ layout_mode = 2
 layout_mode = 2
 mouse_behavior_recursive = 2
 text = "Back"
-target = "Editor"
+target = "SongSelectMenu"
 
 [node name="Test" type="Button" parent="CanvasLayer/ControlButtons/HboxContainer" unique_id=2055806561]
 layout_mode = 2
