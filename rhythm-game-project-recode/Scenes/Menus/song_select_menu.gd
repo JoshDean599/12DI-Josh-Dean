@@ -43,6 +43,7 @@ func SongSelected(song) -> void:
 		DifficultyList.add_child.call_deferred(newButton)
 		if map == songContents[0]:
 			SelectedDifficultyButton = newButton
+			SelectedDifficulty = map
 			newButton.select()
 
 func _on_open_map_folder_pressed() -> void:

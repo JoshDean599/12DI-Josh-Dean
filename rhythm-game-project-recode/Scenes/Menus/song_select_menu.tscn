@@ -57,10 +57,6 @@ layout_mode = 2
 size_flags_horizontal = 10
 text = "Open Folder"
 
-[node name="Label" type="Label" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2147200745]
-layout_mode = 2
-text = "Select Map:"
-
 [node name="SongList" type="PanelContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=426247746]
 layout_mode = 2
 size_flags_vertical = 3

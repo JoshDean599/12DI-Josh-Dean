@@ -17,9 +17,9 @@ func _on_pressed() -> void:
 	select()
 
 func select() -> void:
-	self.modulate = Color.BLUE_VIOLET
+	self.modulate = Color.BLUE_VIOLET # PlaceHolder effects to show the button is selected
 	pass
 
 func deselect() -> void:
-	self.modulate = Color.WHITE
+	self.modulate = Color.WHITE # Undoes what effects select() does
 	pass

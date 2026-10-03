@@ -39,8 +39,9 @@ func set_scene_visible(scene, type: bool) -> void:
 	scene.set_process(type)
 
 func load_map(MapName, Difficulty) -> Dictionary:
-	var mapLocation = "user://SongMaps/" + MapName + "/" + Difficulty + ".json"
+	var mapLocation = SongMapDirPath + "/" + MapName + "/" + Difficulty
 	if not FileAccess.open(mapLocation, FileAccess.READ):
+		print("Failed to open the map file, returning empty")
 		return {}
 	map = JSON.parse_string(FileAccess.get_file_as_string(mapLocation))
 	return map
