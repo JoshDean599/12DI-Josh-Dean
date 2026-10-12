@@ -30,6 +30,7 @@ func pause():
 	audio.stop()
 
 func finish(finishTime):
+	print("Song Finished")
 	if fadeTween:
 		fadeTween.kill()
 	fadeTween = create_tween()

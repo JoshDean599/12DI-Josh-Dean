@@ -3,9 +3,11 @@ extends Node2D
 @onready var currentScene = $MainMenu
 const MapPath = "res://LoadedMaps/"
 const SongMapPathName = "SongMaps"
+const SongMusicPathName = "LoadedSongs"
 var SongMapDirPath = OS.get_user_data_dir() + "/" + SongMapPathName
+var SongMusicDirPath = OS.get_user_data_dir() + "/" + SongMusicPathName
 
-var noteMoveSpeed = 250 # Pixels a second
+var noteMoveSpeed = 1000 # Pixels a second
 var YCollumnHeight = 10
 var map = null
 
@@ -13,6 +15,8 @@ func _ready() -> void:
 	var dir = DirAccess.open("user://")
 	if not dir.dir_exists(SongMapPathName):
 		dir.make_dir(SongMapPathName)
+	if not dir.dir_exists(SongMusicPathName):
+		dir.make_dir(SongMusicPathName)
 	#AudioStreamMP3.load_from_file("")
 	
 	# Make sure everything is hidden, apart from the starting scene

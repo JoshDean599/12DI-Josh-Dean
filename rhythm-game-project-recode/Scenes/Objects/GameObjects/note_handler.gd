@@ -45,10 +45,13 @@ func on_window_size_changed():
 	$HitMarker.position.y = float(DisplayServer.window_get_size().y) / 2
 
 func load_song():
+	print("LoadedSong in noteHandler,", get_tree().current_scene.map)
 	loadedSong = get_tree().current_scene.map
 	for i in $Notes.get_children():
 		i.free()
 	noteQueue = []
+	
+	get_tree().current_scene.load_map(get_parent().currentSong[0], get_parent().currentSong[1])
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_echo() and event is InputEventKey:
@@ -73,8 +76,7 @@ func _process(_delta: float) -> void:
 	if not active:
 		return
 	
-	$Notes.position.x = -get_tree().current_scene.noteMoveSpeed * (get_parent().timeHandler.time - 
-		$HitMarker.position.x / get_tree().current_scene.noteMoveSpeed)
+	$Notes.position.x = -get_tree().current_scene.noteMoveSpeed * (get_parent().timeHandler.time - $HitMarker.position.x / get_tree().current_scene.noteMoveSpeed)
 	
 	if loadedSong != null:
 		if loadedSong.Notes.size() > 0: # If a song is loaded and there's still notes to load

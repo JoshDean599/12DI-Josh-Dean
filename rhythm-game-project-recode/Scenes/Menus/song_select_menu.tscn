@@ -192,7 +192,6 @@ text = "Edit"
 target = "Editor"
 
 [node name="CreateNewSong" type="PanelContainer" parent="CanvasLayer" unique_id=1322154701]
-visible = false
 self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -229,7 +228,9 @@ layout_mode = 2
 [node name="OptionButton" type="OptionButton" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1134287279]
 layout_mode = 2
 size_flags_horizontal = 3
+allow_reselect = true
 item_count = 1
+popup/item_0/text = "-------------------------------------"
 popup/item_0/id = 0
 
 [node name="Refresh" type="Button" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1944257300]
@@ -298,5 +299,6 @@ text = "Create"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/OpenMapFolder" to="." method="_on_open_map_folder_pressed"]
+[connection signal="pressed" from="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/OpenSongFolder" to="." method="_on_open_song_folder_pressed"]
 [connection signal="pressed" from="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_song_cancel_pressed"]
 [connection signal="pressed" from="CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_difficulty_cancel_pressed"]

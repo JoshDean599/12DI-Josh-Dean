@@ -10,8 +10,8 @@ func _on_pressed() -> void:
 		gameHandler.get_node("Game").pause() # Pause the game if leaving to the songSelectMenu
 	elif songSelectMenu.visible: # When leaving the songSelectMenu:
 		if target == "Game":
-			gameHandler.load_map(songSelectMenu.SelectedSong, songSelectMenu.SelectedDifficulty)
-			if gameHandler.map == {}:
+			gameHandler.get_node("Game").currentSong = [songSelectMenu.SelectedSong, songSelectMenu.SelectedDifficulty]
+			if gameHandler.load_map(songSelectMenu.SelectedSong, songSelectMenu.SelectedDifficulty) == {}:
 				print("Map wasn't found, stopping")
 				return
 		elif target == "Editor":

@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var timeHandler = $TimeHandler
-var currentSong := ""
+var currentSong = ["SongName", "Difficulty"]
 var active = false
 
 func _on_visibility_changed() -> void:
@@ -17,9 +17,9 @@ func play():
 	if startTime < 0:
 		startTime = 0
 	timeHandler.play(-startTime)
-	$TimeHandler.set_music(get_parent().map.Song)
-	$NoteHandler.active = true
+	timeHandler.set_music(get_parent().map.Song)
 	$NoteHandler.load_song()
+	$NoteHandler.active = true
 
 func pause():
 	timeHandler.pause()

@@ -28,9 +28,9 @@ func refresh_song_list() -> void:
 			SelectedSongButton = newButton
 			newButton.select()
 	# Create the add song Button
-	var newButton = SongButton.instantiate()
-	newButton.text = "+"
-	SongList.add_child.call_deferred(newButton)
+	var addButton = SongButton.instantiate()
+	addButton.text = "+"
+	SongList.add_child.call_deferred(addButton)
 	SongSelected(songs[0]) # Select the first song.
 
 func SongSelected(song) -> void:
@@ -41,43 +41,54 @@ func SongSelected(song) -> void:
 	for child in DifficultyList.get_children():
 		child.free()
 	# Seperate into seperate difficulty folders later
-	for map in songContents:
-		var newButton = SongButton.instantiate()
-		newButton.isSongButton = false
-		newButton.text = get_parent().remove_file_name_type(map, ".json")
-		DifficultyList.add_child.call_deferred(newButton)
-		if map == songContents[0]:
-			SelectedDifficultyButton = newButton
-			SelectedDifficulty = map
-			newButton.select()
+	if len(songContents) == 0:
+		SelectedDifficulty = ""
+	else:
+		for map in songContents:
+			var newButton = SongButton.instantiate()
+			newButton.isSongButton = false
+			newButton.text = get_parent().remove_file_name_type(map, ".json")
+			DifficultyList.add_child.call_deferred(newButton)
+			if map == songContents[0]:
+				SelectedDifficultyButton = newButton
+				SelectedDifficulty = map
+				newButton.select()
 	# Create the add difficulty Button
-	var newButton = SongButton.instantiate()
-	newButton.isSongButton = false
-	newButton.text = "+"
-	DifficultyList.add_child.call_deferred(newButton)
+	var addButton = SongButton.instantiate()
+	addButton.isSongButton = false
+	addButton.text = "+"
+	DifficultyList.add_child.call_deferred(addButton)
 
 func _on_open_map_folder_pressed() -> void:
 	OS.shell_open(get_parent().SongMapDirPath)
 
 func create_new(Type) -> void:
 	if Type == "Song":
-		CreateNewDifficultyPopup.visible = true
-		print("Creating New: Song")
+		CreateNewSongPopup.visible = true
+		var optionButton = CreateNewSongPopup.get_node("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/OptionButton")
+		optionButton.clear()
+		for music in get_tree().current_scene.get_file_list(get_parent().SongMusicDirPath):
+			music = get_tree().current_scene.remove_file_name_type(music, ".mp3")
+			if music == "": continue
+			optionButton.get_popup().add_item(music)
 		pass
 	elif Type == "Difficulty":
-		CreateNewSongPopup.visible = true
-		print("Creating New: Difficulty")
+		CreateNewDifficultyPopup.visible = true
 		pass
 	pass
 
 # Delete file from the system -- use in the editor somewhere
 # OS.move_to_trash(ProjectSettings.globalize_path(get_tree().current_scene.SongMapDirPath + "/" + song.text))
 
+# Add case detection for duplicate songs <-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
 
 func _on_song_cancel_pressed() -> void:
 	CreateNewSongPopup.visible = false
-	pass # Replace with function body.
 
 func _on_difficulty_cancel_pressed() -> void:
 	CreateNewDifficultyPopup.visible = false
-	pass # Replace with function body.
+
+func _on_open_song_folder_pressed() -> void: # For custom songs
+	OS.shell_open(get_parent().SongMusicDirPath)
