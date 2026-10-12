@@ -5,10 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="3_35lte"]
 [ext_resource type="PackedScene" uid="uid://00hgn2ri3b6v" path="res://Scenes/Objects/song_button.tscn" id="3_nh4vv"]
 
-[node name="SongSelectMenu" type="Node2D" unique_id=7160056 node_paths=PackedStringArray("SongList", "DifficultyList")]
+[node name="SongSelectMenu" type="Node2D" unique_id=7160056 node_paths=PackedStringArray("SongList", "DifficultyList", "CreateNewSongPopup", "CreateNewDifficultyPopup")]
 script = ExtResource("1_35lte")
 SongList = NodePath("CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer")
 DifficultyList = NodePath("CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/HBoxContainer")
+CreateNewSongPopup = NodePath("CanvasLayer/CreateNewSong")
+CreateNewDifficultyPopup = NodePath("CanvasLayer/CreateNewDifficulty")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1837589001]
 
@@ -189,5 +191,112 @@ size_flags_vertical = 10
 text = "Edit"
 target = "Editor"
 
+[node name="CreateNewSong" type="PanelContainer" parent="CanvasLayer" unique_id=1322154701]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CreateNewSong" unique_id=1499718273]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CreateNewSong/PanelContainer" unique_id=140890440]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer" unique_id=22520390]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer" unique_id=320413163]
+layout_mode = 2
+text = "Create New Song:"
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer" unique_id=1787482503]
+layout_mode = 2
+placeholder_text = "Song name"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer" unique_id=376752471]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1134287279]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 1
+popup/item_0/id = 0
+
+[node name="Refresh" type="Button" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1944257300]
+layout_mode = 2
+text = "Refresh"
+
+[node name="OpenSongFolder" type="Button" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=794757283]
+layout_mode = 2
+text = "Open Song Folder"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer" unique_id=848616662]
+layout_mode = 2
+
+[node name="Cancel" type="Button" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=223220616]
+layout_mode = 2
+text = "Cancel"
+
+[node name="Create" type="Button" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=451788596]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Create"
+
+[node name="CreateNewDifficulty" type="PanelContainer" parent="CanvasLayer" unique_id=622491404]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CreateNewDifficulty" unique_id=381804189]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CreateNewDifficulty/PanelContainer" unique_id=1991872684]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer" unique_id=77336736]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer" unique_id=1602576543]
+layout_mode = 2
+text = "Create New Difficulty:"
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer" unique_id=2101992819]
+layout_mode = 2
+placeholder_text = "Difficulty name"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer" unique_id=393681172]
+layout_mode = 2
+
+[node name="Cancel" type="Button" parent="CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1047093004]
+layout_mode = 2
+text = "Cancel"
+
+[node name="Create" type="Button" parent="CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1615547963]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Create"
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/OpenMapFolder" to="." method="_on_open_map_folder_pressed"]
+[connection signal="pressed" from="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_song_cancel_pressed"]
+[connection signal="pressed" from="CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_difficulty_cancel_pressed"]

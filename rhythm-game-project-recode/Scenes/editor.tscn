@@ -138,6 +138,12 @@ offset_bottom = 8.0
 mouse_filter = 1
 mouse_behavior_recursive = 2
 
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1965698737]
+self_modulate = Color(0.012617188, 0.012617188, 0.012617188, 0.39215687)
+position = Vector2(252, 300)
+scale = Vector2(0.035, 10)
+texture = ExtResource("3_a7iym")
+
 [node name="Notes" type="Node2D" parent="." unique_id=566472359]
 
 [node name="Deadzone" type="Sprite2D" parent="Notes" unique_id=262492499]

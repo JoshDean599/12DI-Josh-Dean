@@ -29,7 +29,10 @@ func _ready() -> void:
 func _on_visibility_changed() -> void:
 	if visible:
 		if testing:
-			toggle_testing()
+			testing = false
+			# If music was playing, stop it
+			$TimeHandler.pause()
+		notes.position = Vector2(get_parent().noteMoveSpeed, 0)
 		return
 
 func save_map() -> void:
@@ -42,7 +45,7 @@ func save_map() -> void:
 	# Add each note into the Notes[] within the save data
 	var firstNote = null
 	for i in notes.get_children(): # Insert each notes into the table
-		if i.name == "Deadzone": continue
+		if i.name == "Deadzone": continue # Skip the dead zone as it's not a note
 		if firstNote == null or firstNote.time > i.time: # Get the first note
 			firstNote = i
 		saveData.Notes.push_back(
@@ -139,7 +142,7 @@ func _on_drag_detector_gui_input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion:
 		# Update the position when the mouse moved
 		if dragging:
-			notes.position.x = snapped((get_global_mouse_position().x - clickPosition.x), get_parent().noteMoveSpeed)
+			notes.position.x = get_global_mouse_position().x - clickPosition.x
 			if notes.position.x > get_parent().noteMoveSpeed:
 				notes.position.x = get_parent().noteMoveSpeed
 
