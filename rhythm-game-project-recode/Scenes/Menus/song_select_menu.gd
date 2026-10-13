@@ -4,11 +4,10 @@ extends Node2D
 @export var DifficultyList : HBoxContainer
 @export var CreateNewSongPopup : PanelContainer
 @export var CreateNewDifficultyPopup : PanelContainer
+@onready var optionButton = CreateNewSongPopup.get_node("PanelContainer/MarginContainer/VBoxContainer/OptionButton")
 var SongButton = preload("res://Scenes/Objects/song_button.tscn")
 var SelectedSongButton = null
-var SelectedSong = null
 var SelectedDifficultyButton = null
-var SelectedDifficulty = ""
 
 func _ready() -> void:
 	CreateNewSongPopup.visible = false
@@ -27,18 +26,21 @@ func refresh_song_list() -> void:
 	for song in songs:
 		var newButton = SongButton.instantiate()
 		newButton.text = song
-		SongList.add_child.call_deferred(newButton)
-		if song == songs[0]:
-			SelectedSongButton = newButton
-			newButton.select()
+		SongList.add_child(newButton)
 	# Create the add song Button
 	var addButton = SongButton.instantiate()
 	addButton.text = "+"
-	SongList.add_child.call_deferred(addButton)
+	SongList.add_child(addButton)
 	SongSelected(songs[0]) # Select the first song.
 
 func SongSelected(song) -> void:
-	SelectedSong = song
+	for button in SongList.get_children(): # Select the selected Song Button
+		if button.text == song:
+			if SelectedSongButton:
+				SelectedSongButton.deselect()
+			SelectedSongButton = button
+			button.select()
+			break
 	
 	var songContents = get_tree().current_scene.get_file_list(get_parent().SongMapDirPath + "/" + song)
 	# Clear the difficulty list
@@ -46,7 +48,9 @@ func SongSelected(song) -> void:
 		child.free()
 	# Seperate into seperate difficulty folders later
 	if len(songContents) == 0:
-		SelectedDifficulty = ""
+		if SelectedDifficultyButton:
+			SelectedDifficultyButton.deselect()
+			SelectedDifficultyButton = null
 	else:
 		for map in songContents:
 			var newButton = SongButton.instantiate()
@@ -55,7 +59,7 @@ func SongSelected(song) -> void:
 			DifficultyList.add_child.call_deferred(newButton)
 			if map == songContents[0]:
 				SelectedDifficultyButton = newButton
-				SelectedDifficulty = map
+				SelectedDifficultyButton.text = map
 				newButton.select()
 	# Create the add difficulty Button
 	var addButton = SongButton.instantiate()
@@ -69,17 +73,17 @@ func _on_open_map_folder_pressed() -> void:
 func create_new(Type) -> void:
 	if Type == "Song":
 		CreateNewSongPopup.visible = true
-		var optionButton = CreateNewSongPopup.get_node("PanelContainer/MarginContainer/VBoxContainer/OptionButton")
 		optionButton.clear()
-		for music in get_tree().current_scene.get_file_list(get_parent().SongMusicDirPath):
+		for music in get_tree().current_scene.get_file_list(get_parent().SongMusicDirPath): # Load imported songs
 			music = get_tree().current_scene.remove_file_name_type(music, ".mp3")
 			if music == "": continue # Make sure the file was an mp3
 			optionButton.get_popup().add_item(music)
-		for music in get_tree().current_scene.get_file_list("res://Assets/Songs/"):
-			print(music)
+		for music in get_tree().current_scene.get_file_list("res://Assets/Songs/"): # Load built-in songs
 			music = get_tree().current_scene.remove_file_name_type(music, ".mp3")
 			if music == "": continue # Make sure the file was an mp3
 			optionButton.get_popup().add_item(music)
+		if optionButton.get_popup().item_count > 0:
+			optionButton.select(0)
 	elif Type == "Difficulty":
 		CreateNewDifficultyPopup.visible = true
 
@@ -101,10 +105,25 @@ func _on_open_song_folder_pressed() -> void: # For custom songs
 
 func _on_create_map_pressed() -> void:
 	var dir = DirAccess.open(get_parent().SongMapDirPath)
-	dir.make_dir($CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/LineEdit.text)
+	var mapName = $CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/LineEdit.text
+	var extra = 1
+	if dir.dir_exists(mapName): # If the map already exists:
+		while dir.dir_exists(mapName + str(extra)): # Add an extra number to make sure the name is unique.
+			extra += 1
+		mapName = mapName + str(extra)
+	if dir.make_dir_recursive(mapName + "/difficulties"): # Throw an error if the directory was unable to be created
+		print("Unable to create directory.")
+		return
 	refresh_song_list()
 	CreateNewSongPopup.visible = false
-	SongSelected($CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/LineEdit.text)
+	SongSelected(mapName)
+	# Create a song Properties json file
+	var file = FileAccess.open(get_parent().SongMapDirPath + "/" + mapName + "/Properties.json", FileAccess.ModeFlags.WRITE)
+	if file:
+		file.store_string(JSON.stringify({ # The file Contents:
+		Song = optionButton.get_item_text(optionButton.get_item_index(optionButton.get_selected_id()))
+	}, "\t"))
+
 
 func _on_create_difficulty_pressed() -> void:
 	pass # Replace with function body.
