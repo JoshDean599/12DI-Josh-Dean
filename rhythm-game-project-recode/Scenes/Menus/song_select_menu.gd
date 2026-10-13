@@ -10,6 +10,10 @@ var SelectedSong = null
 var SelectedDifficultyButton = null
 var SelectedDifficulty = ""
 
+func _ready() -> void:
+	CreateNewSongPopup.visible = false
+	CreateNewDifficultyPopup.visible = false
+
 func _on_visibility_changed() -> void:
 	if visible: # The scene became the current
 		refresh_song_list()
@@ -65,17 +69,19 @@ func _on_open_map_folder_pressed() -> void:
 func create_new(Type) -> void:
 	if Type == "Song":
 		CreateNewSongPopup.visible = true
-		var optionButton = CreateNewSongPopup.get_node("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/OptionButton")
+		var optionButton = CreateNewSongPopup.get_node("PanelContainer/MarginContainer/VBoxContainer/OptionButton")
 		optionButton.clear()
 		for music in get_tree().current_scene.get_file_list(get_parent().SongMusicDirPath):
 			music = get_tree().current_scene.remove_file_name_type(music, ".mp3")
-			if music == "": continue
+			if music == "": continue # Make sure the file was an mp3
 			optionButton.get_popup().add_item(music)
-		pass
+		for music in get_tree().current_scene.get_file_list("res://Assets/Songs/"):
+			print(music)
+			music = get_tree().current_scene.remove_file_name_type(music, ".mp3")
+			if music == "": continue # Make sure the file was an mp3
+			optionButton.get_popup().add_item(music)
 	elif Type == "Difficulty":
 		CreateNewDifficultyPopup.visible = true
-		pass
-	pass
 
 # Delete file from the system -- use in the editor somewhere
 # OS.move_to_trash(ProjectSettings.globalize_path(get_tree().current_scene.SongMapDirPath + "/" + song.text))
@@ -92,3 +98,13 @@ func _on_difficulty_cancel_pressed() -> void:
 
 func _on_open_song_folder_pressed() -> void: # For custom songs
 	OS.shell_open(get_parent().SongMusicDirPath)
+
+func _on_create_map_pressed() -> void:
+	var dir = DirAccess.open(get_parent().SongMapDirPath)
+	dir.make_dir($CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/LineEdit.text)
+	refresh_song_list()
+	CreateNewSongPopup.visible = false
+	SongSelected($CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/LineEdit.text)
+
+func _on_create_difficulty_pressed() -> void:
+	pass # Replace with function body.

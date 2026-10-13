@@ -216,28 +216,17 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer" unique_id=320413163]
 layout_mode = 2
-text = "Create New Song:"
+text = "Create New Map:"
 
 [node name="LineEdit" type="LineEdit" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer" unique_id=1787482503]
 layout_mode = 2
-placeholder_text = "Song name"
+placeholder_text = "Map name:"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer" unique_id=376752471]
-layout_mode = 2
-
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1134287279]
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer" unique_id=1134287279]
 layout_mode = 2
 size_flags_horizontal = 3
-allow_reselect = true
-item_count = 1
-popup/item_0/text = "-------------------------------------"
-popup/item_0/id = 0
 
-[node name="Refresh" type="Button" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1944257300]
-layout_mode = 2
-text = "Refresh"
-
-[node name="OpenSongFolder" type="Button" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=794757283]
+[node name="OpenSongFolder" type="Button" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer" unique_id=794757283]
 layout_mode = 2
 text = "Open Song Folder"
 
@@ -252,6 +241,11 @@ text = "Cancel"
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Create"
+
+[node name="Spacer" type="Label" parent="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer" unique_id=965919418]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "-----------------------------------------------------------"
 
 [node name="CreateNewDifficulty" type="PanelContainer" parent="CanvasLayer" unique_id=622491404]
 visible = false
@@ -299,6 +293,8 @@ text = "Create"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/OpenMapFolder" to="." method="_on_open_map_folder_pressed"]
-[connection signal="pressed" from="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/OpenSongFolder" to="." method="_on_open_song_folder_pressed"]
+[connection signal="pressed" from="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/OpenSongFolder" to="." method="_on_open_song_folder_pressed"]
 [connection signal="pressed" from="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_song_cancel_pressed"]
+[connection signal="pressed" from="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Create" to="." method="_on_create_map_pressed"]
 [connection signal="pressed" from="CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_difficulty_cancel_pressed"]
+[connection signal="pressed" from="CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Create" to="." method="_on_create_difficulty_pressed"]
