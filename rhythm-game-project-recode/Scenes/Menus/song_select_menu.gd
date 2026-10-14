@@ -23,26 +23,35 @@ func refresh_song_list() -> void:
 		child.free()
 	# Load the songs into the list
 	var songs = get_parent().get_file_list(get_parent().SongMapDirPath)
+	var firstSong = null
 	for song in songs:
 		var newButton = SongButton.instantiate()
 		newButton.text = song
 		SongList.add_child(newButton)
+		if song == songs[0]:
+			firstSong = newButton
 	# Create the add song Button
 	var addButton = SongButton.instantiate()
 	addButton.text = "+"
 	SongList.add_child(addButton)
-	SongSelected(songs[0]) # Select the first song.
+	
+	if typeof(SelectedSongButton) == TYPE_STRING:
+		SongSelected(SelectedSongButton)
+	elif firstSong:
+		SongSelected(firstSong)
 
 func SongSelected(song) -> void:
-	for button in SongList.get_children(): # Select the selected Song Button
-		if button.text == song:
-			if SelectedSongButton:
-				SelectedSongButton.deselect()
-			SelectedSongButton = button
-			button.select()
-			break
-	
-	var songContents = get_tree().current_scene.get_file_list(get_parent().SongMapDirPath + "/" + song)
+	if typeof(song) == TYPE_STRING:
+		for Song in SongList.get_children():
+			if Song.text == song:
+				Song.select()
+				SelectedSongButton = Song
+				break
+	else:
+		SelectedSongButton = song
+		song.select()
+		song = song.text
+	var songContents = get_tree().current_scene.get_file_list(get_parent().SongMapDirPath + "/" + song + "/difficulties")
 	# Clear the difficulty list
 	for child in DifficultyList.get_children():
 		child.free()
@@ -110,13 +119,14 @@ func _on_create_map_pressed() -> void:
 	if dir.dir_exists(mapName): # If the map already exists:
 		while dir.dir_exists(mapName + str(extra)): # Add an extra number to make sure the name is unique.
 			extra += 1
-		mapName = mapName + str(extra)
+		mapName += str(extra)
 	if dir.make_dir_recursive(mapName + "/difficulties"): # Throw an error if the directory was unable to be created
 		print("Unable to create directory.")
 		return
+	SelectedSongButton.deselect()
+	SelectedSongButton = mapName
 	refresh_song_list()
 	CreateNewSongPopup.visible = false
-	SongSelected(mapName)
 	# Create a song Properties json file
 	var file = FileAccess.open(get_parent().SongMapDirPath + "/" + mapName + "/Properties.json", FileAccess.ModeFlags.WRITE)
 	if file:
@@ -126,4 +136,19 @@ func _on_create_map_pressed() -> void:
 
 
 func _on_create_difficulty_pressed() -> void:
-	pass # Replace with function body.
+	var difficultyName = $CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer/LineEdit.text
+	var dir = DirAccess.open(get_parent().SongMapDirPath + "/" + SelectedSongButton.text + "/difficulties")
+	var extra = 1
+	if dir.file_exists(difficultyName + ".json"): # Make sure the difficultyName is unique
+		while dir.file_exists(difficultyName + str(extra) + ".json"):
+			extra += 1
+		difficultyName += str(extra)
+	CreateNewDifficultyPopup.visible = false
+	SongSelected(SelectedSongButton)
+	var file = FileAccess.open(dir.get_current_dir() + "/" + difficultyName + ".json", FileAccess.ModeFlags.WRITE)
+	if file:
+		file.store_string(JSON.stringify({
+			Notes = []
+		}, "\t"))
+	
+	

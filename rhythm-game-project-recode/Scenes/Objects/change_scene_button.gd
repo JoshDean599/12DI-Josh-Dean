@@ -15,6 +15,7 @@ func _on_pressed() -> void:
 				print("Map wasn't found, stopping")
 				return
 		elif target == "Editor":
-			gameHandler.get_node("Editor").load_map(songSelectMenu.SelectedSong, songSelectMenu.SelectedDifficulty)
+			if not songSelectMenu.SelectedSongButton or not songSelectMenu.SelectedDifficultyButton: return
+			gameHandler.get_node("Editor").load_map(songSelectMenu.SelectedSongButton.text, songSelectMenu.SelectedDifficultyButton.text)
 			pass
 	gameHandler.change_scene(target)
