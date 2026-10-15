@@ -13,11 +13,13 @@ func _on_pressed() -> void:
 	if isSongButton:
 		if SongSelectMenu.SelectedSongButton != null:
 			SongSelectMenu.SelectedSongButton.deselect()
-		SongSelectMenu.SongSelected(self)
+		SongSelectMenu.SelectedSongButton = self
+		self.select()
 	else:
 		if SongSelectMenu.SelectedDifficultyButton != null:
 			SongSelectMenu.SelectedDifficultyButton.deselect()
 		SongSelectMenu.SelectedDifficultyButton = self
+		self.select()
 
 func select() -> void:
 	self.modulate = Color.BLUE_VIOLET # PlaceHolder effects to show the button is selected

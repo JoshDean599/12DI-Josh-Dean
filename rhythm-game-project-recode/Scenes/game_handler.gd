@@ -73,3 +73,37 @@ func remove_file_name_type(fileName: String, type: String) -> String:
 		elif newName + type != fileName:
 			return "" # Other type specified than what's within the fileName
 	return newName
+
+func create_folder(folderPath: String, folderName: String):
+	var dir = DirAccess.open(folderPath)
+	if not dir:
+		print("Folder Path Not Found: Returning")
+		return
+	var extra = 1
+	if dir.dir_exists(folderName): # Make sure the folder name is unique
+		while dir.dir_exists(folderName + str(extra)):
+			extra += 1
+		folderName += str(extra)
+	dir.make_dir(folderPath + "/" + folderName)
+	return folderName
+
+func create_or_modify_file(filePath: String, fileName: String, fileContents : Dictionary):
+	var newFileName = remove_file_name_type(fileName, ".json")
+	if newFileName != "":
+		fileName = newFileName
+	var dir = DirAccess.open(filePath)
+	if not dir:
+		print("File location: " + filePath + " was unable to be found: Returning")
+		return
+	var extra = 1
+	if dir.file_exists(fileName + ".json"):
+		while dir.file_exists(fileName + str(extra) + ".json"):
+			extra += 1
+		fileName += str(extra)
+	var file = FileAccess.open(dir.get_current_dir() + "/" + fileName + ".json", FileAccess.ModeFlags.WRITE)
+	if file:
+		file.store_string(JSON.stringify(fileContents, "\t"))
+	else:
+		print("File: " + fileName +" was unable to be created or modified: Returning")
+		return
+	return newFileName
