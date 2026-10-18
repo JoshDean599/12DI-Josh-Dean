@@ -1,8 +1,10 @@
 extends Node2D
 
+@onready var SongSelectMenu = get_parent().get_node("SongSelectMenu")
+
+
 #Import nodes
 @export var notes : Node2D
-@onready var editorButtons = $CanvasLayer/ControlButtons
 # Base Editor Variables
 var editorNote = preload("res://Scenes/Objects/EditorObjects/editor_note.tscn")
 var dragging = false
@@ -13,11 +15,6 @@ var timeFrame = .25
 var testing = false
 var testingStartPosition: Vector2
 var testingEndTween: Tween
-# Song information
-var selectedSong = "NEFFEX - Hate It or Love It Copyright Free No82"
-var loadedMap: String = ""
-var difficulty: String = "Normal"
-var difficultyLevel: int = 1
 
 var noteClampMin = 250
 
@@ -34,15 +31,32 @@ func _on_visibility_changed() -> void:
 			testing = false
 			# If music was playing, stop it
 			$TimeHandler.pause()
+		# Reset the notes position to the default
 		notes.position = Vector2(noteClampMin, 0)
+
+func load_map(mapName, mapDifficulty) -> void:
+	# Clear all notes from the tree
+	for note in notes.get_children():
+		if note.name == "Deadzone": continue # Skip the deadzone as it's not a note
+		note.free()
+	
+	var LoadedMap = get_parent().get_map(mapName, mapDifficulty)
+	if LoadedMap == {}: # If the map could not be loaded, return
 		return
+	
+	# Create each note
+	for i in LoadedMap.Notes:
+		create_new_note(
+			i.time,
+			i.offset,
+			i.tailTime,
+			i.tailOffset
+		)
 
 func save_map() -> void:
 	# The base save data
 	var saveData = {
 		Notes = [],
-		DifficultyLevel = difficultyLevel,
-		Song = selectedSong,
 	}
 	# Add each note into the Notes[] within the save data
 	var firstNote = null
@@ -60,44 +74,9 @@ func save_map() -> void:
 		)
 	if not firstNote: # If there isn't any notes within the scene, return
 		return
-	saveData.bufferTime = firstNote.time # Set the bufferTime based off the firstNote's time
+	saveData.bufferTime = firstNote.time # Set the bufferTime to the firstNote's time
 	
-	# Check if the file trying to be saved already exists:
-	if FileAccess.file_exists(get_parent().SongMapDirPath + "/" + loadedMap + "/" + difficulty + ".json"):
-		print("File Exists")
-	else:
-		print("File Doesn't exist, creating new")
-	# Create or override the map
-	var file = FileAccess.open(get_parent().SongMapDirPath + "/" + loadedMap + "/" + difficulty + ".json", FileAccess.ModeFlags.WRITE)
-	if file:
-		var text = JSON.stringify(saveData, "\t") # Convert it into a string for the json to store
-		file.store_string(text)
-		print("Data written to file")
-	else:
-		print("Failed to create new file or write to current")
-
-func load_map(mapName, mapDifficulty) -> void:
-	# Clear all notes from the tree
-	for i in notes.get_children():
-		if i.name == "Deadzone": continue
-		i.free()
-	
-	var LoadedMap = get_parent().load_map(mapName, mapDifficulty)
-	if LoadedMap == {}: # If the map could not be loaded, return
-		return
-	
-	# Create each note
-	for i in LoadedMap.Notes:
-		create_new_note(
-			i.time,
-			i.offset,
-			i.tailTime,
-			i.tailOffset
-		)
-	
-	editorButtons.visible = true
-	
-	loadedMap = mapName
+	get_parent().create_or_modify_file(get_parent().SongMapDirPath + "/" + SongSelectMenu.SelectedSongButton.text + "/Difficulties", SongSelectMenu.SelectedDifficultyButton.text, saveData, true)
 
 func create_new_note(time: float, offset: float, tailTime: float, tailOffset: float) -> void:
 	var newNote = editorNote.instantiate() # Create a new instance of the editor note
@@ -172,3 +151,11 @@ func _process(_delta: float) -> void:
 	if testing: # Move the notes along with the song when testing
 		notes.position.x = -get_tree().current_scene.noteMoveSpeed * $TimeHandler.time
 	
+
+func _on_save_pressed() -> void:
+	save_map()
+
+
+func _on_time_frame_item_selected(index: int) -> void:
+	#--------------------------------
+	timeFrame = $CanvasLayer/ControlButtons/HboxContainer/TimeFrame.get_item_text(index)

@@ -9,7 +9,6 @@ var SongMusicDirPath = OS.get_user_data_dir() + "/" + SongMusicPathName
 
 var noteMoveSpeed = 1000 # Pixels a second
 var YCollumnHeight = 10
-var map = null
 
 func _ready() -> void:
 	var dir = DirAccess.open("user://")
@@ -42,13 +41,12 @@ func set_scene_visible(scene, type: bool) -> void:
 	scene.visible = type
 	scene.set_process(type)
 
-func load_map(MapName, Difficulty) -> Dictionary:
-	var mapLocation = SongMapDirPath + "/" + MapName + "/" + Difficulty
+func get_map(MapName, Difficulty) -> Dictionary:
+	var mapLocation = SongMapDirPath + "/" + MapName + "/Difficulties/" + Difficulty + ".json"
 	if not FileAccess.open(mapLocation, FileAccess.READ):
 		print("Failed to open the map file, returning empty")
 		return {}
-	map = JSON.parse_string(FileAccess.get_file_as_string(mapLocation))
-	return map
+	return JSON.parse_string(FileAccess.get_file_as_string(mapLocation))
 
 func get_file_list(FolderPath) -> Array:
 	var list = []
@@ -85,7 +83,7 @@ func create_folder(folderPath: String, folderName: String):
 	dir.make_dir(folderPath + "/" + folderName)
 	return folderName
 
-func create_or_modify_file(filePath: String, fileName: String, fileContents : Dictionary):
+func create_or_modify_file(filePath: String, fileName: String, fileContents : Dictionary, override : bool):
 	var newFileName = remove_file_name_type(fileName, ".json")
 	if newFileName != "":
 		fileName = newFileName
@@ -94,7 +92,7 @@ func create_or_modify_file(filePath: String, fileName: String, fileContents : Di
 		print("File location: " + filePath + " was unable to be found: Returning")
 		return
 	var extra = 1
-	if dir.file_exists(fileName + ".json"):
+	if dir.file_exists(fileName + ".json") and not override:
 		while dir.file_exists(fileName + str(extra) + ".json"):
 			extra += 1
 		fileName += str(extra)

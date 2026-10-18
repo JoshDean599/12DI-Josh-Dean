@@ -102,7 +102,7 @@ func _on_create_map_pressed() -> void:
 	get_parent().create_folder(get_parent().SongMapDirPath + "/" + mapName, "Difficulties")
 	get_parent().create_or_modify_file(get_parent().SongMapDirPath + "/" + mapName, "Properties", {
 		song = optionButton.get_item_text(optionButton.get_item_index(optionButton.get_selected_id()))
-	})
+	}, false)
 	
 	SelectedSongButton = mapName
 	refresh_song_list()
@@ -110,9 +110,11 @@ func _on_create_map_pressed() -> void:
 
 func _on_create_difficulty_pressed() -> void:
 	var difficultyName = $CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer/LineEdit.text
+	if not SelectedSongButton or len(difficultyName) == 0:
+		return
 	get_parent().create_or_modify_file(get_parent().SongMapDirPath + "/" + SelectedSongButton.text + "/Difficulties", difficultyName, {
 		Notes = []
-	})
+	}, false)
 	refresh_difficulty_list()
 	CreateNewDifficultyPopup.visible = false
 
