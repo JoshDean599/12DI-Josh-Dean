@@ -60,8 +60,6 @@ func get_file_list(FolderPath) -> Array:
 		while fileName != "":
 			list.push_back(fileName)
 			fileName = dir.get_next()
-	else:
-		print("An error has occured when trying to access the path")
 	
 	return list
 

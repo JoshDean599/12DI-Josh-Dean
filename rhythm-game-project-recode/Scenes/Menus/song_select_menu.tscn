@@ -5,12 +5,14 @@
 [ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="3_35lte"]
 [ext_resource type="PackedScene" uid="uid://00hgn2ri3b6v" path="res://Scenes/Objects/song_button.tscn" id="3_nh4vv"]
 
-[node name="SongSelectMenu" type="Node2D" unique_id=7160056 node_paths=PackedStringArray("SongList", "DifficultyList", "CreateNewSongPopup", "CreateNewDifficultyPopup")]
+[node name="SongSelectMenu" type="Node2D" unique_id=7160056 node_paths=PackedStringArray("SongList", "DifficultyList", "CreateNewSongPopup", "CreateNewDifficultyPopup", "SongDeleteWarning", "DifficultyDeleteWarning")]
 script = ExtResource("1_35lte")
-SongList = NodePath("CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer")
-DifficultyList = NodePath("CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/HBoxContainer")
+SongList = NodePath("CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer/SongList")
+DifficultyList = NodePath("CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer2/DifficultyList")
 CreateNewSongPopup = NodePath("CanvasLayer/CreateNewSong")
 CreateNewDifficultyPopup = NodePath("CanvasLayer/CreateNewDifficulty")
+SongDeleteWarning = NodePath("CanvasLayer/SongDeleteWarning")
+DifficultyDeleteWarning = NodePath("CanvasLayer/DifficultyDeleteWarning")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1837589001]
 
@@ -71,28 +73,46 @@ vertical_scroll_mode = 4
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer" unique_id=1573636017]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer" unique_id=760375057]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer" unique_id=1763676312]
 layout_mode = 2
+
+[node name="SongList" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer" unique_id=760375057]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 5
 
-[node name="SongButton" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer" unique_id=615838797 instance=ExtResource("3_nh4vv")]
+[node name="SongButton" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer/SongList" unique_id=615838797 instance=ExtResource("3_nh4vv")]
 layout_mode = 2
 
-[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer" unique_id=1716032864]
+[node name="AddRemoveSong" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer" unique_id=189945716]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer/AddRemoveSong" unique_id=528036329]
+layout_mode = 2
+size_flags_vertical = 10
+text = "+"
+
+[node name="DeleteMap" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer/AddRemoveSong" unique_id=473423226]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+text = "-"
+
+[node name="SongDetails" type="PanelContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer" unique_id=1716032864]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2" unique_id=1374717972]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails" unique_id=1374717972]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer" unique_id=1082852971]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer" unique_id=1082852971]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
@@ -101,10 +121,10 @@ theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="Control" type="Control" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer" unique_id=1172227524]
+[node name="Control" type="Control" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer" unique_id=1172227524]
 layout_mode = 2
 
-[node name="Map Icon" type="TextureRect" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer/Control" unique_id=1790343145]
+[node name="Map Icon" type="TextureRect" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer/Control" unique_id=1790343145]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -116,7 +136,7 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = ExtResource("3_35lte")
 stretch_mode = 5
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer" unique_id=1888124346]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer" unique_id=1888124346]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 5
@@ -124,77 +144,84 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2" unique_id=1584563]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2" unique_id=1584563]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer" unique_id=16284126]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer" unique_id=16284126]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer" unique_id=1814920245]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer" unique_id=1814920245]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer" unique_id=1532563375]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer" unique_id=1532563375]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=356180204]
+[node name="Label" type="Label" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=356180204]
 layout_mode = 2
 text = "Select Difficulty:"
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=888147424]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=1835647438]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1835647438]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 4
 vertical_scroll_mode = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer" unique_id=484440034]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=1660515443]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/HBoxContainer" unique_id=715281155]
+[node name="DifficultyList" type="HBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer2" unique_id=484440034]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer2/DifficultyList" unique_id=715281155]
 layout_mode = 2
 size_flags_vertical = 4
 text = "..."
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer" unique_id=615022891]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2" unique_id=394058845]
+[node name="AddRemoveDifficulty" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer2" unique_id=1642369327]
 layout_mode = 2
 
-[node name="ChangeSceneButton" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer" unique_id=890186976 instance=ExtResource("1_83smf")]
+[node name="CreateDifficulty" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer2/AddRemoveDifficulty" unique_id=2057162615]
 layout_mode = 2
+size_flags_vertical = 3
+text = "+"
+
+[node name="DeleteDifficulty" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer2/AddRemoveDifficulty" unique_id=2014993711]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+size_flags_vertical = 3
+text = "-"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer" unique_id=615022891]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2" unique_id=394058845]
+layout_mode = 2
+
+[node name="ChangeSceneButton" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2/VBoxContainer" unique_id=890186976 instance=ExtResource("1_83smf")]
+layout_mode = 2
+size_flags_vertical = 3
 text = "Play"
 target = "Game"
 
-[node name="ChangeSceneButton2" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer" unique_id=1756033430 instance=ExtResource("1_83smf")]
+[node name="ChangeSceneButton2" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2/VBoxContainer" unique_id=1756033430 instance=ExtResource("1_83smf")]
 layout_mode = 2
+size_flags_vertical = 3
 text = "Edit"
 target = "Editor"
-
-[node name="DeleteMap" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer" unique_id=2014993711]
-self_modulate = Color(1, 0, 0, 1)
-layout_mode = 2
-size_flags_vertical = 10
-text = "Delete Map"
 
 [node name="CreateNewSong" type="PanelContainer" parent="CanvasLayer" unique_id=1322154701]
 visible = false
@@ -297,11 +324,93 @@ layout_mode = 2
 size_flags_horizontal = 10
 text = "Create"
 
+[node name="SongDeleteWarning" type="PanelContainer" parent="CanvasLayer" unique_id=657613953]
+visible = false
+offset_left = 401.0
+offset_top = 272.0
+offset_right = 750.0
+offset_bottom = 376.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SongDeleteWarning" unique_id=1058238251]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongDeleteWarning/MarginContainer" unique_id=1465400894]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/SongDeleteWarning/MarginContainer/VBoxContainer" unique_id=1836739049]
+layout_mode = 2
+text = "Are you sure you want to delete this Song?
+This action can not* be reversed"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SongDeleteWarning/MarginContainer/VBoxContainer" unique_id=1332193369]
+layout_mode = 2
+
+[node name="SongCancelButton" type="Button" parent="CanvasLayer/SongDeleteWarning/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1130457397]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[node name="SongDeleteButton" type="Button" parent="CanvasLayer/SongDeleteWarning/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1373540761]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Delete"
+
+[node name="DifficultyDeleteWarning" type="PanelContainer" parent="CanvasLayer" unique_id=886293237]
+offset_left = 385.0
+offset_top = 272.0
+offset_right = 766.0
+offset_bottom = 376.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/DifficultyDeleteWarning" unique_id=557214076]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DifficultyDeleteWarning/MarginContainer" unique_id=1159971043]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/DifficultyDeleteWarning/MarginContainer/VBoxContainer" unique_id=1760571860]
+layout_mode = 2
+text = "Are you sure you want to delete this Difficulty?
+This action can not* be reversed"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/DifficultyDeleteWarning/MarginContainer/VBoxContainer" unique_id=412667846]
+layout_mode = 2
+
+[node name="DifficultyCancelButton" type="Button" parent="CanvasLayer/DifficultyDeleteWarning/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1385365995]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[node name="DifficultyDeleteButton" type="Button" parent="CanvasLayer/DifficultyDeleteWarning/MarginContainer/VBoxContainer/HBoxContainer" unique_id=933260364]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Delete"
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/OpenMapFolder" to="." method="_on_open_map_folder_pressed"]
-[connection signal="pressed" from="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer2/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer/DeleteMap" to="." method="_on_delete_map_pressed"]
+[connection signal="pressed" from="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer/AddRemoveSong/Button" to="." method="create_new_song"]
+[connection signal="pressed" from="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer/AddRemoveSong/DeleteMap" to="." method="_on_delete_map_pressed"]
+[connection signal="pressed" from="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer2/AddRemoveDifficulty/CreateDifficulty" to="." method="create_new_difficulty"]
+[connection signal="pressed" from="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer2/AddRemoveDifficulty/DeleteDifficulty" to="." method="_on_delete_difficulty_pressed"]
 [connection signal="pressed" from="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/OpenSongFolder" to="." method="_on_open_song_folder_pressed"]
 [connection signal="pressed" from="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_song_cancel_pressed"]
 [connection signal="pressed" from="CanvasLayer/CreateNewSong/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Create" to="." method="_on_create_map_pressed"]
 [connection signal="pressed" from="CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_difficulty_cancel_pressed"]
 [connection signal="pressed" from="CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Create" to="." method="_on_create_difficulty_pressed"]
+[connection signal="pressed" from="CanvasLayer/SongDeleteWarning/MarginContainer/VBoxContainer/HBoxContainer/SongCancelButton" to="." method="_on_song_cancel_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SongDeleteWarning/MarginContainer/VBoxContainer/HBoxContainer/SongDeleteButton" to="." method="_on_song_delete_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/DifficultyDeleteWarning/MarginContainer/VBoxContainer/HBoxContainer/DifficultyCancelButton" to="." method="_on_difficulty_cancel_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/DifficultyDeleteWarning/MarginContainer/VBoxContainer/HBoxContainer/DifficultyDeleteButton" to="." method="_on_difficulty_delete_button_pressed"]

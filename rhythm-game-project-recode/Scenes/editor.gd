@@ -8,7 +8,7 @@ var editorNote = preload("res://Scenes/Objects/EditorObjects/editor_note.tscn")
 var dragging = false
 var clickPosition = Vector2.ZERO
 var clickTime: float = 0.0
-var timeFrame = 1
+var timeFrame = .25
 # Testing Variables
 var testing = false
 var testingStartPosition: Vector2
@@ -18,6 +18,8 @@ var selectedSong = "NEFFEX - Hate It or Love It Copyright Free No82"
 var loadedMap: String = ""
 var difficulty: String = "Normal"
 var difficultyLevel: int = 1
+
+var noteClampMin = 250
 
 # Add save warnings when exiting editor --------------------------------------------------------------!!!!!!!
 
@@ -32,7 +34,7 @@ func _on_visibility_changed() -> void:
 			testing = false
 			# If music was playing, stop it
 			$TimeHandler.pause()
-		notes.position = Vector2(get_parent().noteMoveSpeed, 0)
+		notes.position = Vector2(noteClampMin, 0)
 		return
 
 func save_map() -> void:
@@ -143,8 +145,8 @@ func _on_drag_detector_gui_input(event: InputEvent) -> void:
 		# Update the position when the mouse moved
 		if dragging:
 			notes.position.x = get_global_mouse_position().x - clickPosition.x
-			if notes.position.x > get_parent().noteMoveSpeed:
-				notes.position.x = get_parent().noteMoveSpeed
+			if notes.position.x > noteClampMin:
+				notes.position.x = noteClampMin
 
 func _on_test_pressed() -> void:
 	toggle_testing()
@@ -170,9 +172,3 @@ func _process(_delta: float) -> void:
 	if testing: # Move the notes along with the song when testing
 		notes.position.x = -get_tree().current_scene.noteMoveSpeed * $TimeHandler.time
 	
-	# Not sure what I was trying to do here
-	#var songs = get_parent().get_file_list("res://Assets/Songs/") # !!!!!!!!--------------!!!!------------------------!!!!!----------!!!!!!---------------------------------------------------------------------------------------------------------------
-	#for song in songs:
-	#	song = get_parent().remove_file_name_type(song, ".mp3")
-	#	if song == "": # If it wasn't an mp3 file, discard
-	#		continue

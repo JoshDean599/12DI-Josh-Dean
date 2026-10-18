@@ -4,16 +4,11 @@ extends Button
 var isSongButton := true
 
 func _on_pressed() -> void:
-	if self.text == "+":
-		if isSongButton:
-			SongSelectMenu.create_new("Song")
-		else:
-			SongSelectMenu.create_new("Difficulty")
-		return
 	if isSongButton:
 		if SongSelectMenu.SelectedSongButton != null:
 			SongSelectMenu.SelectedSongButton.deselect()
 		SongSelectMenu.SelectedSongButton = self
+		SongSelectMenu.refresh_difficulty_list()
 		self.select()
 	else:
 		if SongSelectMenu.SelectedDifficultyButton != null:
