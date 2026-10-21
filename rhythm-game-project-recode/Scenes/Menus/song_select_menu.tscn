@@ -136,6 +136,11 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = ExtResource("3_35lte")
 stretch_mode = 5
 
+[node name="SongName" type="Label" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer" unique_id=1255895945]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Song Name:"
+
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer" unique_id=1888124346]
 layout_mode = 2
 size_flags_vertical = 3

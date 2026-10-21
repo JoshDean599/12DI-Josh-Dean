@@ -59,12 +59,18 @@ func refresh_song_list() -> void:
 	refresh_from_file(get_parent().SongMapDirPath, SongList, true)
 	
 	refresh_difficulty_list()
+	
+	
 
 func refresh_difficulty_list() -> void:
-	var text = ""
-	if SelectedSongButton:
-		text = SelectedSongButton.text
-	refresh_from_file.call_deferred(get_parent().SongMapDirPath + "/" + text + "/Difficulties", DifficultyList, false)
+	if not SelectedSongButton:
+		return
+	refresh_from_file.call_deferred(get_parent().SongMapDirPath + "/" + SelectedSongButton.text + "/Difficulties", DifficultyList, false)
+	
+	var SongName = $CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer/SongName
+	SongName.text = get_parent().load_json(get_parent().SongMapDirPath + "/" + SelectedSongButton.text + "/properties.json").song
+
+
 
 func _on_open_map_folder_pressed() -> void:
 	OS.shell_open(get_parent().SongMapDirPath)

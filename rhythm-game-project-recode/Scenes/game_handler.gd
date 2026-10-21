@@ -41,12 +41,11 @@ func set_scene_visible(scene, type: bool) -> void:
 	scene.visible = type
 	scene.set_process(type)
 
-func get_map(MapName, Difficulty) -> Dictionary:
-	var mapLocation = SongMapDirPath + "/" + MapName + "/Difficulties/" + Difficulty + ".json"
-	if not FileAccess.open(mapLocation, FileAccess.READ):
+func load_json(jsonFileLocation : String) -> Dictionary:
+	if not FileAccess.open(jsonFileLocation, FileAccess.READ):
 		print("Failed to open the map file, returning empty")
 		return {}
-	return JSON.parse_string(FileAccess.get_file_as_string(mapLocation))
+	return JSON.parse_string(FileAccess.get_file_as_string(jsonFileLocation))
 
 func get_file_list(FolderPath) -> Array:
 	var list = []
@@ -85,7 +84,7 @@ func create_folder(folderPath: String, folderName: String):
 
 func create_or_modify_file(filePath: String, fileName: String, fileContents : Dictionary, override : bool):
 	var newFileName = remove_file_name_type(fileName, ".json")
-	if newFileName != "":
+	if newFileName + ".json" == fileName:
 		fileName = newFileName
 	var dir = DirAccess.open(filePath)
 	if not dir:
@@ -102,4 +101,4 @@ func create_or_modify_file(filePath: String, fileName: String, fileContents : Di
 	else:
 		print("File: " + fileName +" was unable to be created or modified: Returning")
 		return
-	return newFileName
+	return fileName

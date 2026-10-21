@@ -40,7 +40,7 @@ func load_map(mapName, mapDifficulty) -> void:
 		if note.name == "Deadzone": continue # Skip the deadzone as it's not a note
 		note.free()
 	
-	var LoadedMap = get_parent().get_map(mapName, mapDifficulty)
+	var LoadedMap = get_parent().load_json(get_parent().SongMapDirPath + "/" + mapName + "/Difficulties/" + mapDifficulty + ".json")
 	if LoadedMap == {}: # If the map could not be loaded, return
 		return
 	
@@ -150,12 +150,9 @@ func toggle_testing() -> void:
 func _process(_delta: float) -> void:
 	if testing: # Move the notes along with the song when testing
 		notes.position.x = -get_tree().current_scene.noteMoveSpeed * $TimeHandler.time
-	
 
 func _on_save_pressed() -> void:
 	save_map()
 
-
 func _on_time_frame_item_selected(index: int) -> void:
-	#--------------------------------
-	timeFrame = $CanvasLayer/ControlButtons/HboxContainer/TimeFrame.get_item_text(index)
+	timeFrame = 1.0 / $CanvasLayer/ControlButtons/HboxContainer/TimeFrame.get_item_id(index)
