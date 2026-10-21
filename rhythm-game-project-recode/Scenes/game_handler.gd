@@ -1,7 +1,7 @@
 extends Node2D
 # Contains functions used by multiple scripts
 @onready var currentScene = $MainMenu
-const MapPath = "res://LoadedMaps/"
+@onready var SongSelectMenu = $SongSelectMenu
 const SongMapPathName = "SongMaps"
 const SongMusicPathName = "LoadedSongs"
 var SongMapDirPath = OS.get_user_data_dir() + "/" + SongMapPathName
@@ -20,7 +20,7 @@ func _ready() -> void:
 	
 	# Make sure everything is hidden, apart from the starting scene
 	for i in get_children():
-		if i == currentScene:
+		if i == currentScene or i.name == "ignore":
 			set_scene_visible(i, true)
 			continue
 		set_scene_visible(i, false)
@@ -46,6 +46,19 @@ func load_json(jsonFileLocation : String) -> Dictionary:
 		print("Failed to open the map file, returning empty")
 		return {}
 	return JSON.parse_string(FileAccess.get_file_as_string(jsonFileLocation))
+
+func get_map_properties() -> Dictionary:
+	if not SongSelectMenu.SelectedSongButton:
+		print("Required SongSelectMenu Items not found for properties")
+		return {}
+	return load_json(SongMapDirPath + "/" + SongSelectMenu.SelectedSongButton.text + "/Properties.json")
+
+func get_map() -> Dictionary:
+	if not SongSelectMenu.SelectedSongButton or not SongSelectMenu.SelectedDifficultyButton:
+		print("Required SongSelectMenu Items not found for getting map")
+		return {}
+	return load_json(SongMapDirPath + "/" + SongSelectMenu.SelectedSongButton.text + "/Difficulties/" +
+		SongSelectMenu.SelectedDifficultyButton.text + ".json")
 
 func get_file_list(FolderPath) -> Array:
 	var list = []

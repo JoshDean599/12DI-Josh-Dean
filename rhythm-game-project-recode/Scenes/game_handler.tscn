@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bp25e03odl5q" path="res://Scenes/Menus/song_select_menu.tscn" id="3_nwul3"]
 [ext_resource type="PackedScene" uid="uid://8w0ps6ic53jc" path="res://Scenes/editor.tscn" id="4_aqcph"]
 [ext_resource type="PackedScene" uid="uid://cchg3l8kejua6" path="res://Scenes/game.tscn" id="5_plgud"]
+[ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="6_jvujs"]
 
 [node name="GameHandler" type="Node2D" unique_id=987273405]
 script = ExtResource("1_jqstq")
@@ -19,3 +20,7 @@ visible = false
 
 [node name="Game" parent="." unique_id=1689311946 instance=ExtResource("5_plgud")]
 visible = false
+
+[node name="ignore" type="Sprite2D" parent="." unique_id=95555026]
+position = Vector2(342, 133)
+texture = ExtResource("6_jvujs")

@@ -45,13 +45,11 @@ func on_window_size_changed():
 	$HitMarker.position.y = float(DisplayServer.window_get_size().y) / 2
 
 func load_song():
-	print("LoadedSong in noteHandler,", get_tree().current_scene.map)
-	loadedSong = get_tree().current_scene.map
+	loadedSong = get_tree().current_scene.get_map()
+	print("LoadedSong in noteHandler,", loadedSong)
 	for i in $Notes.get_children():
 		i.free()
 	noteQueue = []
-	
-	get_tree().current_scene.load_map(get_parent().currentSong[0], get_parent().currentSong[1])
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_echo() and event is InputEventKey:
