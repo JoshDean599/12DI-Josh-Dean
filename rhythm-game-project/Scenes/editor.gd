@@ -1,164 +1,158 @@
 extends Node2D
 
-@onready var filePath = $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/FilePath
-@onready var songName = $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/SongName
-@onready var songHandler = $Camera2D/SongHandler
-@onready var label = $UI/MarginContainer/VBoxContainer/HBoxContainer/Label
-@onready var camera = $Camera2D
+@onready var SongSelectMenu = get_parent().get_node("SongSelectMenu")
+
+#Import nodes
+@export var notes : Node2D
+# Base Editor Variables
+var editorNote = preload("res://Scenes/Objects/EditorObjects/editor_note.tscn")
 var dragging = false
-var startDragPosition = Vector2.ZERO
-
+var clickPosition = Vector2.ZERO
 var clickTime: float = 0.0
-var clickPosition: Vector2i = Vector2.ZERO
-
-var snapDistance: float = 1.0
-var songNoteMoveSpeed: int = 250
-
+var timeFrame = .25
+# Testing Variables
 var testing = false
-var testingGameTime = 0
+var testingStartPosition: Vector2
+var testingEndTween: Tween
 
+var noteClampMin = 250
 
-func createNewNote(Position: Vector2, TailPosition: Vector2) -> void:
-	var newNote = Globals.EditorNote.instantiate()
-	$Notes.add_child(newNote)
+# Add save warnings when exiting editor --------------------------------------------------------------!!!!!!!
+
+func _ready() -> void:
+	# Make the DragDetector fit to any screens size
+	$DragDetector.set_deferred("size", DisplayServer.screen_get_size())
+	$DragDetector.set_deferred("position", DisplayServer.screen_get_position(DisplayServer.SCREEN_OF_MAIN_WINDOW))
+
+func _on_visibility_changed() -> void:
+	if visible:
+		if testing:
+			testing = false
+			# If music was playing, stop it
+			$TimeHandler.pause()
+		# Reset the notes position to the default
+		notes.position = Vector2(noteClampMin, 0)
+		load_map(SongSelectMenu.SelectedSongButton.text, SongSelectMenu.SelectedDifficultyButton.text)
+
+func load_map(mapName, mapDifficulty) -> void:
+	# Clear all notes from the tree
+	for note in notes.get_children():
+		if note.name == "Deadzone" or note.name == "background": continue # Skip the deadzone as it's not a note
+		note.free()
 	
-	newNote.position.x = snapped(Position.x, snapDistance * songNoteMoveSpeed)
-	newNote.position.y = snapped(Position.y, songNoteMoveSpeed / 4.0)
-	if newNote.position.x < 0: # Limit the x position
-			newNote.position.x = 0
-	
-	newNote.get_node("Tail").position = TailPosition
-	newNote.get_node("Line2D").set_point_position(1, TailPosition)
-
-
-func _on_save_pressed() -> void:
-	if filePath.text.length() <= 0:
-		print("Unable to save map: undefind file path.")
+	var LoadedMap = get_parent().load_json(get_parent().SongMapDirPath + "/" + mapName + "/Difficulties/" + mapDifficulty + ".json")
+	if LoadedMap == {}: # If the map could not be loaded, return
 		return
 	
+	# Create each note
+	for i in LoadedMap.Notes:
+		create_new_note(
+			i.time,
+			i.offset,
+			i.tailTime,
+			i.tailOffset
+		)
+
+func save_map() -> void:
+	# The base save data
 	var saveData = {
 		Notes = [],
-		Song = songName.text,
-		bufferTime = 5
-		}
+	}
+	# Add each note into the Notes[] within the save data
 	var firstNote = null
-	for i in $Notes.get_children(): # Insert each notes into the table
-		if firstNote == null or i.position.x < firstNote.position.x:
+	for i in notes.get_children(): # Insert each notes into the table
+		if i.name == "Deadzone": continue # Skip the dead zone as it's not a note
+		if firstNote == null or firstNote.time > i.time: # Get the first note
 			firstNote = i
 		saveData.Notes.push_back(
 			{
-				time = i.position.x / songNoteMoveSpeed,
-				offset = i.position.y,
-				tailTime = i.get_node("Tail").position.x / songNoteMoveSpeed,
-				tailOffset = i.get_node("Tail").position.y
+				time = i.time,
+				offset = i.offset,
+				tailTime = i.tailTime,
+				tailOffset = i.tailOffset
 			}
 		)
-	if firstNote == null:
-		print("No notes within map, returning")
+	if not firstNote: # If there isn't any notes within the scene, return
 		return
-	saveData.bufferTime = firstNote.position.x / songNoteMoveSpeed
-	save_map(Globals.mapPath + filePath.text + ".json", saveData)
-
-
-func save_map(path: String, data: Dictionary) -> void:
-	if FileAccess.file_exists(path):
-		print("File Exists")
-	else:
-		print("File Doesn't exist, creating new")
+	saveData.bufferTime = firstNote.time # Set the bufferTime to the firstNote's time
 	
-	var file = FileAccess.open(path, FileAccess.ModeFlags.WRITE)
-	if file:
-		var text = JSON.stringify(data, "\t")
-		file.store_string(text)
-		print("Data written to file")
-	else:
-		print("Failed to create new file or write to current")
+	get_parent().create_or_modify_file(get_parent().SongMapDirPath + "/" + SongSelectMenu.SelectedSongButton.text + "/Difficulties", SongSelectMenu.SelectedDifficultyButton.text, saveData, true)
 
-
-func _on_load_pressed() -> void:
-	var saveAsDict = Globals.load_song(Globals.mapPath + filePath.text + ".json")
-	if saveAsDict == {}:
-		print("Unable to load map: Unknown File Path")
-		return
-		
-	for i in $Notes.get_children(): # Remove all Editor Notes
-		i.free() # Remove the note during the frame, unlike queue_free() which removes after the frame
+func create_new_note(time: float, offset: float, tailTime: float, tailOffset: float) -> void:
+	var newNote = editorNote.instantiate() # Create a new instance of the editor note
+	notes.add_child(newNote)
 	
-	for i in saveAsDict.Notes: # Load the notes from the savePath
-		createNewNote(
-			Vector2(i.time * songNoteMoveSpeed, i.offset), # Note Position
-			Vector2(i.tailTime * songNoteMoveSpeed, i.tailOffset), # Note Tail Position
-		)
-
-
-func _on_return_button_pressed() -> void:
-	Globals.change_scene(Globals.MainMenu)
-
-
-func _process(delta: float) -> void:
-	if dragging and not testing:
-		camera.position.x = snapped(-(DisplayServer.mouse_get_position().x - startDragPosition), snapDistance * songNoteMoveSpeed)
+	# Limit the height to the defined offset height
+	if offset > get_parent().YCollumnHeight:
+		offset = get_parent().YCollumnHeight
+	elif offset <= 0:
+		offset = 1
 	
-	var time = DisplayServer.mouse_get_position().x - DisplayServer.screen_get_size().x / 2.0 + camera.position.x
-	var displayedTime = round(snapped(time, snapDistance * songNoteMoveSpeed) / songNoteMoveSpeed * 100 ) / 100
-	label.text = "Time at cursor: " + str(displayedTime)
+	# Limit the time to being within range
 	if time < 0:
-		label.modulate = Color.RED
-	else:
-		label.modulate = Color.WHITE
+		time = 0
 	
-	if testing:
-		testingGameTime += delta
-		camera.position.x = songNoteMoveSpeed * testingGameTime
-	
-	if camera.position.x < 0:
-		camera.position.x = 0
+	# Set the notes variables
+	newNote.time = time
+	newNote.offset = offset
+	newNote.tailTime = tailTime
+	newNote.tailOffset = tailOffset
+	# Update its position
+	newNote.update_position()
 
-
-func _on_drag_detector_button_down() -> void:
-	dragging = true
-	startDragPosition = DisplayServer.mouse_get_position().x + camera.position.x
-	
-	clickPosition = DisplayServer.mouse_get_position()
-	clickTime = Time.get_ticks_msec() / 1000.0
-
-
-func _on_drag_detector_button_up() -> void:
-	dragging = false
-	
-	if clickPosition == DisplayServer.mouse_get_position() and Time.get_ticks_msec() / 1000.0 - clickTime < 0.25:
-		var mousePosition = Vector2(
-			float(DisplayServer.mouse_get_position().x) - float(DisplayServer.screen_get_size().x) / 2,
-			float(DisplayServer.mouse_get_position().y) - float(DisplayServer.screen_get_size().y) / 2
-		)
-		createNewNote(mousePosition + camera.position,Vector2())
-
-
-func _on_drag_detector_gui_input(event: InputEvent) -> void: # Scrolling around the editor
+func _on_drag_detector_gui_input(event: InputEvent) -> void:
+	# Don't drag if editing
+	if testing: return
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			camera.position.x -= songNoteMoveSpeed * snapDistance / 2
-		elif event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			camera.position.x += songNoteMoveSpeed * snapDistance / 2
+		# On left click
+		if event.button_index == 1:
+			if event.pressed:
+				dragging = true
+				clickPosition = get_global_mouse_position() - notes.position
+				clickTime = Time.get_ticks_msec() / 1000.0
+			else:
+				dragging = false
+				#Create a new note if the click time was short enough and the mouse didn't move too far
+				if clickPosition.distance_to(get_global_mouse_position() - notes.position) < 20.0 and Time.get_ticks_msec() / 1000.0 - clickTime < 0.25:
+					create_new_note(
+						snapped(clickPosition.x / get_parent().noteMoveSpeed, timeFrame), # Time
+						snapped(clickPosition.y / (float(DisplayServer.window_get_size().y) / (get_parent().YCollumnHeight + 1)), 1), # Offset
+						0, # tailTime
+						0  # tailOffset
+					)
+	elif event is InputEventMouseMotion:
+		# Update the position when the mouse moved
+		if dragging:
+			notes.position.x = get_global_mouse_position().x - clickPosition.x
+			if notes.position.x > noteClampMin:
+				notes.position.x = noteClampMin
 
+func _on_test_pressed() -> void:
+	toggle_testing()
 
-func _on_play_button_pressed() -> void:
-	testingGameTime = camera.position.x / songNoteMoveSpeed
-	testing = true
-	$UI/MarginContainer/VBoxContainer/HBoxContainer/PlayButton.visible = false
-	$UI/MarginContainer/VBoxContainer/HBoxContainer/PauseButton.visible = true
-	
-	songHandler.play_song(testingGameTime)
+func toggle_testing() -> void:
+	# Toggle testing
+	testing = !testing
+	if testing:
+		# Play the music
+		$TimeHandler.play(-notes.position.x / get_tree().current_scene.noteMoveSpeed)
+		# Set the position to return to when the testing ends
+		testingStartPosition = notes.position
+	else:
+		# Stop the music
+		$TimeHandler.pause()
+		# Tween to the posiiton where the testing started
+		if testingEndTween:
+			testingEndTween.kill()
+		testingEndTween = create_tween()
+		testingEndTween.tween_property(notes, "position", testingStartPosition, .2)
 
+func _process(_delta: float) -> void:
+	if testing: # Move the notes along with the song when testing
+		notes.position.x = -get_tree().current_scene.noteMoveSpeed * $TimeHandler.time
 
-func _on_pause_button_pressed() -> void:
-	testing = false
-	$UI/MarginContainer/VBoxContainer/HBoxContainer/PlayButton.visible = true
-	$UI/MarginContainer/VBoxContainer/HBoxContainer/PauseButton.visible = false
-	
-	songHandler.stop_song()
+func _on_save_pressed() -> void:
+	save_map()
 
-
-func _on_option_button_item_selected(index: int) -> void:
-	snapDistance = 1.0 / $UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/OptionButton.get_item_id(index)
-	
+func _on_time_frame_item_selected(index: int) -> void:
+	timeFrame = 1.0 / $CanvasLayer/ControlButtons/HboxContainer/TimeFrame.get_item_id(index)

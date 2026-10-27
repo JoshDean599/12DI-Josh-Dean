@@ -1,153 +1,133 @@
-[gd_scene format=3 uid="uid://brfyccsgwq6rl"]
+[gd_scene format=3 uid="uid://8w0ps6ic53jc"]
 
-[ext_resource type="Script" uid="uid://i5pwojav548r" path="res://Scenes/editor.gd" id="1_wqabg"]
-[ext_resource type="Texture2D" uid="uid://cbbnl80tr27bh" path="res://Assets/PlaceHolderPlayButton.png" id="2_7wlcy"]
-[ext_resource type="PackedScene" uid="uid://blddwce4egim7" path="res://Scenes/Objects/song_handler.tscn" id="3_a7iym"]
-[ext_resource type="Texture2D" uid="uid://d2u00xhj31tag" path="res://Assets/PlaceHolderPauseButton.png" id="3_wkuwf"]
-[ext_resource type="Texture2D" uid="uid://43s0ilqd1cce" path="res://icon.svg" id="5_wkuwf"]
+[ext_resource type="Script" uid="uid://bssh4f7tpqr6f" path="res://Scenes/editor.gd" id="1_eyy8u"]
+[ext_resource type="PackedScene" uid="uid://bqsmg5a7x3ftu" path="res://Scenes/Objects/change_scene_button.tscn" id="2_wkuwf"]
+[ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://Assets/sprites/icon.svg" id="3_a7iym"]
+[ext_resource type="PackedScene" uid="uid://bdmqx7otwye8k" path="res://Scenes/Objects/GameObjects/time_handler.tscn" id="4_7wlcy"]
 
-[node name="Editor" type="Node2D" unique_id=219707909]
-script = ExtResource("1_wqabg")
+[node name="Editor" type="Node2D" unique_id=1265935660 node_paths=PackedStringArray("notes")]
+script = ExtResource("1_eyy8u")
+notes = NodePath("Notes")
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=1210029244]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=934516026]
 
-[node name="MarginContainer" type="MarginContainer" parent="UI" unique_id=2146079056]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-mouse_behavior_recursive = 1
+[node name="ControlButtons" type="MarginContainer" parent="CanvasLayer" unique_id=838823659]
+offset_right = 60.0
+offset_bottom = 40.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer" unique_id=2071460136]
+[node name="HboxContainer" type="HBoxContainer" parent="CanvasLayer/ControlButtons" unique_id=780867259]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/MarginContainer/VBoxContainer" unique_id=2084397225]
-custom_minimum_size = Vector2(0, 40)
+[node name="ChangeSceneButton" parent="CanvasLayer/ControlButtons/HboxContainer" unique_id=78395926 instance=ExtResource("2_wkuwf")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 3
-mouse_filter = 1
 mouse_behavior_recursive = 2
+text = "Back"
+target = "SongSelectMenu"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/VBoxContainer/PanelContainer" unique_id=359179287]
+[node name="Test" type="Button" parent="CanvasLayer/ControlButtons/HboxContainer" unique_id=2055806561]
 layout_mode = 2
+mouse_behavior_recursive = 2
+text = "Test"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1176281824]
+[node name="Save" type="Button" parent="CanvasLayer/ControlButtons/HboxContainer" unique_id=785300947]
 layout_mode = 2
+text = "Save"
 
-[node name="Return" type="Button" parent="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1404491943]
+[node name="Label" type="Label" parent="CanvasLayer/ControlButtons/HboxContainer" unique_id=1917035157]
 layout_mode = 2
-text = "Return"
+text = "Time Signature:"
 
-[node name="Save" type="Button" parent="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1224184711]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Save Map"
-
-[node name="Load" type="Button" parent="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=689076928]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Load Map"
-
-[node name="Label" type="Label" parent="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=321760662]
-layout_mode = 2
-text = "Snap Distance (Seconds):"
-
-[node name="OptionButton" type="OptionButton" parent="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=292164829]
+[node name="TimeFrame" type="OptionButton" parent="CanvasLayer/ControlButtons/HboxContainer" unique_id=1655801921]
 layout_mode = 2
 selected = 0
-item_count = 6
-popup/item_0/text = "1/1"
-popup/item_0/id = 1
-popup/item_1/text = "1/2"
-popup/item_1/id = 2
-popup/item_2/text = "1/3"
-popup/item_2/id = 3
-popup/item_3/text = "1/4"
-popup/item_3/id = 4
-popup/item_4/text = "1/6"
-popup/item_4/id = 6
-popup/item_5/text = "1/8"
-popup/item_5/id = 8
+item_count = 4
+popup/item_0/text = "1/5"
+popup/item_0/id = 5
+popup/item_1/text = "1/6"
+popup/item_1/id = 6
+popup/item_2/text = "1/8"
+popup/item_2/id = 8
+popup/item_3/text = "1/20"
+popup/item_3/id = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=587581480]
+[node name="SaveWarning" type="PanelContainer" parent="CanvasLayer" unique_id=1997277172]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 302.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/SaveWarning" unique_id=109523203]
 layout_mode = 2
-size_flags_vertical = 3
 
-[node name="SongName" type="TextEdit" parent="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer" unique_id=282430820]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/SaveWarning/CenterContainer" unique_id=997151408]
 layout_mode = 2
-size_flags_vertical = 3
-text = "NEFFEX - Hate It or Love It"
-placeholder_text = "Song Name"
 
-[node name="FilePath" type="TextEdit" parent="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/VBoxContainer" unique_id=1860289911]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SaveWarning/CenterContainer/PanelContainer" unique_id=486467094]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SaveWarning/CenterContainer/PanelContainer/MarginContainer" unique_id=80425425]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1509648833]
+layout_mode = 2
+text = "The current map is not saved.
+Are you sure you want to exit without saving?"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1150097965]
+layout_mode = 2
+
+[node name="Save" type="Button" parent="CanvasLayer/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2097842705]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-placeholder_text = "Map Name"
+text = "Save"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer" unique_id=139879919]
+[node name="Exit" type="Button" parent="CanvasLayer/SaveWarning/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=879057805]
 layout_mode = 2
-size_flags_vertical = 10
-size_flags_stretch_ratio = 4.49
+size_flags_horizontal = 3
+text = "Exit"
 
-[node name="Label" type="Label" parent="UI/MarginContainer/VBoxContainer/HBoxContainer" unique_id=934091839]
-layout_mode = 2
-size_flags_vertical = 8
-text = "Time: 0"
+[node name="TimeHandler" parent="." unique_id=1403582281 instance=ExtResource("4_7wlcy")]
 
-[node name="PlayButton" type="TextureButton" parent="UI/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1133741790]
-layout_mode = 2
-size_flags_horizontal = 10
-mouse_filter = 1
-mouse_behavior_recursive = 2
-texture_normal = ExtResource("2_7wlcy")
-stretch_mode = 4
-
-[node name="PauseButton" type="TextureButton" parent="UI/MarginContainer/VBoxContainer/HBoxContainer" unique_id=289430693]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 10
-mouse_filter = 1
-mouse_behavior_recursive = 2
-texture_normal = ExtResource("3_wkuwf")
-stretch_mode = 4
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1114025308]
-limit_enabled = false
-
-[node name="Drag Detector" type="Button" parent="Camera2D" unique_id=360671343]
+[node name="DragDetector" type="Button" parent="." unique_id=350895989]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = -578.0
-offset_top = -326.0
-offset_right = 578.0
-offset_bottom = 326.0
-metadata/_edit_use_anchors_ = true
+offset_right = 8.0
+offset_bottom = 8.0
+mouse_filter = 1
+mouse_behavior_recursive = 2
 
-[node name="SongHandler" parent="Camera2D" unique_id=1731543359 instance=ExtResource("3_a7iym")]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1965698737]
+self_modulate = Color(0.012617188, 0.012617188, 0.012617188, 0.39215687)
+position = Vector2(252, 300)
+scale = Vector2(0.035, 24.359375)
+texture = ExtResource("3_a7iym")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=13957113]
-self_modulate = Color(18.892157, 0, 0, 0.36862746)
-position = Vector2(-1262, 356)
-scale = Vector2(19.710938, 20.02344)
-texture = ExtResource("5_wkuwf")
+[node name="Notes" type="Node2D" parent="." unique_id=566472359]
 
-[node name="Notes" type="Node2D" parent="." unique_id=443945100]
+[node name="Deadzone" type="Sprite2D" parent="Notes" unique_id=262492499]
+self_modulate = Color(18.892157, 0, 0, 0.101960786)
+position = Vector2(-27091, 295)
+scale = Vector2(423.29688, 210.01563)
+texture = ExtResource("3_a7iym")
 
-[connection signal="pressed" from="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/Return" to="." method="_on_return_button_pressed"]
-[connection signal="pressed" from="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/Save" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/Load" to="." method="_on_load_pressed"]
-[connection signal="item_selected" from="UI/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="pressed" from="UI/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="UI/MarginContainer/VBoxContainer/HBoxContainer/PauseButton" to="." method="_on_pause_button_pressed"]
-[connection signal="button_down" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_button_down"]
-[connection signal="button_up" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_button_up"]
-[connection signal="gui_input" from="Camera2D/Drag Detector" to="." method="_on_drag_detector_gui_input"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="CanvasLayer/ControlButtons/HboxContainer/Test" to="." method="_on_test_pressed"]
+[connection signal="pressed" from="CanvasLayer/ControlButtons/HboxContainer/Save" to="." method="_on_save_pressed"]
+[connection signal="item_selected" from="CanvasLayer/ControlButtons/HboxContainer/TimeFrame" to="." method="_on_time_frame_item_selected"]
+[connection signal="gui_input" from="DragDetector" to="." method="_on_drag_detector_gui_input"]

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b6ukym804neab"]
+
+[ext_resource type="Texture2D" uid="uid://bodvk0jt3jlkp" path="res://Assets/sprites/PlaceHolderNote.png" id="1_tlecb"]
+
+[node name="GameNote" type="Sprite2D" unique_id=242865111]
+texture = ExtResource("1_tlecb")
