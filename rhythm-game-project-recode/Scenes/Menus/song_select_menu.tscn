@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://fgnbohxmsb5y" path="res://Scenes/Menus/song_select_menu.gd" id="1_35lte"]
 [ext_resource type="PackedScene" uid="uid://bqsmg5a7x3ftu" path="res://Scenes/Objects/change_scene_button.tscn" id="1_83smf"]
-[ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="3_35lte"]
+[ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://Assets/sprites/icon.svg" id="3_35lte"]
 [ext_resource type="PackedScene" uid="uid://00hgn2ri3b6v" path="res://Scenes/Objects/song_button.tscn" id="3_nh4vv"]
 
 [node name="SongSelectMenu" type="Node2D" unique_id=7160056 node_paths=PackedStringArray("SongList", "DifficultyList", "CreateNewSongPopup", "CreateNewDifficultyPopup", "SongDeleteWarning", "DifficultyDeleteWarning")]

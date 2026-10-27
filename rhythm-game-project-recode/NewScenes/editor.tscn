@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://kmf8ikfkhxyk"]
+
+[ext_resource type="Script" uid="uid://dlsb35m8mlc5p" path="res://NewScenes/editor.gd" id="1_6kroa"]
+[ext_resource type="PackedScene" uid="uid://cnerimgrvpox6" path="res://NewScenes/Objects/editor_note.tscn" id="2_aiirf"]
+[ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://Assets/sprites/icon.svg" id="2_cctdn"]
+
+[node name="Editor" type="Node2D" unique_id=2144733076]
+script = ExtResource("1_6kroa")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1031114340]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=27564372]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer" unique_id=1060931095]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer" unique_id=912344881]
+layout_mode = 2
+text = "Back"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1968539279]
+limit_enabled = false
+limit_smoothed = true
+
+[node name="ClickDetector" type="Button" parent="Camera2D" unique_id=1533808279]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3777.0
+offset_top = -2619.0
+offset_right = 3777.0
+offset_bottom = 2619.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Notes" type="Node2D" parent="." unique_id=1687143403]
+
+[node name="EditorNote" parent="Notes" unique_id=24751499 instance=ExtResource("2_aiirf")]
+position = Vector2(120.99999, 4.9999695)
+
+[node name="DeadZone" type="Sprite2D" parent="." unique_id=1014561394]
+self_modulate = Color(18.892157, 0, 0, 0.12156863)
+position = Vector2(-5746, -2)
+scale = Vector2(89.78125, 91.65625)
+texture = ExtResource("2_cctdn")
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="gui_input" from="Camera2D/ClickDetector" to="." method="_on_click_detector_gui_input"]

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cnerimgrvpox6"]
+
+[ext_resource type="Texture2D" uid="uid://bodvk0jt3jlkp" path="res://Assets/sprites/PlaceHolderNote.png" id="1_nrcbs"]
+[ext_resource type="Script" uid="uid://bq3f7arf7c5cq" path="res://NewScenes/Objects/editor_note.gd" id="2_nrcbs"]
+
+[node name="EditorNote" type="Sprite2D" unique_id=24751499]
+self_modulate = Color(0, 1, 1, 1)
+texture = ExtResource("1_nrcbs")
+script = ExtResource("2_nrcbs")
+
+[node name="Tail" type="Sprite2D" parent="." unique_id=1741359002]
+show_behind_parent = true
+position = Vector2(35, 0)
+texture = ExtResource("1_nrcbs")
+
+[node name="TailButton" type="Button" parent="Tail" unique_id=834369458]
+offset_left = -93.0
+offset_top = -93.0
+offset_right = 93.0
+offset_bottom = 93.0
+metadata/_edit_lock_ = true
+
+[node name="Button" type="Button" parent="." unique_id=40026002]
+offset_left = -77.0
+offset_top = -77.0
+offset_right = 77.0
+offset_bottom = 77.0
+metadata/_edit_lock_ = true
+
+[connection signal="gui_input" from="Tail/TailButton" to="." method="_on_tail_button_gui_input"]
+[connection signal="gui_input" from="Button" to="." method="_on_button_gui_input"]

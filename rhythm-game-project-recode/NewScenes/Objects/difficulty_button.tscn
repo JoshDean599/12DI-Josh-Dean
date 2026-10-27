@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cxu7jbcnk4i2v"]
+
+[ext_resource type="Script" uid="uid://ckg5j4fsjcfq1" path="res://NewScenes/Objects/difficulty_button.gd" id="1_d0wrv"]
+
+[node name="DifficultyButton" type="Button" unique_id=527092701]
+script = ExtResource("1_d0wrv")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

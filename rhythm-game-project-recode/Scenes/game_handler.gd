@@ -96,18 +96,16 @@ func create_folder(folderPath: String, folderName: String):
 	return folderName
 
 func create_or_modify_file(filePath: String, fileName: String, fileContents : Dictionary, override : bool):
-	var newFileName = remove_file_name_type(fileName, ".json")
-	if newFileName + ".json" == fileName:
-		fileName = newFileName
 	var dir = DirAccess.open(filePath)
 	if not dir:
 		print("File location: " + filePath + " was unable to be found: Returning")
 		return
-	var extra = 1
-	if dir.file_exists(fileName + ".json") and not override:
-		while dir.file_exists(fileName + str(extra) + ".json"):
-			extra += 1
-		fileName += str(extra)
+	if not override:
+		var extra = 1
+		if dir.file_exists(fileName + ".json") or fileName == "":
+			while dir.file_exists(fileName + str(extra) + ".json"):
+				extra += 1
+			fileName += str(extra)
 	var file = FileAccess.open(dir.get_current_dir() + "/" + fileName + ".json", FileAccess.ModeFlags.WRITE)
 	if file:
 		file.store_string(JSON.stringify(fileContents, "\t"))
@@ -115,3 +113,6 @@ func create_or_modify_file(filePath: String, fileName: String, fileContents : Di
 		print("File: " + fileName +" was unable to be created or modified: Returning")
 		return
 	return fileName
+
+func load_texture(texturePath) -> ImageTexture:
+	return ImageTexture.create_from_image(Image.load_from_file(texturePath))

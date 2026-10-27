@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var SongSelectMenu = get_parent().get_node("SongSelectMenu")
 
-
 #Import nodes
 @export var notes : Node2D
 # Base Editor Variables
@@ -33,11 +32,12 @@ func _on_visibility_changed() -> void:
 			$TimeHandler.pause()
 		# Reset the notes position to the default
 		notes.position = Vector2(noteClampMin, 0)
+		load_map(SongSelectMenu.SelectedSongButton.text, SongSelectMenu.SelectedDifficultyButton.text)
 
 func load_map(mapName, mapDifficulty) -> void:
 	# Clear all notes from the tree
 	for note in notes.get_children():
-		if note.name == "Deadzone": continue # Skip the deadzone as it's not a note
+		if note.name == "Deadzone" or note.name == "background": continue # Skip the deadzone as it's not a note
 		note.free()
 	
 	var LoadedMap = get_parent().load_json(get_parent().SongMapDirPath + "/" + mapName + "/Difficulties/" + mapDifficulty + ".json")

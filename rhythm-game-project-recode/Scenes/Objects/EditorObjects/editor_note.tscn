@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://b7veyi3o55v2y"]
 
 [ext_resource type="Script" uid="uid://5ss7w24udi8l" path="res://Scenes/Objects/EditorObjects/editor_note.gd" id="1_mygmu"]
-[ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="2_gkeuy"]
-[ext_resource type="Texture2D" uid="uid://cgipqhykqiqq1" path="res://New Piskel.png" id="3_448ko"]
+[ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://Assets/sprites/icon.svg" id="2_gkeuy"]
+[ext_resource type="Texture2D" path="res://New Piskel.png" id="3_448ko"]
 
 [node name="EditorNote" type="Node2D" unique_id=1214834050]
 script = ExtResource("1_mygmu")

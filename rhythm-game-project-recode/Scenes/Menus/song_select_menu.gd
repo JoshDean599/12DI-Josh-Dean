@@ -23,8 +23,6 @@ func _on_visibility_changed() -> void:
 
 func refresh_from_file(loadPath: String, destination: Container, songButton: bool) -> void:
 	for child in destination.get_children():
-		if child.name == "Options" or child.text == "+" or child.text == "-":
-			continue
 		child.free()
 	var loaded = get_parent().get_file_list(loadPath)
 	if len(loaded) == 0: # If there is no items to load:
@@ -59,18 +57,16 @@ func refresh_song_list() -> void:
 	refresh_from_file(get_parent().SongMapDirPath, SongList, true)
 	
 	refresh_difficulty_list()
-	
-	
 
 func refresh_difficulty_list() -> void:
 	if not SelectedSongButton:
+		for child in DifficultyList.get_children():
+			child.free()
 		return
 	refresh_from_file.call_deferred(get_parent().SongMapDirPath + "/" + SelectedSongButton.text + "/Difficulties", DifficultyList, false)
 	
 	var SongName = $CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer/SongName
 	SongName.text = get_parent().load_json(get_parent().SongMapDirPath + "/" + SelectedSongButton.text + "/properties.json").song
-
-
 
 func _on_open_map_folder_pressed() -> void:
 	OS.shell_open(get_parent().SongMapDirPath)
@@ -107,7 +103,7 @@ func _on_create_map_pressed() -> void:
 	mapName = get_parent().create_folder(get_parent().SongMapDirPath, mapName)
 	get_parent().create_folder(get_parent().SongMapDirPath + "/" + mapName, "Difficulties")
 	get_parent().create_or_modify_file(get_parent().SongMapDirPath + "/" + mapName, "Properties", {
-		song = optionButton.get_item_text(optionButton.get_item_index(optionButton.get_selected_id()))
+		song = optionButton.get_item_text(optionButton.get_item_index(optionButton.get_selected_id())),
 	}, false)
 	
 	SelectedSongButton = mapName
@@ -115,11 +111,12 @@ func _on_create_map_pressed() -> void:
 	CreateNewSongPopup.visible = false
 
 func _on_create_difficulty_pressed() -> void:
-	var difficultyName = $CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer/LineEdit.text
-	if not SelectedSongButton or len(difficultyName) == 0:
+	if not SelectedSongButton:
 		return
+	var difficultyName = $CanvasLayer/CreateNewDifficulty/PanelContainer/MarginContainer/VBoxContainer/LineEdit.text
 	get_parent().create_or_modify_file(get_parent().SongMapDirPath + "/" + SelectedSongButton.text + "/Difficulties", difficultyName, {
-		Notes = []
+		Notes = [],
+		bufferTime = 0.0
 	}, false)
 	refresh_difficulty_list()
 	CreateNewDifficultyPopup.visible = false
@@ -141,6 +138,7 @@ func _on_song_delete_button_pressed() -> void:
 		return
 	OS.move_to_trash(ProjectSettings.globalize_path(get_tree().current_scene.SongMapDirPath + "/" + SelectedSongButton.text))
 	refresh_song_list()
+	print(SelectedSongButton)
 	SongDeleteWarning.visible = false
 
 func _on_difficulty_delete_button_pressed() -> void:

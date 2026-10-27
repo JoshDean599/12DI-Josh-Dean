@@ -1,0 +1,217 @@
+[gd_scene format=3 uid="uid://euej418r8g2n"]
+
+[ext_resource type="Script" uid="uid://dnw4l8up51vor" path="res://NewScenes/song_select.gd" id="1_l8c7x"]
+[ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://icon.svg" id="3_4yhpp"]
+
+[node name="SongSelect" type="Node2D" unique_id=974603480]
+script = ExtResource("1_l8c7x")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1714515217]
+
+[node name="SongSelect" type="PanelContainer" parent="CanvasLayer" unique_id=1550977467]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SongSelect" unique_id=1707976990]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer" unique_id=1436916128]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer" unique_id=971045876]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer" unique_id=1263908840]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer" unique_id=1310162387]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1657035880]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=97515021]
+layout_mode = 2
+text = "Back"
+
+[node name="OpenMapFolder" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1850459558]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Open Folder"
+
+[node name="SongList" type="PanelContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=220666111]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList" unique_id=2019405391]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer" unique_id=193369547]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer" unique_id=378423229]
+layout_mode = 2
+
+[node name="SongList" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer" unique_id=271937420]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+
+[node name="AddRemoveSong" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer" unique_id=980286070]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer/AddRemoveSong" unique_id=285406018]
+layout_mode = 2
+size_flags_vertical = 10
+text = "+"
+
+[node name="DeleteMap" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/SongList/ScrollContainer/MarginContainer/VBoxContainer/AddRemoveSong" unique_id=940719281]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+text = "-"
+
+[node name="SongDetails" type="PanelContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer" unique_id=783330063]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails" unique_id=1136803533]
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer" unique_id=464190377]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Control" type="Control" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer" unique_id=1523219818]
+layout_mode = 2
+
+[node name="Map Icon" type="TextureRect" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer/Control" unique_id=573125862]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.08726646
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("3_4yhpp")
+stretch_mode = 5
+
+[node name="SongName" type="Label" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer" unique_id=1847942933]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Song Name:"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer" unique_id=341704442]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2" unique_id=337827397]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer" unique_id=1104833758]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer" unique_id=1977787248]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer" unique_id=671270660]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=42899499]
+layout_mode = 2
+text = "Select Difficulty:"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1469270759]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1697109584]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 4
+vertical_scroll_mode = 0
+
+[node name="DifficultyList" type="HBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer" unique_id=1267352157]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/DifficultyList" unique_id=1797406808]
+layout_mode = 2
+size_flags_vertical = 4
+text = "..."
+
+[node name="AddRemoveDifficulty" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1110737422]
+layout_mode = 2
+
+[node name="CreateDifficulty" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/AddRemoveDifficulty" unique_id=727918669]
+layout_mode = 2
+size_flags_vertical = 3
+text = "+"
+
+[node name="DeleteDifficulty" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/AddRemoveDifficulty" unique_id=1352726835]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+size_flags_vertical = 3
+text = "-"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer" unique_id=1526367161]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2" unique_id=365086915]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2/VBoxContainer" unique_id=765019649]
+layout_mode = 2
+text = "Play"
+
+[node name="Edit" type="Button" parent="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/SongDetails/VBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer2/VBoxContainer" unique_id=1783886919]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Edit"
+
+[connection signal="pressed" from="CanvasLayer/SongSelect/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
