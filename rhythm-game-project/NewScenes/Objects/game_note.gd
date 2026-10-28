@@ -3,25 +3,45 @@ extends Sprite2D
 @onready var game = get_parent().get_parent()
 
 var settings = {}
-var active = false
+var hitOnRelease = false
+var holding = false
 
 func _ready() -> void:
-	position = Vector2(settings.time * game.noteSpeed, settings.offset)
+	position = Vector2((game.time - settings.time) * game.noteSpeed, settings.offset)
 	$Tail.position = Vector2(settings.tailTime * game.noteSpeed, settings.tailOffset)
+	
+	game.pressedKey.connect(onKeyPressed)
+	game.releasedKey.connect(onKeyReleased)
+	game.stoppedHolding.connect(onStopHolding)
 
 func _process(_delta: float) -> void:
+	position.x = -(game.time - settings.time) * game.noteSpeed
 	
-	if active:
-		if game.holding:
-			self_modulate = Color(0.321, 0.819, 0.0, 1.0)
-			if game.time >= settings.time + settings.tailTime:
-				free_note()
-			pass
-		else:
-			free_note()
-	elif game.time >= settings.time:
+	if not holding and game.time >= settings.time + GameData.Scores.Miss.min:
+		missed_note()
+
+func hit_note():
+	if settings.time - GameData.Scores.Bad.min < game.time and game.time < settings.time + GameData.Scores.Bad.max:
+		print("Success")
 		free_note()
+	elif settings.time - GameData.Scores.Miss.min < game.time and game.time < settings.time + GameData.Scores.Miss.max:
+		missed_note()
+
+func missed_note():
+	print("Missed")
+	free_note()
 
 func free_note():
 	game.noteQueue.pop_at(game.noteQueue.find(self))
 	queue_free()
+
+func onKeyPressed():
+	holding = true
+	hit_note()
+
+func onKeyReleased():
+	if hitOnRelease:
+		hit_note()
+
+func onStopHolding():
+	holding = false

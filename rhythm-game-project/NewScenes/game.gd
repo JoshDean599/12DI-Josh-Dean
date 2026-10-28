@@ -3,11 +3,14 @@ extends Node2D
 @onready var HitMarker = $HitMarker
 @onready var note = preload("res://NewScenes/Objects/game_note.tscn")
 
+signal pressedKey
+signal releasedKey
+signal stoppedHolding
+
 var paused = false
 var loadedMap = null
 var noteQueue = []
 var heldKeys = []
-var holding = false
 var foundNextNoteIndex = -1
 var noteSpeed = 700 # Maybe change it so each note has it's own speed?
 
@@ -24,6 +27,7 @@ func stop():
 
 func finish():
 	stop()
+	await get_tree().create_timer(1.0).timeout
 	get_tree().change_scene_to_file("res://NewScenes/song_select.tscn")
 
 func set_time(newTime: float):
@@ -32,13 +36,11 @@ func set_time(newTime: float):
 func _process(delta: float) -> void:
 	if paused or loadedMap == null:
 		return
-	time += delta
-	
-	$Notes.position.x = -noteSpeed * time
+	time += delta # Update the time
 	
 	if loadedMap.Notes.size() > 0:
-		check_note()
-	elif noteQueue.size() == 0 and $Notes.get_children().size() == 0:
+		check_note() # Check for the notes to spawn in
+	elif not noteQueue.size() and $Notes.get_children().size() == 0:
 			# Song Ended
 			finish()
 
@@ -64,22 +66,18 @@ func create_note(noteSettings: Dictionary):
 	# Add the note to the end of the note queue
 	noteQueue.push_back(noteInstance)
 
-# Handler Note presses
+# Handle Note presses
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_echo() and event is InputEventKey:
 		if event.is_pressed():
+			pressedKey.emit()
 			if heldKeys.find(event.keycode) == -1: # If the key press isn't found to be already pressing:
 				heldKeys.push_back(event.keycode) # Add it to the list of pressed keys
-			
-			if noteQueue.size() > 0 and noteQueue.front().settings.time < time + GameData.Scores.Miss.max:
-				print(noteQueue.front())
-				noteQueue.pop_front().active = true
 		elif event.is_released():
+			releasedKey.emit()
 			if heldKeys.find(event.keycode) >= 0:
 				heldKeys.pop_at(heldKeys.find(event.keycode))
 		
 		# Update holding:
 		if heldKeys.size():
-			holding = true
-		else:
-			holding = false
+			stoppedHolding.emit()
