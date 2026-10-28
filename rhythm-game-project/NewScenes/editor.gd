@@ -30,7 +30,7 @@ func _on_click_detector_gui_input(event: InputEvent) -> void:
 			else:
 				dragging = false
 				#Create a new note if the click time was short enough and the mouse didn't move too far
-				if clickPosition.distance_to(get_global_mouse_position() - $Camera2D.position) < 20.0 and Time.get_ticks_msec() / 1000.0 - clickTime < 0.25:
+				if clickPosition.distance_to(get_local_mouse_position()) < 20.0 and Time.get_ticks_msec() / 1000.0 - clickTime < 0.25:
 					create_note(
 						clickPosition.x / viewSpeed, # Time
 						clickPosition.y, # Offset
@@ -48,12 +48,13 @@ func create_note(time, offset, tailTime, tailOffset):
 	var newNote = EditorNote.instantiate()
 	$Notes.add_child(newNote)
 	
+	if time < 0:
+		time = 0
 	newNote.noteTime = time
 	newNote.noteOffset = offset
 	newNote.tailTime = tailTime
 	newNote.tailOffset = tailOffset
 	newNote.update_position()
-	pass
 
 func load_map() -> void:
 	# Clear all notes from the tree

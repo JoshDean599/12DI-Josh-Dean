@@ -1,6 +1,13 @@
 [gd_scene format=3 uid="uid://b6ukym804neab"]
 
 [ext_resource type="Texture2D" uid="uid://bodvk0jt3jlkp" path="res://Assets/sprites/PlaceHolderNote.png" id="1_tlecb"]
+[ext_resource type="Script" uid="uid://dsh3cd661g1s7" path="res://NewScenes/Objects/game_note.gd" id="2_gxv4i"]
 
 [node name="GameNote" type="Sprite2D" unique_id=242865111]
+texture = ExtResource("1_tlecb")
+script = ExtResource("2_gxv4i")
+
+[node name="Tail" type="Sprite2D" parent="." unique_id=371864194]
+self_modulate = Color(1, 0.4, 0.23529412, 1)
+show_behind_parent = true
 texture = ExtResource("1_tlecb")
