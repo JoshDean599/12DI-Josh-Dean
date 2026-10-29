@@ -68,10 +68,10 @@ func load_map() -> void:
 	# Create each note
 	for i in LoadedMap.Notes:
 		create_note(
-			i.time,
-			i.offset,
-			i.tailTime,
-			i.tailOffset
+			i.StartTime,
+			i.StartOffset,
+			i.EndTime,
+			i.EndOffset
 		)
 
 func save_map() -> void:
@@ -86,10 +86,10 @@ func save_map() -> void:
 			firstNote = i
 		saveData.Notes.push_back(
 			{
-				time = i.noteTime,
-				offset = i.noteOffset,
-				tailTime = i.tailTime,
-				tailOffset = i.tailOffset
+				StartTime = i.noteTime,
+				StartOffset = i.noteOffset,
+				EndTime = i.tailTime,
+				EndOffset = i.tailOffset
 			}
 		)
 	if not firstNote: # If there isn't any notes within the scene, return

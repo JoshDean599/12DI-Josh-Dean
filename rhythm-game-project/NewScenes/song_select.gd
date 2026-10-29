@@ -83,7 +83,7 @@ func _on_create_map_pressed() -> void:
 	var mapName = FileHandler.create_folder(FileHandler.SongFolderPath + "/" +
 		$CanvasLayer/CreateNewMap/PanelContainer/MarginContainer/VBoxContainer/LineEdit.text)
 	FileHandler.create_folder(mapName[0] + "/" + mapName[1] + "/" + "Difficulties")
-	FileHandler.create_file(mapName[0] + "/" + mapName[1] + "/Properties", {
+	FileHandler.create_file(mapName[0] + "/" + mapName[1] + "/Properties.json", {
 		song = SongList.get_item_text(SongList.get_item_index(SongList.get_selected_id())),
 	})
 	$CanvasLayer/CreateNewMap.visible = false

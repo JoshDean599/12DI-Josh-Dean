@@ -2,46 +2,77 @@ extends Sprite2D
 
 @onready var game = get_parent().get_parent()
 
-var settings = {}
 var hitOnRelease = false
-var holding = false
+var active = false # If it's been hit
+var StartTime = 0
+var StartOffset = 0
+var EndTime = 0
+var EndOffset = 0
+
+func set_times(settings : Dictionary) -> void:
+	StartTime = settings.StartTime
+	StartOffset = settings.StartOffset
+	EndTime = settings.EndTime
+	EndOffset = settings.EndOffset
 
 func _ready() -> void:
-	position = Vector2((game.time - settings.time) * game.noteSpeed, settings.offset)
-	$Tail.position = Vector2(settings.tailTime * game.noteSpeed, settings.tailOffset)
+	position = Vector2((game.time - StartTime) * game.noteSpeed, StartOffset)
+	$Tail.position = Vector2(EndTime * game.noteSpeed, EndOffset)
 	
-	game.pressedKey.connect(onKeyPressed)
 	game.releasedKey.connect(onKeyReleased)
-	game.stoppedHolding.connect(onStopHolding)
 
 func _process(_delta: float) -> void:
-	position.x = -(game.time - settings.time) * game.noteSpeed
+	position.x = -(game.time - StartTime) * game.noteSpeed
 	
-	if not holding and game.time >= settings.time + GameData.Scores.Miss.min:
-		missed_note()
-
-func hit_note():
-	if settings.time - GameData.Scores.Bad.min < game.time and game.time < settings.time + GameData.Scores.Bad.max:
-		print("Success")
+	if active and StartTime + EndTime <= game.time:
+		clear_note()
+		active = false
+	
+	if game.time > StartTime + EndTime + 2: # +2 Seconds
 		free_note()
-	elif settings.time - GameData.Scores.Miss.min < game.time and game.time < settings.time + GameData.Scores.Miss.max:
+
+func check_hit():
+	if StartTime - GameData.Scores.Bad.min <= game.time and ( # Check that it's within range
+		game.time) <= StartTime + GameData.Scores.Bad.max:
+		print("Hit Note")
+		modulate = Color(0.0, 1.0, 0.0, 0.243)
+		if EndTime == 0: # If it's a tap note, clear it instantly
+			clear_note()
+		else: # If it's a hold note, set it to active
+			active = true
+	else:
 		missed_note()
 
 func missed_note():
-	print("Missed")
+	print("Missed Note")
+	modulate = Color(1.0, 1.0, 1.0, 0.243)
+	await get_tree().create_timer(2).timeout
+	free_note()
+
+func clear_note():
+	var score = "bad"
+	for i in GameData.Scores:
+		if game.time - (StartTime + EndTime) > -GameData.Scores[i].min and (
+			game.time - (StartTime + EndTime)) < GameData.Scores[i].max:
+			score = i
+			break
+	print("Cleared Note With The Score: ", score)
+	await get_tree().create_timer(2).timeout
 	free_note()
 
 func free_note():
-	game.noteQueue.pop_at(game.noteQueue.find(self))
+	if game.noteQueue.size() > 0:
+		game.noteQueue.pop_at(game.noteQueue.find(self))
 	queue_free()
 
-func onKeyPressed():
-	holding = true
-	hit_note()
-
 func onKeyReleased():
+	if active:
+		if StartTime + EndTime - GameData.Scores.Bad.min <= game.time and ( #Check that it's within range
+			game.time) <= StartTime + EndTime + GameData.Scores.Bad.max:
+			clear_note()
+		else:
+			missed_note()
+		active = false
+	
 	if hitOnRelease:
-		hit_note()
-
-func onStopHolding():
-	holding = false
+		clear_note()

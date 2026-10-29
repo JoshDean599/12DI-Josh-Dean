@@ -12,6 +12,11 @@ var clickTime = 0
 func update_position():
 	position.x = noteTime * get_parent().get_parent().viewSpeed
 	position.y = noteOffset
+	# Rearrange notes within the Notes Node:
+	while get_index() > 0 and position.x < get_parent().get_child(get_index() - 1).position.x:
+		get_parent().move_child(self, get_index() - 1)
+	while get_index() < get_parent().get_child_count() - 1 and position.x > get_parent().get_child(get_index() + 1).position.x:
+		get_parent().move_child(self, get_index() + 1)
 	
 	$Tail.position.x = tailTime * get_parent().get_parent().viewSpeed
 	$Tail.position.y = tailOffset
