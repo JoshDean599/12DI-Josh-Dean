@@ -9,7 +9,6 @@ var paused = false
 var loadedMap = null
 var noteQueue = []
 var heldKeys = []
-var holding = false
 var noteSpeed = 700 # Maybe change it so each note has it's own speed?
 
 var time = -2 # How long the song has played for
@@ -46,6 +45,7 @@ func _process(delta: float) -> void:
 func create_note(noteSettings: Dictionary):
 	var noteInstance = note.instantiate()
 	noteInstance.set_times(noteSettings)
+	noteInstance.visible = false
 	$Notes.call_deferred("add_child", noteInstance)
 	
 	# Add the note to the end of the note queue
@@ -64,9 +64,3 @@ func _unhandled_input(event: InputEvent) -> void:
 			releasedKey.emit()
 			if heldKeys.find(event.keycode) >= 0:
 				heldKeys.pop_at(heldKeys.find(event.keycode))
-		
-		# Update holding:
-		if heldKeys.size():
-			holding = true
-		else:
-			holding = false
