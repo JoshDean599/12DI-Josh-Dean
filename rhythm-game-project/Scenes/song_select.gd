@@ -3,14 +3,14 @@ extends Node2D
 @export var MapList: VBoxContainer
 @export var DifficultyList: HBoxContainer
 @onready var SongList = $CanvasLayer/CreateNewMap/PanelContainer/MarginContainer/VBoxContainer/OptionButton
-@onready var MapButton = preload("res://NewScenes/Objects/map_button.tscn")
-@onready var DifficultyButton = preload("res://NewScenes/Objects/difficulty_button.tscn")
+@onready var MapButton = preload("res://Scenes/Objects/map_button.tscn")
+@onready var DifficultyButton = preload("res://Scenes/Objects/difficulty_button.tscn")
 
 var selectedMapButton = null
 var selectedDifficultyButton = null
 
 func _on_back_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://NewScenes/main_menu.tscn")
+	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 
 func _on_open_map_folder_pressed() -> void:
 	OS.shell_open(FileHandler.SongFolderPath)
@@ -27,6 +27,10 @@ func _ready() -> void:
 func refresh_file_list():
 	for i in MapList.get_children(): # Clear the list if there is anything in it
 		i.free()
+	#for i in FileHandler.get_files_in_path("res://Assets/Maps/"): # -- Built in maps...
+	#	var newButton = MapButton.instantiate()
+	#	newButton.text = i
+	#	MapList.add_child(newButton)
 	for i in FileHandler.get_files_in_path(FileHandler.SongFolderPath):
 		var newButton = MapButton.instantiate()
 		newButton.text = i
@@ -61,7 +65,7 @@ func refresh_difficulty_list():
 		GameData.SelectedDifficulty = selectedDifficultyButton.text
 
 func on_map_button_press(button):
-	if selectedMapButton:
+	if selectedMapButton != button:
 		selectedMapButton.clear_colour()
 	selectedMapButton = button
 	GameData.SelectedMap = button.text
@@ -69,7 +73,7 @@ func on_map_button_press(button):
 	print(button.text, " Pressed")
 
 func on_difficulty_button_press(button):
-	if selectedDifficultyButton:
+	if selectedDifficultyButton != button:
 		selectedDifficultyButton.clear_colour()
 	selectedDifficultyButton = button
 	GameData.SelectedDifficulty = button.text
@@ -109,6 +113,7 @@ func _on_map_delete_button_pressed() -> void:
 	OS.move_to_trash(ProjectSettings.globalize_path(FileHandler.SongFolderPath + "/" + GameData.SelectedMap))
 	GameData.SelectedMap = null
 	refresh_file_list()
+	refresh_difficulty_list()
 	$CanvasLayer/MapDeleteWarning.visible = false
 
 func _on_cancel_create_map_pressed() -> void:
@@ -160,9 +165,9 @@ func _on_difficulty_delete_button_pressed() -> void:
 func _on_edit_pressed() -> void:
 	if not GameData.SelectedMap or not GameData.SelectedDifficulty:
 		return
-	get_tree().change_scene_to_file("res://NewScenes/editor.tscn")
+	get_tree().change_scene_to_file("res://Scenes/editor.tscn")
 
 func _on_play_pressed() -> void:
 	if not GameData.SelectedMap or not GameData.SelectedDifficulty:
 		return
-	get_tree().change_scene_to_file("res://NewScenes/game.tscn")
+	get_tree().change_scene_to_file("res://Scenes/game.tscn")

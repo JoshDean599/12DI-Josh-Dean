@@ -18,6 +18,7 @@ func set_times(settings : Dictionary) -> void:
 func _ready() -> void:
 	position = Vector2(-(game.time - StartTime) * game.noteSpeed, StartOffset)
 	$Tail.position = Vector2(EndTime * game.noteSpeed, EndOffset)
+	$Line2D.points[1] = $Tail.position
 
 func _process(_delta: float) -> void:
 	if game.paused:

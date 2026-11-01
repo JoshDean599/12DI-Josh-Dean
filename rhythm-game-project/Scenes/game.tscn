@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b0ol2fjena51o"]
 
-[ext_resource type="Script" uid="uid://co62mj3cuxnd2" path="res://NewScenes/game.gd" id="1_6yc0q"]
+[ext_resource type="Script" uid="uid://co62mj3cuxnd2" path="res://Scenes/game.gd" id="1_6yc0q"]
 [ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://Assets/sprites/icon.svg" id="2_017uv"]
 
 [node name="Game" type="Node2D" unique_id=1094678189]

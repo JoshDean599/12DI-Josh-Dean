@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://euej418r8g2n"]
 
-[ext_resource type="Script" uid="uid://dnw4l8up51vor" path="res://NewScenes/song_select.gd" id="1_l8c7x"]
+[ext_resource type="Script" uid="uid://dnw4l8up51vor" path="res://Scenes/song_select.gd" id="1_l8c7x"]
 [ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://Assets/sprites/icon.svg" id="3_4yhpp"]
 
 [node name="SongSelect" type="Node2D" unique_id=974603480 node_paths=PackedStringArray("MapList", "DifficultyList")]

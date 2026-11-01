@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var HitMarker = $HitMarker
-@onready var note = preload("res://NewScenes/Objects/game_note.tscn")
+@onready var note = preload("res://Scenes/Objects/game_note.tscn")
 
 var paused = false
 var loadedMap = null
@@ -12,13 +12,17 @@ var heldKeys = []
 
 var currentScore = 0
 
-var noteSpeed = 1000 # Maybe change it so each note has it's own speed?
+var noteSpeed = 500 # Maybe change it so each note has it's own speed?
 
 var time = -2 # How long the song has played for
 
 func _ready() -> void:
 	loadedMap = FileHandler.get_map(GameData.SelectedMap, GameData.SelectedDifficulty)
 	$CanvasLayer/PauseMenu.visible = false
+	time = -2 + loadedMap.bufferTime
+	if time > 0:
+		time = 0
+	noteSpeed = GameData.NoteSpeed
 
 func start():
 	paused = false
@@ -31,7 +35,7 @@ func stop():
 func finish():
 	paused = true
 	await get_tree().create_timer(1.0).timeout
-	get_tree().change_scene_to_file("res://NewScenes/song_select.tscn")
+	get_tree().change_scene_to_file("res://Scenes/song_select.tscn")
 
 func set_time(newTime: float):
 	time = newTime
@@ -87,4 +91,4 @@ func _on_continue_button_pressed() -> void:
 	start()
 
 func _on_return_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://NewScenes/song_select.tscn")
+	get_tree().change_scene_to_file("res://Scenes/song_select.tscn")

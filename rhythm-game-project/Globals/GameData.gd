@@ -2,6 +2,7 @@ extends Node
 
 var SelectedMap = ""
 var SelectedDifficulty = ""
+var NoteSpeed = 100
 
 var Scores = {
 	Perfect = {

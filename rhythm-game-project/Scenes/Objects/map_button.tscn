@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bikwp8thlrw4"]
 
-[ext_resource type="Script" uid="uid://bcu6fy0os6h4b" path="res://NewScenes/Objects/map_button.gd" id="1_gewtv"]
+[ext_resource type="Script" uid="uid://bcu6fy0os6h4b" path="res://Scenes/Objects/map_button.gd" id="1_gewtv"]
 
 [node name="MapButton" type="Button" unique_id=571025122]
 script = ExtResource("1_gewtv")

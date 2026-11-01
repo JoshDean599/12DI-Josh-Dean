@@ -1,7 +1,7 @@
 extends Node2D
 # Can probably be cleaned up. :/ But it works
 
-@onready var EditorNote = preload("res://NewScenes/Objects/editor_note.tscn")
+@onready var EditorNote = preload("res://Scenes/Objects/editor_note.tscn")
 
 # Click detector variables:
 var dragging = false
@@ -9,14 +9,15 @@ var clickPosition = Vector2.ZERO
 var clickTime = 0
 
 # The distance equal to 1 second in the editor
-var viewSpeed = 250
+var viewSpeed = 500
 
 func _ready() -> void:
 	load_map()
+	viewSpeed = GameData.NoteSpeed
 
 func _on_back_button_pressed() -> void:
 	save_map()
-	get_tree().change_scene_to_file("res://NewScenes/song_select.tscn")
+	get_tree().change_scene_to_file("res://Scenes/song_select.tscn")
 
 
 func _on_click_detector_gui_input(event: InputEvent) -> void:
