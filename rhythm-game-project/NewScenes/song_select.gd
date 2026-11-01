@@ -3,10 +3,11 @@ extends Node2D
 @export var MapList: VBoxContainer
 @export var DifficultyList: HBoxContainer
 @onready var SongList = $CanvasLayer/CreateNewMap/PanelContainer/MarginContainer/VBoxContainer/OptionButton
-# -- Loads in @ready:
-var MapButton = null
-var DifficultyButton = null
-# --
+@onready var MapButton = preload("res://NewScenes/Objects/map_button.tscn")
+@onready var DifficultyButton = preload("res://NewScenes/Objects/difficulty_button.tscn")
+
+var selectedMapButton = null
+var selectedDifficultyButton = null
 
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://NewScenes/main_menu.tscn")
@@ -21,8 +22,6 @@ func _ready() -> void:
 	$CanvasLayer/CreateNewDifficulty.visible = false
 	$CanvasLayer/MapDeleteWarning.visible = false
 	$CanvasLayer/DifficultyDeleteWarning.visible = false
-	MapButton = load("res://NewScenes/Objects/map_button.tscn")
-	DifficultyButton = load("res://NewScenes/Objects/difficulty_button.tscn")
 	refresh_file_list()
 
 func refresh_file_list():
@@ -33,8 +32,16 @@ func refresh_file_list():
 		newButton.text = i
 		MapList.add_child(newButton)
 	if len(MapList.get_children()) > 0:
-		if not GameData.SelectedMap:
-			GameData.SelectedMap = MapList.get_child(0).text
+		if GameData.SelectedMap:
+			for i in MapList.get_children():
+				if i.text == GameData.SelectedMap:
+					selectedMapButton = i
+					selectedMapButton.modulate = Color.PURPLE
+		else:
+			selectedMapButton = MapList.get_child(0)
+			selectedMapButton.modulate = Color.PURPLE
+			GameData.SelectedMap = selectedMapButton.text
+			
 		refresh_difficulty_list()
 
 func refresh_difficulty_list():
@@ -49,19 +56,24 @@ func refresh_difficulty_list():
 		newButton.text = FileHandler.remove_type(i, ".json")
 		DifficultyList.add_child(newButton)
 	if len(DifficultyList.get_children()) > 0:
-		GameData.SelectedDifficulty = DifficultyList.get_child(0).text
-	pass
+		selectedDifficultyButton = DifficultyList.get_child(0)
+		selectedDifficultyButton.modulate = Color.PURPLE
+		GameData.SelectedDifficulty = selectedDifficultyButton.text
 
 func on_map_button_press(button):
+	if selectedMapButton:
+		selectedMapButton.clear_colour()
+	selectedMapButton = button
 	GameData.SelectedMap = button.text
 	refresh_difficulty_list()
 	print(button.text, " Pressed")
-	pass
 
 func on_difficulty_button_press(button):
+	if selectedDifficultyButton:
+		selectedDifficultyButton.clear_colour()
+	selectedDifficultyButton = button
 	GameData.SelectedDifficulty = button.text
 	print(button.text, " Pressed")
-	pass
 
 # Create New Map:
 func add_to_option_button_list_from_path(path: String):

@@ -8,12 +8,18 @@ self_modulate = Color(0, 1, 1, 1)
 texture = ExtResource("1_nrcbs")
 script = ExtResource("2_nrcbs")
 
+[node name="Line2D" type="Line2D" parent="." unique_id=612579067]
+modulate = Color(1, 1, 0, 1)
+show_behind_parent = true
+points = PackedVector2Array(-1, -1, 226, 42)
+
 [node name="Tail" type="Sprite2D" parent="." unique_id=1741359002]
 show_behind_parent = true
-position = Vector2(35, 0)
+position = Vector2(234, 45)
 texture = ExtResource("1_nrcbs")
 
 [node name="TailButton" type="Button" parent="Tail" unique_id=834369458]
+self_modulate = Color(1, 1, 1, 0)
 offset_left = -93.0
 offset_top = -93.0
 offset_right = 93.0
@@ -21,6 +27,8 @@ offset_bottom = 93.0
 metadata/_edit_lock_ = true
 
 [node name="Button" type="Button" parent="." unique_id=40026002]
+self_modulate = Color(1, 1, 1, 0)
+show_behind_parent = true
 offset_left = -77.0
 offset_top = -77.0
 offset_right = 77.0
@@ -28,4 +36,8 @@ offset_bottom = 77.0
 metadata/_edit_lock_ = true
 
 [connection signal="gui_input" from="Tail/TailButton" to="." method="_on_tail_button_gui_input"]
+[connection signal="mouse_entered" from="Tail/TailButton" to="." method="_on_tail_button_mouse_entered"]
+[connection signal="mouse_exited" from="Tail/TailButton" to="." method="_on_tail_button_mouse_exited"]
 [connection signal="gui_input" from="Button" to="." method="_on_button_gui_input"]
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]

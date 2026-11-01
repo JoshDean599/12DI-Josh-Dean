@@ -20,6 +20,7 @@ func update_position():
 	
 	$Tail.position.x = tailTime * get_parent().get_parent().viewSpeed
 	$Tail.position.y = tailOffset
+	$Line2D.points[1] = $Tail.position
 
 func _on_button_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -44,6 +45,14 @@ func _on_button_gui_input(event: InputEvent) -> void:
 		noteOffset = get_global_mouse_position().y - clickPosition.y
 		update_position()
 
+func _on_button_mouse_entered() -> void:
+	scale = Vector2(1.05, 1.05)
+	$Tail.scale = Vector2(1.05, 1.05)
+
+func _on_button_mouse_exited() -> void:
+	scale = Vector2(1, 1)
+	$Tail.scale = Vector2(1, 1)
+
 func _on_tail_button_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == 1: # Left Click
@@ -59,3 +68,9 @@ func _on_tail_button_gui_input(event: InputEvent) -> void:
 			tailTime = 0
 		tailOffset = get_global_mouse_position().y - clickPosition.y
 		update_position()
+
+func _on_tail_button_mouse_entered() -> void:
+	$Tail.scale = Vector2(1.05, 1.05)
+
+func _on_tail_button_mouse_exited() -> void:
+	$Tail.scale = Vector2(1, 1)

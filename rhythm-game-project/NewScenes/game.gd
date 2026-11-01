@@ -3,27 +3,33 @@ extends Node2D
 @onready var HitMarker = $HitMarker
 @onready var note = preload("res://NewScenes/Objects/game_note.tscn")
 
-signal releasedKey
-
 var paused = false
 var loadedMap = null
 var noteQueue = []
+var holdNoteQueue = []
+var releaseNoteQueue = [] # Inactive for now
 var heldKeys = []
-var noteSpeed = 700 # Maybe change it so each note has it's own speed?
+
+var currentScore = 0
+
+var noteSpeed = 1000 # Maybe change it so each note has it's own speed?
 
 var time = -2 # How long the song has played for
 
 func _ready() -> void:
 	loadedMap = FileHandler.get_map(GameData.SelectedMap, GameData.SelectedDifficulty)
+	$CanvasLayer/PauseMenu.visible = false
 
 func start():
 	paused = false
+	$CanvasLayer/PauseMenu.visible = false
 
 func stop():
 	paused = true
+	$CanvasLayer/PauseMenu.visible = true
 
 func finish():
-	stop()
+	paused = true
 	await get_tree().create_timer(1.0).timeout
 	get_tree().change_scene_to_file("res://NewScenes/song_select.tscn")
 
@@ -45,7 +51,6 @@ func _process(delta: float) -> void:
 func create_note(noteSettings: Dictionary):
 	var noteInstance = note.instantiate()
 	noteInstance.set_times(noteSettings)
-	noteInstance.visible = false
 	$Notes.call_deferred("add_child", noteInstance)
 	
 	# Add the note to the end of the note queue
@@ -53,14 +58,33 @@ func create_note(noteSettings: Dictionary):
 
 # Handle Note presses
 func _unhandled_input(event: InputEvent) -> void:
+	if paused:
+		return
 	if not event.is_echo() and event is InputEventKey:
 		if event.is_pressed():
 			if heldKeys.find(event.keycode) == -1: # If the key press isn't found to be already pressing:
 				heldKeys.push_back(event.keycode) # Add it to the list of pressed keys
-			if noteQueue.size() > 0 and noteQueue.front().StartTime - .5 < time:
+			
+			if not noteQueue.is_empty():# and noteQueue.front().StartTime - .5 < time:
 				noteQueue.pop_front().check_hit()
 			
 		elif event.is_released():
-			releasedKey.emit()
 			if heldKeys.find(event.keycode) >= 0:
 				heldKeys.pop_at(heldKeys.find(event.keycode))
+		
+		if heldKeys.is_empty():
+			while len(holdNoteQueue) > 0: # Flush out the held notes as no keys are held
+				holdNoteQueue.pop_front().check_hit()
+
+func update_score(score):
+	currentScore += score
+	$CanvasLayer/MarginContainer/HBoxContainer/Score.text = str(currentScore)
+
+func _on_pause_button_pressed() -> void:
+	stop()
+
+func _on_continue_button_pressed() -> void:
+	start()
+
+func _on_return_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://NewScenes/song_select.tscn")
