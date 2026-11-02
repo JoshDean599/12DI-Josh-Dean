@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dlsb35m8mlc5p" path="res://Scenes/editor.gd" id="1_6kroa"]
 [ext_resource type="PackedScene" uid="uid://cnerimgrvpox6" path="res://Scenes/Objects/editor_note.tscn" id="2_aiirf"]
 [ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://Assets/sprites/icon.svg" id="2_cctdn"]
+[ext_resource type="PackedScene" uid="uid://cnfnbvvj3sj3t" path="res://Scenes/Objects/music_player.tscn" id="4_7wlcy"]
 
 [node name="Editor" type="Node2D" unique_id=2144733076]
 script = ExtResource("1_6kroa")
@@ -23,6 +24,10 @@ layout_mode = 2
 [node name="BackButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer" unique_id=912344881]
 layout_mode = 2
 text = "Back"
+
+[node name="TestButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer" unique_id=821079245]
+layout_mode = 2
+text = "Test"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1968539279]
 limit_enabled = false
@@ -53,5 +58,8 @@ scale = Vector2(89.78125, 91.65625)
 texture = ExtResource("2_cctdn")
 metadata/_edit_lock_ = true
 
+[node name="MusicPlayer" parent="." unique_id=1913638216 instance=ExtResource("4_7wlcy")]
+
 [connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer/TestButton" to="." method="_on_test_button_pressed"]
 [connection signal="gui_input" from="Camera2D/ClickDetector" to="." method="_on_click_detector_gui_input"]

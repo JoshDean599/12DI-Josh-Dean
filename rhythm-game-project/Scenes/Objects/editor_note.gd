@@ -10,7 +10,7 @@ var clickPosition = Vector2.ZERO
 var clickTime = 0
 
 func update_position():
-	position.x = noteTime * get_parent().get_parent().viewSpeed
+	position.x = noteTime * GameData.NoteSpeed
 	position.y = noteOffset
 	# Rearrange notes within the Notes Node:
 	while get_index() > 0 and position.x < get_parent().get_child(get_index() - 1).position.x:
@@ -18,11 +18,13 @@ func update_position():
 	while get_index() < get_parent().get_child_count() - 1 and position.x > get_parent().get_child(get_index() + 1).position.x:
 		get_parent().move_child(self, get_index() + 1)
 	
-	$Tail.position.x = tailTime * get_parent().get_parent().viewSpeed
+	$Tail.position.x = tailTime * GameData.NoteSpeed
 	$Tail.position.y = tailOffset
 	$Line2D.points[1] = $Tail.position
 
 func _on_button_gui_input(event: InputEvent) -> void:
+	if get_parent().get_parent().testing:
+		return
 	if event is InputEventMouseButton:
 		if event.button_index == 1: # Left Click
 			if event.pressed:
@@ -38,7 +40,7 @@ func _on_button_gui_input(event: InputEvent) -> void:
 				if clickPosition == DisplayServer.mouse_get_position() and Time.get_ticks_msec() / 1000.0 - clickTime < 0.25:
 					queue_free()
 	elif event is InputEventMouseMotion and dragging:
-		noteTime = (get_global_mouse_position().x - clickPosition.x) / get_parent().get_parent().viewSpeed
+		noteTime = (get_global_mouse_position().x - clickPosition.x) / GameData.NoteSpeed
 		# Limit the time to be equal to or greater than 0
 		if noteTime < 0:
 			noteTime = 0
@@ -46,6 +48,8 @@ func _on_button_gui_input(event: InputEvent) -> void:
 		update_position()
 
 func _on_button_mouse_entered() -> void:
+	if get_parent().get_parent().testing:
+		return
 	scale = Vector2(1.05, 1.05)
 	$Tail.scale = Vector2(1.05, 1.05)
 
@@ -54,6 +58,8 @@ func _on_button_mouse_exited() -> void:
 	$Tail.scale = Vector2(1, 1)
 
 func _on_tail_button_gui_input(event: InputEvent) -> void:
+	if get_parent().get_parent().testing:
+		return
 	if event is InputEventMouseButton:
 		if event.button_index == 1: # Left Click
 			if event.pressed:
@@ -62,7 +68,7 @@ func _on_tail_button_gui_input(event: InputEvent) -> void:
 			else:
 				dragging = false
 	elif event is InputEventMouseMotion and dragging:
-		tailTime = (get_global_mouse_position().x - clickPosition.x) / get_parent().get_parent().viewSpeed
+		tailTime = (get_global_mouse_position().x - clickPosition.x) / GameData.NoteSpeed
 		# Limit the time to be equal to or greater than 0
 		if tailTime < 0:
 			tailTime = 0
@@ -70,6 +76,8 @@ func _on_tail_button_gui_input(event: InputEvent) -> void:
 		update_position()
 
 func _on_tail_button_mouse_entered() -> void:
+	if get_parent().get_parent().testing:
+		return
 	$Tail.scale = Vector2(1.05, 1.05)
 
 func _on_tail_button_mouse_exited() -> void:

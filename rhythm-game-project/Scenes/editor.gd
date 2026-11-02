@@ -8,12 +8,11 @@ var dragging = false
 var clickPosition = Vector2.ZERO
 var clickTime = 0
 
-# The distance equal to 1 second in the editor
-var viewSpeed = 500
+var testing = false
+var testingStartPosition = Vector2.ZERO
 
 func _ready() -> void:
 	load_map()
-	viewSpeed = GameData.NoteSpeed
 
 func _on_back_button_pressed() -> void:
 	save_map()
@@ -21,6 +20,8 @@ func _on_back_button_pressed() -> void:
 
 
 func _on_click_detector_gui_input(event: InputEvent) -> void:
+	if testing:
+		return
 	if event is InputEventMouseButton:
 		# On left click
 		if event.button_index == 1:
@@ -33,7 +34,7 @@ func _on_click_detector_gui_input(event: InputEvent) -> void:
 				#Create a new note if the click time was short enough and the mouse didn't move too far
 				if clickPosition.distance_to(get_local_mouse_position()) < 20.0 and Time.get_ticks_msec() / 1000.0 - clickTime < 0.25:
 					create_note(
-						clickPosition.x / viewSpeed, # Time
+						clickPosition.x / GameData.NoteSpeed, # Time
 						clickPosition.y, # Offset
 						0, # tailTime
 						0  # tailOffset
@@ -98,3 +99,17 @@ func save_map() -> void:
 	saveData.bufferTime = firstNote.noteTime # Set the bufferTime to the firstNote's time
 	
 	FileHandler.edit_file(FileHandler.SongFolderPath + "/" + GameData.SelectedMap + "/Difficulties/" + GameData.SelectedDifficulty + ".json", saveData)
+
+
+func _on_test_button_pressed() -> void:
+	if testing:
+		$MusicPlayer.pause()
+		$Camera2D.position = testingStartPosition
+	else:
+		$MusicPlayer.play_at($Camera2D.position.x / GameData.NoteSpeed)
+		testingStartPosition = $Camera2D.position
+	testing = !testing
+
+func _process(delta: float) -> void:
+	if testing:
+		$Camera2D.position.x += GameData.NoteSpeed * delta

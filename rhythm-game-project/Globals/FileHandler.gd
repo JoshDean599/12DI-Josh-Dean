@@ -112,3 +112,22 @@ func get_files_in_path(path) -> Array:
 			fileName = dir.get_next()
 	
 	return list
+
+func clone_song(song: String, destination: String) -> void:
+	var songPath = ""
+	var dir: DirAccess = DirAccess.open("res://Assets/Songs/")
+	for i in dir.get_files():
+		if i == song + ".mp3":
+			songPath = i
+			break
+	if songPath == "":
+		dir = DirAccess.open(MusicFolderPath)
+		for i in dir.get_files():
+			if i == song + ".mp3":
+				songPath = i
+			break
+	if not dir:
+		print("Failed to clone song")
+		return
+	dir.copy(dir.get_current_dir() + "/" + songPath, destination + "/" + songPath)
+	

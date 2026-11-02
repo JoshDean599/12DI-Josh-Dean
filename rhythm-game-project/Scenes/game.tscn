@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://co62mj3cuxnd2" path="res://Scenes/game.gd" id="1_6yc0q"]
 [ext_resource type="Texture2D" uid="uid://onhp4ujvhdr1" path="res://Assets/sprites/icon.svg" id="2_017uv"]
+[ext_resource type="PackedScene" uid="uid://cnfnbvvj3sj3t" path="res://Scenes/Objects/music_player.tscn" id="3_wrm1d"]
 
 [node name="Game" type="Node2D" unique_id=1094678189]
 script = ExtResource("1_6yc0q")
@@ -74,6 +75,8 @@ scale = Vector2(0.109375, 5.40625)
 texture = ExtResource("2_017uv")
 
 [node name="Notes" type="Node2D" parent="." unique_id=1908513871]
+
+[node name="MusicPlayer" parent="." unique_id=1913638216 instance=ExtResource("3_wrm1d")]
 
 [connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer/PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/PanelContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]

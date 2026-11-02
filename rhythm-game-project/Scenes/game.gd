@@ -12,8 +12,6 @@ var heldKeys = []
 
 var currentScore = 0
 
-var noteSpeed = 500 # Maybe change it so each note has it's own speed?
-
 var time = -2 # How long the song has played for
 
 func _ready() -> void:
@@ -22,18 +20,21 @@ func _ready() -> void:
 	time = -2 + loadedMap.bufferTime
 	if time > 0:
 		time = 0
-	noteSpeed = GameData.NoteSpeed
+	$MusicPlayer.play_at(time)
 
 func start():
 	paused = false
 	$CanvasLayer/PauseMenu.visible = false
+	$MusicPlayer.play_at(time)
 
 func stop():
 	paused = true
 	$CanvasLayer/PauseMenu.visible = true
+	$MusicPlayer.pause()
 
 func finish():
 	paused = true
+	$MusicPlayer.pause()
 	await get_tree().create_timer(1.0).timeout
 	get_tree().change_scene_to_file("res://Scenes/song_select.tscn")
 
@@ -46,7 +47,7 @@ func _process(delta: float) -> void:
 	time += delta # Update the time
 	
 	if loadedMap.Notes.size() > 0:
-		if loadedMap.Notes.front().StartTime - float(DisplayServer.screen_get_size().x) / noteSpeed <= time:
+		if loadedMap.Notes.front().StartTime - float(DisplayServer.screen_get_size().x) / GameData.NoteSpeed <= time:
 			create_note(loadedMap.Notes.pop_front())
 	elif not noteQueue.size() and $Notes.get_children().size() == 0:
 			# Song Ended

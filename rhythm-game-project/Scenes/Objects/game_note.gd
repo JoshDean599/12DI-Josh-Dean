@@ -16,14 +16,14 @@ func set_times(settings : Dictionary) -> void:
 	EndOffset = settings.EndOffset
 
 func _ready() -> void:
-	position = Vector2(-(game.time - StartTime) * game.noteSpeed, StartOffset)
-	$Tail.position = Vector2(EndTime * game.noteSpeed, EndOffset)
+	position = Vector2(-(game.time - StartTime) * GameData.NoteSpeed, StartOffset)
+	$Tail.position = Vector2(EndTime * GameData.NoteSpeed, EndOffset)
 	$Line2D.points[1] = $Tail.position
 
 func _process(_delta: float) -> void:
 	if game.paused:
 		return
-	position.x = -(game.time - StartTime) * game.noteSpeed
+	position.x = -(game.time - StartTime) * GameData.NoteSpeed
 	
 	if active:
 		if not finishedHoldNote and StartTime + EndTime <= game.time:
