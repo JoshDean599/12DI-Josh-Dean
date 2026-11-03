@@ -70,7 +70,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if heldKeys.find(event.keycode) == -1: # If the key press isn't found to be already pressing:
 				heldKeys.push_back(event.keycode) # Add it to the list of pressed keys
 			
-			if not noteQueue.is_empty():# and noteQueue.front().StartTime - .5 < time:
+			if not noteQueue.is_empty() and noteQueue.front().StartTime - .5 < time:
 				noteQueue.pop_front().check_hit()
 			
 		elif event.is_released():

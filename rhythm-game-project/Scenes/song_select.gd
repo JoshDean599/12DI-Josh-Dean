@@ -27,10 +27,10 @@ func _ready() -> void:
 func refresh_file_list():
 	for i in MapList.get_children(): # Clear the list if there is anything in it
 		i.free()
-	#for i in FileHandler.get_files_in_path("res://Assets/Maps/"): # -- Built in maps...
-	#	var newButton = MapButton.instantiate()
-	#	newButton.text = i
-	#	MapList.add_child(newButton)
+	for i in FileHandler.get_files_in_path("res://Assets/Maps/"): # -- Built in maps...
+		var newButton = MapButton.instantiate()
+		newButton.text = i
+		MapList.add_child(newButton)
 	for i in FileHandler.get_files_in_path(FileHandler.SongFolderPath):
 		var newButton = MapButton.instantiate()
 		newButton.text = i
@@ -45,7 +45,6 @@ func refresh_file_list():
 			selectedMapButton = MapList.get_child(0)
 			selectedMapButton.modulate = Color.PURPLE
 			GameData.SelectedMap = selectedMapButton.text
-			
 		refresh_difficulty_list()
 
 func refresh_difficulty_list():
@@ -54,6 +53,10 @@ func refresh_difficulty_list():
 	if not GameData.SelectedMap: # If no map was selected, return
 		return
 	GameData.SelectedDifficulty = null
+	for i in FileHandler.get_files_in_path("res://Assets/Maps/" + GameData.SelectedMap + "/Difficulties"):
+		var newButton = DifficultyButton.instantiate()
+		newButton.text = FileHandler.remove_type(i, ".json")
+		DifficultyList.add_child(newButton)
 	for i in FileHandler.get_files_in_path(FileHandler.SongFolderPath + "/" +
 		GameData.SelectedMap + "/Difficulties"):
 		var newButton = DifficultyButton.instantiate()
@@ -90,8 +93,8 @@ func _on_add_map_button_pressed() -> void:
 	$CanvasLayer/CreateNewMap.visible = true
 	SongList.clear()
 	# Add both built in and imported songs to the option button's list
-	add_to_option_button_list_from_path(FileHandler.MusicFolderPath)
 	add_to_option_button_list_from_path("res://Assets/Songs/")
+	add_to_option_button_list_from_path(FileHandler.MusicFolderPath)
 	if SongList.get_popup().item_count > 0:
 		SongList.select(0)
 
@@ -154,7 +157,7 @@ func _on_difficulty_delete_cancel_button_pressed() -> void:
 func _on_difficulty_delete_button_pressed() -> void:
 	if not GameData.SelectedMap or not GameData.SelectedDifficulty:
 		return
-	print(GameData.SelectedMap, GameData.SelectedDifficulty)
+	print("Deleting: ", GameData.SelectedMap, " ", GameData.SelectedDifficulty)
 	OS.move_to_trash(ProjectSettings.globalize_path(FileHandler.SongFolderPath + "/" + GameData.SelectedMap + "/Difficulties/" + GameData.SelectedDifficulty + ".json"))
 	GameData.SelectedDifficulty = null
 	refresh_difficulty_list()
@@ -170,3 +173,6 @@ func _on_play_pressed() -> void:
 	if not GameData.SelectedMap or not GameData.SelectedDifficulty:
 		return
 	get_tree().change_scene_to_file("res://Scenes/game.tscn")
+
+func _on_open_song_folder_pressed() -> void:
+	OS.shell_open(FileHandler.MusicFolderPath)
